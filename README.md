@@ -1,3 +1,3 @@
 # Projet_Snake
 Un github d'attardé.
-Projet Snake : Chase oh Kebabs
+Projet Snake : Chase of Kebabs
