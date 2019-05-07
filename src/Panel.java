@@ -19,11 +19,11 @@
 public class Panel extends JPanel {
 
     // Répertoire des sprites du terrain
-    private String TERRAIN_SPRITE_DIR = "sprites/terrain/";
+    private String TERRAIN_SPRITE_DIR = "../sprites/terrain/";
     // Répertoire des sprites du serpent
-    private String SNAKE_SPRITE_DIR = "sprites/snake/";
+    private String SNAKE_SPRITE_DIR = "../sprites/snake/";
     // Répertoire des sprites des fruits
-    private String FRUITS_SPRITE_DIR = "sprites/fruits/";
+    private String FRUITS_SPRITE_DIR = "../sprites/fruits/";
 
     // Va contenir tous les sprites avec leur nom
     private Map<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
