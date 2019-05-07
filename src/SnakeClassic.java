@@ -1,5 +1,5 @@
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import javax.swing.Timer;
 
 public class SnakeClassic extends ModeDeJeu{
 
@@ -17,7 +17,6 @@ public class SnakeClassic extends ModeDeJeu{
             for (int i = 0; i < 4; i++) {
 
                 panel.updateAnim();
-                panel.repaint();
 
                 try{ Thread.sleep(25);
                 }catch(InterruptedException e){
@@ -29,4 +28,17 @@ public class SnakeClassic extends ModeDeJeu{
         }
     }
 
+    public void draw(){
+
+        ActionListener repaint = new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                panel.repaint();
+            }
+        };
+
+        Timer drawClock = new Timer(20, repaint);
+        drawClock.start();
+        drawClock.setRepeats(true);
+
+    }
 }

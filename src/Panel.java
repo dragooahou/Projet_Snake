@@ -62,7 +62,7 @@ public class Panel extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        drawTerrain(g2d);
+        //drawTerrain(g2d);
 
         drawSnake(g2d);
 

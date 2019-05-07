@@ -67,7 +67,14 @@ class Window extends JFrame {
             }
         };
 
+        Thread drawGame = new Thread(){
+            public void run(){
+                mj[1].draw();
+            }
+        };
+
         execGame.start();
+        drawGame.start();
 
     }
 
