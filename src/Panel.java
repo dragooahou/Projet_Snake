@@ -1,20 +1,17 @@
 // IMPORTS
-    import java.awt.Color;
-    import java.awt.Graphics;
-    import java.awt.Graphics2D;
-    import java.awt.Transparency;
-    import javax.swing.JPanel;
-    import java.awt.Image;
+    import java.awt.*;
+
+    import javax.swing.*;
     import java.awt.image.BufferedImage;
-    import java.io.File;
-    import java.io.IOException;    
+    import java.io.*;
     import javax.imageio.ImageIO;
 
-    import java.util.HashMap;
-    import java.util.Map;
+    import java.util.*;
 
     import java.awt.geom.AffineTransform;
     import java.awt.image.AffineTransformOp;
+
+    import java.nio.file.*;
 
 public class Panel extends JPanel {
 
@@ -44,7 +41,18 @@ public class Panel extends JPanel {
             sprites.put("herbe_touffe_gauche", loadImage(TERRAIN_SPRITE_DIR + "herbe_touffe_gauche.png"));
             sprites.put("herbe_touffe_droite", loadImage(TERRAIN_SPRITE_DIR + "herbe_touffe_droite.png"));
             sprites.put("fruit", loadImage(FRUITS_SPRITE_DIR + "fruit.png"));
+/*
+            try{
+                for(Path file : searchSprite(FRUITS_SPRITE_DIR))
+                    sprites.put(fileName(file), loadImage(file.toString()));
+                
+                for(Path file : searchSprite(TERRAIN_SPRITE_DIR))
+                    sprites.put(fileName(file), loadImage(file.toString()));
 
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+*/
             loadSnakeSprites("default");
 
     }
@@ -189,5 +197,23 @@ public class Panel extends JPanel {
     // Incrémente le numéro de frame et reste tjr entre 0 et 4
     public void updateAnim(){
         frameNo = (frameNo++)%4 + 1;
+    }
+
+
+
+    // Parcour un repertoire à la recherche de sprites
+    private ArrayList<Path> searchSprite(String chemin) throws IOException {
+        ArrayList<Path> sprites = new ArrayList<Path>();
+        for(Path file : Files.newDirectoryStream(Paths.get(chemin), path -> path.toString().endsWith(".png"))){
+            sprites.add(file.getFileName());
+            System.out.println(fileName(file));
+        }
+        return sprites;
+    }
+
+    // Retourne le nom du fichier du chemin sans extension
+    private String fileName(Path path){
+        String name = path.getFileName().toString();
+        return name.substring(0, name.lastIndexOf('.'));
     }
 }
