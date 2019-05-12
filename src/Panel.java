@@ -35,25 +35,20 @@ public class Panel extends JPanel {
 
     // Constructeur
     public Panel(){
-        // On charge les sprites
-            sprites.put("herbe", loadImage(TERRAIN_SPRITE_DIR + "herbe.png"));
-            sprites.put("herbe_point", loadImage(TERRAIN_SPRITE_DIR + "herbe_point.png"));
-            sprites.put("herbe_touffe_gauche", loadImage(TERRAIN_SPRITE_DIR + "herbe_touffe_gauche.png"));
-            sprites.put("herbe_touffe_droite", loadImage(TERRAIN_SPRITE_DIR + "herbe_touffe_droite.png"));
-            sprites.put("fruit", loadImage(FRUITS_SPRITE_DIR + "fruit.png"));
-/*
-            try{
-                for(Path file : searchSprite(FRUITS_SPRITE_DIR))
-                    sprites.put(fileName(file), loadImage(file.toString()));
-                
-                for(Path file : searchSprite(TERRAIN_SPRITE_DIR))
-                    sprites.put(fileName(file), loadImage(file.toString()));
+        // On charge les sprites automatiquement
+        try{
+            for(Path file : searchSprite(FRUITS_SPRITE_DIR))
+                sprites.put(fileName(file), loadImage(file.toString()));
+            
+            for(Path file : searchSprite(TERRAIN_SPRITE_DIR))
+                sprites.put(fileName(file), loadImage(file.toString()));
 
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-*/
-            loadSnakeSprites("default");
+            for(Path file : searchSprite(SNAKE_SPRITE_DIR))
+                loadSnakeSprites(fileName(file));
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -237,8 +232,8 @@ public class Panel extends JPanel {
     private ArrayList<Path> searchSprite(String chemin) throws IOException {
         ArrayList<Path> sprites = new ArrayList<Path>();
         for(Path file : Files.newDirectoryStream(Paths.get(chemin), path -> path.toString().endsWith(".png"))){
-            sprites.add(file.getFileName());
-            System.out.println(fileName(file));
+            sprites.add(file);
+            System.out.println(file);
         }
         return sprites;
     }
