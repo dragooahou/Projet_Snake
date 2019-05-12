@@ -1,10 +1,10 @@
 # Projet_Snake
 
-###Pour jouer
+### Pour jouer
 Pour lancer le jeu : `javac *.java`
 Puis `java StartSnakeGame`
 
-###Le problème du lag
+### Le problème du lag
 Nous avons trouvé la solution aux lags de swing lorsque l'on dessine peut de choses à l'écran et que l'on fait aucun input.
 L'explication complète est ici : https://pavelfatin.com/low-latency-painting-in-awt-and-swing/
 
