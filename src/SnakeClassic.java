@@ -7,7 +7,6 @@ public class SnakeClassic extends ModeDeJeu{
     	
     	// Grille sur laquelle va se déplacer le serpent
 	    terrain = new Terrain(0, 0, 40, 30, 20);
-
     }
 
 	public void run(){
@@ -26,13 +25,17 @@ public class SnakeClassic extends ModeDeJeu{
             // On met à jour le terrain
             terrain.update();
         }
-    }
+    }   
 
     public void draw(){
 
+        // La si on met pas 2 fois ya pas tout qui est dessiné ! WTF
+        panel.dessiner("terrain"); 
+        panel.dessiner("terrain");
+
         ActionListener repaint = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                panel.repaint();
+                panel.dessiner("snake");
             }
         };
 

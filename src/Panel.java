@@ -57,14 +57,33 @@ public class Panel extends JPanel {
 
     }
 
-    // Methode appelé à chaque appel de repaint()
-    public void paintComponent(Graphics g){
+    // Dessiner le jeu
+    public void dessiner(String target){
+        //super.paintComponent(g);
 
+        // On recupère la classe Graphics
+        Graphics g = getGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
-        //drawTerrain(g2d);
 
-        drawSnake(g2d);
+        // On dessine les différentes parties de notre jeu
+        switch(target){
+            case "snake":
+                drawSnake(g2d);
+                break;
+
+            case "terrain":
+                drawTerrain(g2d);
+                break;
+
+        }
+        
+
+        // Très important mais je sais pas vraiment à quoi ca sert
+        Toolkit.getDefaultToolkit().sync();
+
+        // On libère la classe Graphics
+        g.dispose();
 
     }
 
@@ -110,6 +129,19 @@ public class Panel extends JPanel {
 
         // On dessine le serpent : on parcour le serpent et on redessine
         SnakePart[] partPositions = terrain.getSnake().getPositions();
+
+        // On redessiner le terrain sous le serpent
+        int x = partPositions[1].getXPos();
+        int y = partPositions[1].getYPos();
+        g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
+
+        x = partPositions[partPositions.length-1].getXPos();
+        y = partPositions[partPositions.length-1].getYPos();
+        g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
+
+        x = partPositions[partPositions.length-2].getXPos();
+        y = partPositions[partPositions.length-2].getYPos();
+        g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
 
         for (SnakePart part : partPositions) {
             g2d.drawImage(sprites.get(terrain.objectOnCase(part.getXPos(),part.getYPos()) + frameNo), part.getXPos()*squareSize + posX, part.getYPos()*squareSize + posY, squareSize, squareSize, this);
