@@ -39,6 +39,13 @@ public class Terrain {
 		setSnake();
 
 		setCaseObject("fruit", 20, 20);
+		setCaseObject("fruit", 22, 20);
+		setCaseObject("fruit", 20, 20);
+		setCaseObject("fruit", 12, 8);
+		setCaseObject("fruit", 0, 5);
+		setCaseObject("fruit", 19, 20);
+		setCaseObject("fruit", 10, 24);
+		setCaseObject("fruit", 4, 20);
 	}
 
 	// Retourne l'objet dans la case aux coordonnées spécifiées

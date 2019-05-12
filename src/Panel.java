@@ -98,13 +98,12 @@ public class Panel extends JPanel {
 
                 // On dessine la tuile de terrain
                 g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
-/*
+
                 // Si il y a un objet sur cette tuile le dessiner aussi
-                if(terrain.objectOnCase(i,j) != ""){
-                    //System.out.println(terrain.getSquareTab()[i][j].getObject() + frameNo);
-                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j) + frameNo), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                if(!terrain.objectOnCase(i,j).equals("")){
+                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
                 }
-*/
+
             }
         }
     }
@@ -122,23 +121,13 @@ public class Panel extends JPanel {
         int posY = terrain.getYposition();
 
 
-        // On dessine le serpent : on parcour le serpent et on redessine
+        // On dessine le serpent : on parcour le serpent et on redessine le terrain et le serpent
         SnakePart[] partPositions = terrain.getSnake().getPositions();
 
-        // On redessiner le terrain sous le serpent
-        int x = partPositions[1].getXPos();
-        int y = partPositions[1].getYPos();
-        g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
-
-        x = partPositions[partPositions.length-1].getXPos();
-        y = partPositions[partPositions.length-1].getYPos();
-        g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
-
-        x = partPositions[partPositions.length-2].getXPos();
-        y = partPositions[partPositions.length-2].getYPos();
-        g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
-
         for (SnakePart part : partPositions) {
+            int x = part.getXPos();
+            int y = part.getYPos();
+            g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
             g2d.drawImage(sprites.get(terrain.objectOnCase(part.getXPos(),part.getYPos()) + frameNo), part.getXPos()*squareSize + posX, part.getYPos()*squareSize + posY, squareSize, squareSize, this);
         } 
     }      
@@ -233,7 +222,7 @@ public class Panel extends JPanel {
         ArrayList<Path> sprites = new ArrayList<Path>();
         for(Path file : Files.newDirectoryStream(Paths.get(chemin), path -> path.toString().endsWith(".png"))){
             sprites.add(file);
-            System.out.println(file);
+            System.out.println(fileName(file));
         }
         return sprites;
     }

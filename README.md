@@ -27,5 +27,5 @@ public void dessiner(){
     // On libère la classe Graphics
     g.dispose();
 
-};
+}
 ```

@@ -31,8 +31,8 @@ public class Snake {
 
 		// On set les positions de départ
 		for (int i = 0; i < length; i++) {
-			positions[i] = new SnakePart(5, 5+i, 'N');
-			prevPositions[i] = new SnakePart(5, 5+i, 'N');
+			positions[i] = new SnakePart(15, 15+i, 'N');
+			prevPositions[i] = new SnakePart(15, 15+i, 'N');
 		}
 
 	}
@@ -121,8 +121,8 @@ public class Snake {
 		if(!(length < positions.length))
 			return true;
 
-		positions[length] = new SnakePart(prevPositions[length-1].getXPos(), 
-			prevPositions[length-1].getYPos(), prevPositions[length-1].getDirection());
+		positions[length] = new SnakePart(prevPositions[length-1].getXPos(), prevPositions[length-1].getYPos(), prevPositions[length-1].getDirection());
+		prevPositions[length] = new SnakePart(prevPositions[length-1].getXPos(), prevPositions[length-1].getYPos(), prevPositions[length-1].getDirection());
 
 		length++;
 
