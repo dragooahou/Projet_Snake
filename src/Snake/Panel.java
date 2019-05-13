@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
 
+import java.net.URISyntaxException;
 import java.util.*;
 
 import java.awt.geom.AffineTransform;
@@ -17,11 +18,11 @@ import java.nio.file.*;
 public class Panel extends JPanel {
 
     // Répertoire des sprites du terrain
-    private String TERRAIN_SPRITE_DIR = "resources/sprites/terrain/";
+    private String TERRAIN_SPRITE_DIR = "/sprites/terrain/";
     // Répertoire des sprites du serpent
-    private String SNAKE_SPRITE_DIR = "resources/sprites/snake/";
+    private String SNAKE_SPRITE_DIR = "/sprites/snake/";
     // Répertoire des sprites des fruits
-    private String FRUITS_SPRITE_DIR = "resources/sprites/fruits/";
+    private String FRUITS_SPRITE_DIR = "/sprites/fruits/";
 
     // Va contenir tous les sprites avec leur nom
     private Map<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
@@ -38,19 +39,22 @@ public class Panel extends JPanel {
     public Panel(){
         // On charge les sprites automatiquement
         try{
-            for(Path file : searchSprite(FRUITS_SPRITE_DIR))
-                sprites.put(fileName(file), loadImage(file.toString()));
-            
-            for(Path file : searchSprite(TERRAIN_SPRITE_DIR))
-                sprites.put(fileName(file), loadImage(file.toString()));
+            for(String file : searchSprite(FRUITS_SPRITE_DIR))
+                sprites.put(removeExt(file), loadImage(FRUITS_SPRITE_DIR + file));
 
-            for(Path file : searchSprite(SNAKE_SPRITE_DIR))
-                loadSnakeSprites(fileName(file));
+            for(String file : searchSprite(TERRAIN_SPRITE_DIR))
+                sprites.put(removeExt(file), loadImage(TERRAIN_SPRITE_DIR + file));
+
+            for(String file : searchSprite(SNAKE_SPRITE_DIR))
+                loadSnakeSprites(SNAKE_SPRITE_DIR + file);
+
+            //test
+            for(String file : searchSprite(FRUITS_SPRITE_DIR))
+                System.out.println(file);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
 
     // Dessiner le jeu
@@ -73,7 +77,7 @@ public class Panel extends JPanel {
                 break;
 
         }
-        
+
 
         // Très important mais je sais pas vraiment à quoi ca sert
         Toolkit.getDefaultToolkit().sync();
@@ -130,40 +134,39 @@ public class Panel extends JPanel {
             int y = part.getYPos();
             g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
             g2d.drawImage(sprites.get(terrain.objectOnCase(part.getXPos(),part.getYPos()) + frameNo), part.getXPos()*squareSize + posX, part.getYPos()*squareSize + posY, squareSize, squareSize, this);
-        } 
-    }      
+        }
+    }
 
     // Methode qui raccourci le chargement des sprites
     // et qui le fait en toute sécurité
     public BufferedImage loadImage(String file){
         try{
-            BufferedImage img = ImageIO.read(new File(file));
+            BufferedImage img = ImageIO.read(System.class.getResourceAsStream(file));
             return img;
         }catch(IOException e){
             e.printStackTrace();
         }
-        return null;                
+        return null;
     }
 
 
     // Charge automatiquement les sprites de serpent dans la hashmap
     public void loadSnakeSprites(String file){
-        BufferedImage img = loadImage(SNAKE_SPRITE_DIR + file + ".png");
+        BufferedImage img = loadImage(file);
 
         // Cette partie du code est vraiment dégueulasse (à refaire si possible)
         char[] cards = {'N', 'E', 'S', 'W'};
         int rot = 0;
         for(char n : cards){
             for (int i = 1; i < 5; i++) {
-                sprites.put("snake_" + file + "_tete" + n + i, rotate(img.getSubimage(0,4*i,16,16), rot));
-                sprites.put("snake_" + file + "_cou" + n + i, rotate(img.getSubimage(0,16+4*i,16,16), rot));
-                sprites.put("snake_" + file + "_corp" + n + i, rotate(img.getSubimage(0,32+4*i,16,16), rot));
-                sprites.put("snake_" + file + "_arriere" + n + i, rotate(img.getSubimage(0,48+4*i,16,16), rot));
-                sprites.put("snake_" + file + "_queue" + n + i, rotate(img.getSubimage(0,64+4*i,16,16), rot));
-
-                sprites.put("snake_" + file + "_coude" + n + cards[(rot/90+3)%4] + i, rotate(img.getSubimage(0,80+16*i,16,16), rot));
-                sprites.put("snake_" + file + "_coude" + cards[(rot/90+3)%4] + n + i, rotate((img.getSubimage(0,80+16*i,16,16)), rot));
-                //System.out.println("snake_" + file + "_coude" + n + cards[(rot/90+3)%4] + i);
+                sprites.put("snake_" + fileName(file) + "_tete" + n + i, rotate(img.getSubimage(0,4*i,16,16), rot));
+                sprites.put("snake_" + fileName(file) + "_cou" + n + i, rotate(img.getSubimage(0,16+4*i,16,16), rot));
+                sprites.put("snake_" + fileName(file) + "_corp" + n + i, rotate(img.getSubimage(0,32+4*i,16,16), rot));
+                sprites.put("snake_" + fileName(file) + "_arriere" + n + i, rotate(img.getSubimage(0,48+4*i,16,16), rot));
+                sprites.put("snake_" + fileName(file) + "_queue" + n + i, rotate(img.getSubimage(0,64+4*i,16,16), rot));
+                sprites.put("snake_" + fileName(file) + "_coude" + n + cards[(rot/90+3)%4] + i, rotate(img.getSubimage(0,80+16*i,16,16), rot));
+                sprites.put("snake_" + fileName(file) + "_coude" + cards[(rot/90+3)%4] + n + i, rotate((img.getSubimage(0,80+16*i,16,16)), rot));
+                //System.out.println("snake_" + fileName(file) + "_coude" + n + cards[(rot/90+3)%4] + i);
             }
             rot += 90;
         }
@@ -181,7 +184,7 @@ public class Panel extends JPanel {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         image = op.filter(image, null);
         return image;
-    }   
+    }
 
     public BufferedImage flipHorizontaly(BufferedImage image){
         AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
@@ -217,20 +220,44 @@ public class Panel extends JPanel {
     }
 
 
-
-    // Parcour un repertoire à la recherche de sprites
-    private ArrayList<Path> searchSprite(String chemin) throws IOException {
-        ArrayList<Path> sprites = new ArrayList<Path>();
-        for(Path file : Files.newDirectoryStream(Paths.get(chemin), path -> path.toString().endsWith(".png"))){
-            sprites.add(file);
-            System.out.println(fileName(file));
-        }
-        return sprites;
-    }
-
     // Retourne le nom du fichier du chemin sans extension
-    private String fileName(Path path){
-        String name = path.getFileName().toString();
-        return name.substring(0, name.lastIndexOf('.'));
+    private String fileName(String path){
+        return path.toString().substring(path.toString().lastIndexOf('/') + 1, path.toString().lastIndexOf('.'));
     }
+
+    private String removeExt(String str){
+        return str.toString().substring(0, str.toString().lastIndexOf('.'));
+    }
+
+    // Parcour un repertoire à la recherche de sprites ////////////////////////////
+    private ArrayList<String> searchSprite(String path) throws IOException {
+        ArrayList<String> filenames = new ArrayList<>();
+
+        try (
+                InputStream in = getResourceAsStream(path);
+                BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+
+            while ((resource = br.readLine()) != null) {
+                if(resource.endsWith(".png"))
+                    filenames.add(resource);
+            }
+        }
+
+        return filenames;
+    }
+
+    private InputStream getResourceAsStream(String resource) {
+        final InputStream in
+                = getContextClassLoader().getResourceAsStream(resource);
+
+        return in == null ? getClass().getResourceAsStream(resource) : in;
+    }
+
+    private ClassLoader getContextClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
+
+    //////////////////////////////////////////////////////////
+
 }
