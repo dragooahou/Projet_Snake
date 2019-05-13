@@ -1,5 +1,4 @@
-import java.awt.event.KeyListener;
-import javax.swing.JPanel;
+package Snake;
 
 abstract class ModeDeJeu{
 

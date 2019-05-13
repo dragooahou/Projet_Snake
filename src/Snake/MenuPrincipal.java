@@ -1,5 +1,4 @@
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
+package Snake;
 
 public class MenuPrincipal extends ModeDeJeu{
 

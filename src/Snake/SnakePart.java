@@ -1,3 +1,5 @@
+package Snake;
+
 // Une partie du serpent
 public class SnakePart {
 

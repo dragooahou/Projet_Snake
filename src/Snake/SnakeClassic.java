@@ -1,3 +1,5 @@
+package Snake;
+
 import java.awt.event.*;
 import javax.swing.Timer;
 

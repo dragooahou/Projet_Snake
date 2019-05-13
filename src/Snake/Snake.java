@@ -1,5 +1,4 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+package Snake;
 
 public class Snake {
 

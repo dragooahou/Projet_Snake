@@ -1,13 +1,9 @@
-// IMPORTS
-    import java.awt.Color;
-    import java.awt.Font;
-    import java.awt.Graphics;
+package Snake;// IMPORTS
     import java.awt.event.KeyEvent;
     import java.awt.event.KeyListener;
 
     import javax.swing.JFrame;
-    import javax.swing.JPanel;
- 
+
 public class StartSnakeGame {
     // Point d'entré du jeu
     public static void main(String[] args) {
@@ -32,7 +28,7 @@ class Window extends JFrame {
 
         mj[1] = new SnakeClassic();
 
-        this.setTitle("Snake Game");
+        this.setTitle("Snake.Snake Game");
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

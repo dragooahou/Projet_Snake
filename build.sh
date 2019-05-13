@@ -1,3 +1,3 @@
 mkdir build
-javac src/*.java -d build
-cp -r ressources/* build
+javac src/Snake/*.java -d build
+cp -r resources build
