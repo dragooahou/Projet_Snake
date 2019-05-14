@@ -13,6 +13,7 @@ L'explication complète est ici : https://pavelfatin.com/low-latency-painting-in
 La méthode pour dessiner :
 ```java
 public void dessiner(){
+    //Pour rafraichir le fond
     //super.paintComponent(g);
 
     // On recupère la classe Graphics
@@ -24,7 +25,7 @@ public void dessiner(){
     //drawTerrain(g2d);
     drawSnake(g2d);
 
-    // Très important mais je sais pas vraiment à quoi ca sert
+    // Très important
     Toolkit.getDefaultToolkit().sync();
 
     // On libère la classe Graphics
