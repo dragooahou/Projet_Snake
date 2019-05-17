@@ -4,7 +4,7 @@
 Compiler le jeu avec `./build.sh`  
 Pour lancer le jeu : `cd build` puis `java Snake.StartSnakeGame`
 
---------------------------------------------
+---
 
 ### Le problème du lag
 Nous avons trouvé la solution aux lags de swing lorsque l'on dessine peu de choses à l'écran et que l'on ne fait aucun input.
