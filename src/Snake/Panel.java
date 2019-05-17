@@ -13,6 +13,8 @@ import java.util.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 
+import java.util.jar.*;
+
 import java.nio.file.*;
 
 public class Panel extends JPanel {
@@ -40,13 +42,13 @@ public class Panel extends JPanel {
         // On charge les sprites automatiquement
         try{
             for(String file : searchSprite(FRUITS_SPRITE_DIR))
-                sprites.put(removeExt(file), loadImage(FRUITS_SPRITE_DIR + file));
+                sprites.put(fileName(file), loadImage(file));
 
             for(String file : searchSprite(TERRAIN_SPRITE_DIR))
-                sprites.put(removeExt(file), loadImage(TERRAIN_SPRITE_DIR + file));
+                sprites.put(fileName(file), loadImage(file));
 
             for(String file : searchSprite(SNAKE_SPRITE_DIR))
-                loadSnakeSprites(SNAKE_SPRITE_DIR + file);
+                loadSnakeSprites(file);
 
 
         }catch(Exception e){
@@ -228,19 +230,33 @@ public class Panel extends JPanel {
 
     // Parcour un repertoire à la recherche de sprites ////////////////////////////
     private ArrayList<String> searchSprite(String path) throws IOException {
-        ArrayList<String> filenames = new ArrayList<>();
 
-        try (
+        ArrayList<String> filenames = new ArrayList<>();
+        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+        if(jarFile.isFile()) {  // Run with JAR file
+            final JarFile jar = new JarFile(jarFile);
+            final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+            while(entries.hasMoreElements()) {
+                final String name = entries.nextElement().getName();
+                if(("/" + name).startsWith(path) && name.endsWith(".png")) { //filter according to the path
+                    filenames.add("/" + name);                }
+            }
+            jar.close();
+        }
+        else { // Run in IDE
+
+            try (
                 InputStream in = getResourceAsStream(path);
                 BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-            String resource;
+                String resource;
 
-            while ((resource = br.readLine()) != null) {
-                if(resource.endsWith(".png"))
-                    filenames.add(resource);
+                while ((resource = br.readLine()) != null) {
+                    if (resource.endsWith(".png"))
+                        filenames.add(path + resource);
+                }
             }
         }
-
         return filenames;
     }
 

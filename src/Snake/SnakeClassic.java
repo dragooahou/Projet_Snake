@@ -17,6 +17,7 @@ public class SnakeClassic extends ModeDeJeu{
             public void actionPerformed(ActionEvent e){
                 terrain.spawnFruit();
                 panel.dessiner("terrain");
+                panel.dessiner("snake");
             }
         };
 
