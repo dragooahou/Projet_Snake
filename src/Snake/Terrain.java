@@ -1,11 +1,16 @@
 package Snake;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Terrain {
 
 	// Tableau qui va contenir toutes les cases du terrain 
 	private Square[][] squareTab;
+	private int width;
+	private int height;
 
 	// Le serpent qui va se depacer sur le terrain
 	private Snake snake;
@@ -22,6 +27,8 @@ public class Terrain {
 	// width et height : taille du terrain et tuiles
 	// sqSize : taille d'une tuile en pixels
 	Terrain (int x, int y, int width, int height, int sqSize) {
+		this.width = width;
+		this.height = height;
 
 		squareTab = new Square[width][height];
 
@@ -40,14 +47,6 @@ public class Terrain {
 
 		setSnake();
 
-		setCaseObject("fruit", 20, 20);
-		setCaseObject("fruit", 22, 20);
-		setCaseObject("fruit", 20, 20);
-		setCaseObject("fruit", 12, 8);
-		setCaseObject("fruit", 0, 5);
-		setCaseObject("fruit", 19, 20);
-		setCaseObject("fruit", 10, 24);
-		setCaseObject("fruit", 4, 20);
 	}
 
 	// Retourne l'objet dans la case aux coordonnées spécifiées
@@ -99,7 +98,7 @@ public class Terrain {
 
     // Instantie un serpent et le rend visible
     private void setSnake(){
-    	snake = new Snake(5, 50, "snake_default");
+    	snake = new Snake(5, 1000, "snake_default");
 
     	SnakePart[] p = snake.getPositions();
     	String skin = snake.getSkin();
@@ -182,8 +181,15 @@ public class Terrain {
     public Snake getSnake(){
 		return snake;
 	}
-}
 
+	// Fait spawn un fruit sur le terrain à un emplacement aléatoire
+	public void spawnFruit(){
+		Random r = new Random();
+		int x = r.nextInt(width);
+		int y = r.nextInt(height);
+		setCaseObject("fruit", x, y);
+	}
+}
 
 
 class Square {
