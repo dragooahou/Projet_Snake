@@ -25,6 +25,8 @@ public class Panel extends JPanel {
     private final String SNAKE_SPRITE_DIR = "/sprites/snake/";
     // Répertoire des sprites des fruits
     private final String FRUITS_SPRITE_DIR = "/sprites/fruits/";
+    // Répertoire des sprites du menu
+    private final String MENU_SPRITE_DIR = "/sprites/menu/";
 
     // Va contenir tous les sprites avec leur nom
     private Map<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
@@ -49,6 +51,9 @@ public class Panel extends JPanel {
 
             for(String file : searchSprite(SNAKE_SPRITE_DIR))
                 loadSnakeSprites(file);
+
+            for(String file : searchSprite(MENU_SPRITE_DIR))
+                sprites.put(fileName(file), loadImage(file));
 
 
         }catch(Exception e){
@@ -140,8 +145,7 @@ public class Panel extends JPanel {
     // et qui le fait en toute sécurité
     public BufferedImage loadImage(String file){
         try{
-            BufferedImage img = ImageIO.read(System.class.getResourceAsStream(file));
-            return img;
+            return ImageIO.read(System.class.getResourceAsStream(file));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -273,4 +277,12 @@ public class Panel extends JPanel {
 
     //////////////////////////////////////////////////////////
 
+
+    public Graphics2D getGraph(){
+        return (Graphics2D) getGraphics();
+    }
+
+    public BufferedImage getSprite(String nom) {
+        return sprites.get(nom);
+    }
 }

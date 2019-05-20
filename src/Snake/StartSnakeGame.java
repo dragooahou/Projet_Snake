@@ -1,6 +1,7 @@
 package Snake;// IMPORTS
-    import java.awt.event.KeyEvent;
-    import java.awt.event.KeyListener;
+    import java.awt.event.*;
+    import java.awt.image.BufferedImage;
+    import java.lang.reflect.Executable;
 
     import javax.swing.JFrame;
 
@@ -16,32 +17,26 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new SnakeClassic[2];
+    private ModeDeJeu[] mj = new ModeDeJeu[2];
 
     // Pour ecouter les inputs
     private MyKeyListener listener = new MyKeyListener();
 
     private Panel panel = new Panel();
 
+    private int modeDeJeuCourant = 0;
+
     // Constructeur
     public Window(){
-
-        mj[1] = new SnakeClassic();
-
         this.setTitle("Snake.Snake Game");
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-
-        panel.setMJ(mj[1]);
-        listener.setMJ(mj[1]);
         
         // On dit que le contenu de la fenêtre va être notre panneau
         this.setContentPane(panel);
 
-        mj[1].setWindow(this);
-        mj[1].setPanel(panel);
 
         this.setVisible(true);
 
@@ -49,23 +44,33 @@ class Window extends JFrame {
         addKeyListener(listener);
         setFocusable(true);
 
+        // Les menus
+        initMenus();
+
+
         // On execute le jeu
         game();
     }
 
+    private Thread execGame;
+    private Thread drawGame;
+
     // Le jeu s'execute ici
     private void game(){
 
+        // Snake classique
+        initSnakeClassic();
+
         // On crée les thread
-        Thread execGame = new Thread(){
+        execGame = new Thread(){
             public void run(){
-                mj[1].run();
+                mj[modeDeJeuCourant].run();
             }
         };
 
-        Thread drawGame = new Thread(){
+        drawGame = new Thread(){
             public void run(){
-                mj[1].draw();
+                mj[modeDeJeuCourant].draw();
             }
         };
 
@@ -74,6 +79,62 @@ class Window extends JFrame {
 
     }
 
+    private void killGame(){
+
+        try {
+            mj[modeDeJeuCourant].arreter();
+            execGame.join();
+            drawGame.join();
+        }catch (Exception e){ e.printStackTrace(); }
+
+    }
+
+    // Initialiser tout les menus
+    public void initMenus(){
+
+        // Menu principal////////////////
+        mj[0] = new Menu(2);
+        mj[0].setWindow(this);
+        mj[0].setPanel(panel);
+        Menu menu = (Menu) mj[0];
+        panel.addMouseListener(menu);
+        panel.addMouseMotionListener(menu);
+
+        //Bouton jouer
+        BufferedImage[] img0 = {panel.getSprite("Menu_text_test_Jouer"), panel.getSprite("Menu_text_test_Jouer_Selected"), panel.getSprite("Menu_text_test_Jouer_Validated")};
+        menu.setBouton(0 ,new Bouton(img0, mj[0]));
+        menu.getBouton(0).setPosXY(30, 100);
+        menu.getBouton(0).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        killGame();
+                        modeDeJeuCourant = 1;
+                        game();
+                    }
+                }
+        );
+
+        // Bouton quitter
+        BufferedImage[] img1 = {panel.getSprite("Menu_text_test_Quitter"), panel.getSprite("Menu_text_test_Quitter_Selected"), panel.getSprite("Menu_text_test_Quitter_Validated")};
+        menu.setBouton(1 ,new Bouton(img1, mj[0]));
+        menu.getBouton(1).setPosXY(400, 400);
+        menu.getBouton(1).setActionListener((ActionBouton)() -> System.exit(0));
+    }
+
+    public void initSnakeClassic(){
+        // Mode de jeu classique
+        mj[1] = new SnakeClassic();
+        mj[1].setWindow(this);
+        mj[1].setPanel(panel);
+
+        panel.setMJ(mj[1]);
+        listener.setMJ(mj[1]);
+    }
+
+    public void setModeDeJeuCourant(int modeDeJeuCourant) {
+        this.modeDeJeuCourant = modeDeJeuCourant;
+    }
 }
 
 // Inputs
@@ -131,4 +192,9 @@ class MyKeyListener implements KeyListener {
     public void setMJ(ModeDeJeu m){
         mj = m;
     }
+
+}
+
+interface ActionBouton {
+    void execute();
 }

@@ -4,6 +4,9 @@
 Compiler le jeu avec `./build.sh`  
 Pour lancer le jeu : `cd build` puis `java Snake.StartSnakeGame`
 
+**ATTENTION :** le jeu doit se trouver à un chemin non composé de caractères spéciaux sinon il ne chargera pas les sprites
+(par exemple : é è ù espace).
+
 ---
 
 ### Le problème du lag
