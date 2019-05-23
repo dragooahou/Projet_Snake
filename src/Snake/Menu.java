@@ -37,17 +37,16 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 	public void draw() {
 
 		// on dessine 1 fois l'arriere plan
-
-
 		Graphics g2d = panel.getGraph();
 		g2d.drawImage(backgroundImage, 0, 0, panel.getWidth(), panel.getHeight(), panel);
 
-		// on redessine le bouton a chaque fois qu'il y a un MouseEvent
+		for (Bouton bou : tabBouton)
+			bou.draw();
+
+			// on redessine le bouton a chaque fois qu'il y a un MouseEvent
 		while (!stopped) {
 
-			for (Bouton bou : tabBouton) {
-				bou.draw();
-			}
+
 
 			try {
 				Thread.sleep(25);
@@ -63,6 +62,10 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 
 	public Bouton getBouton(int i) {
 		return tabBouton[i];
+	}
+
+	public void setBackgroundImage(BufferedImage backgroundImage) {
+		this.backgroundImage = backgroundImage;
 	}
 
 	////// LES INTERFACES /////////////////////////////////////////////////:
@@ -105,11 +108,17 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		Graphics g2d = panel.getGraph();
+		g2d.drawImage(backgroundImage, 0, 0, panel.getWidth(), panel.getHeight(), panel);
+
 		for (Bouton bou : tabBouton) {
-			if(bou.isIn(e.getX(), e.getY()))
+			bou.draw();
+			if(bou.isIn(e.getX(), e.getY())) {
 				bou.setValeurImage(1);
-			else
+			}
+			else {
 				bou.setValeurImage(0);
+			}
 		}
 	}
 }

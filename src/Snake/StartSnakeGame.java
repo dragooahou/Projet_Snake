@@ -92,23 +92,26 @@ class Window extends JFrame {
     // Initialiser tout les menus
     public void initMenus(){
 
-        // Menu principal////////////////
+        // Menu principal ////////////////
         mj[0] = new Menu(2);
         mj[0].setWindow(this);
         mj[0].setPanel(panel);
         Menu menu = (Menu) mj[0];
         panel.addMouseListener(menu);
         panel.addMouseMotionListener(menu);
+        menu.setBackgroundImage(panel.getSprite("fondAcceuil"));
 
         //Bouton jouer
-        BufferedImage[] img0 = {panel.getSprite("Menu_text_test_Jouer"), panel.getSprite("Menu_text_test_Jouer_Selected"), panel.getSprite("Menu_text_test_Jouer_Validated")};
+        BufferedImage[] img0 = {panel.getSprite("Menu_text_Jouer_Standby"), panel.getSprite("Menu_text_Jouer_Selected"), panel.getSprite("Menu_text_Jouer_Validated")};
         menu.setBouton(0 ,new Bouton(img0, mj[0]));
-        menu.getBouton(0).setPosXY(30, 100);
+        menu.getBouton(0).setPosXY(250, 280);
         menu.getBouton(0).setActionListener(
                 new ActionBouton(){
                     @Override
                     public void execute() {
                         killGame();
+                        panel.removeMouseListener(menu);
+                        panel.removeMouseMotionListener(menu);
                         modeDeJeuCourant = 1;
                         game();
                     }
@@ -116,9 +119,9 @@ class Window extends JFrame {
         );
 
         // Bouton quitter
-        BufferedImage[] img1 = {panel.getSprite("Menu_text_test_Quitter"), panel.getSprite("Menu_text_test_Quitter_Selected"), panel.getSprite("Menu_text_test_Quitter_Validated")};
+        BufferedImage[] img1 = {panel.getSprite("Menu_text_Quitter_Standby"), panel.getSprite("Menu_text_Quitter_Selected"), panel.getSprite("Menu_text_Quitter_Validated")};
         menu.setBouton(1 ,new Bouton(img1, mj[0]));
-        menu.getBouton(1).setPosXY(400, 400);
+        menu.getBouton(1).setPosXY(250, 360);
         menu.getBouton(1).setActionListener((ActionBouton)() -> System.exit(0));
     }
 
@@ -156,7 +159,7 @@ class MyKeyListener implements KeyListener {
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien
-        if(key == lastKey)
+        if(key.equals(lastKey))
             return;
 
         switch(key){

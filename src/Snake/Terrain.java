@@ -187,7 +187,7 @@ public class Terrain {
 		Random r = new Random();
 		int x = r.nextInt(width);
 		int y = r.nextInt(height);
-		setCaseObject("fruit", x, y);
+		setCaseObject("Sprite_Tomato1", x, y);
 	}
 }
 

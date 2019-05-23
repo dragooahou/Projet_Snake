@@ -11,7 +11,7 @@ public class SnakeClassic extends ModeDeJeu{
     public SnakeClassic(){
 
     	// Grille sur laquelle va se déplacer le serpent
-	    terrain = new Terrain(0, 0, 40, 29, 20);
+	    terrain = new Terrain(0, 0, 25, 18, 32);
     }
 
 	public void run(){
