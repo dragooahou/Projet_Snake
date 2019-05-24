@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListener {
+public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListener, KeyListener {
 
 	// boutons presents dans le menu
 	private Bouton[] tabBouton;
@@ -120,5 +120,20 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 				bou.setValeurImage(0);
 			}
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
 	}
 }

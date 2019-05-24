@@ -116,6 +116,27 @@ public class Panel extends JPanel {
             }
         }
     }
+    // Dessiner une case précise du terrain
+    public void drawTerrain(Point p){
+        Graphics2D g2d = (Graphics2D) getGraphics();
+
+
+        // On recupère le terrain dans la classe fenetre
+        Terrain terrain = mj.getTerrain();
+
+        // On recupère la taille d'une tuile et la position x et y du terrain dans la fenetre
+        int squareSize = terrain.getSquareSize();
+        int posX = terrain.getXposition();
+        int posY = terrain.getYposition();
+
+        // On dessine la tuile de terrain
+        g2d.drawImage(sprites.get(terrain.backgroundOnCase(p.x,p.y)), p.x*squareSize + posX, p.y*squareSize + posY, squareSize, squareSize, this);
+
+        // Si il y a un objet sur cette tuile le dessiner aussi
+        if(!terrain.objectOnCase(p.x,p.y).equals("")){
+            g2d.drawImage(sprites.get(terrain.objectOnCase(p.x,p.y)), p.x*squareSize + posX, p.y*squareSize + posY, squareSize, squareSize, this);
+        }
+    }
 
 
     // Dessiner le serpent et les objets

@@ -40,9 +40,7 @@ public class SnakeClassic extends ModeDeJeu{
         // On lance la génération de fruits
         ActionListener spawnFruit = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                terrain.spawnFruit();
-                panel.dessiner("terrain");
-                panel.dessiner("snake");
+                panel.drawTerrain(terrain.spawnFruit());
 
                 if(stopped){
                     Timer timer = (Timer) e.getSource();
@@ -70,6 +68,88 @@ public class SnakeClassic extends ModeDeJeu{
         Timer drawClock = new Timer(20, repaint);
         drawClock.start();
         drawClock.setRepeats(true);
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    // Va stocker la dernière touche pressé
+    private String lastKey = "";
+
+    public void keyPressed(KeyEvent e) {
+        String key = KeyEvent.getKeyText(e.getKeyCode());
+
+        //System.out.println("keyPressed="+key);
+
+        // Si la touche est déjà pressé on ne fait rien
+        if(key.equals(lastKey))
+            return;
+
+        switch(key){
+            case "Haut":
+                terrain.setSnakeDirection('N');
+                break;
+            case "Bas":
+                terrain.setSnakeDirection('S');
+                break;
+            case "Droite":
+                terrain.setSnakeDirection('E');
+                break;
+            case "Gauche":
+                terrain.setSnakeDirection('W');
+                break;
+            case "Echap":
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+
+        lastKey = key;
+    }
+
+    public void keyReleased(KeyEvent e) {
+        //System.out.println("keyReleased="+KeyEvent.getKeyText(e.getKeyCode()));
+
+        // Si on relache la touche on réinitialise lastKey
+        lastKey = "";
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

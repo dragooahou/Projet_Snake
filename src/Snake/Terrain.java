@@ -1,6 +1,7 @@
 package Snake;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -183,11 +184,12 @@ public class Terrain {
 	}
 
 	// Fait spawn un fruit sur le terrain à un emplacement aléatoire
-	public void spawnFruit(){
+	public Point spawnFruit(){
 		Random r = new Random();
 		int x = r.nextInt(width);
 		int y = r.nextInt(height);
 		setCaseObject("Sprite_Tomato1", x, y);
+		return new Point(x,y);
 	}
 }
 

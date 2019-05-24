@@ -17,10 +17,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[2];
-
-    // Pour ecouter les inputs
-    private MyKeyListener listener = new MyKeyListener();
+    private ModeDeJeu[] mj = new ModeDeJeu[3];
 
     private Panel panel = new Panel();
 
@@ -37,11 +34,9 @@ class Window extends JFrame {
         // On dit que le contenu de la fenêtre va être notre panneau
         this.setContentPane(panel);
 
-
         this.setVisible(true);
 
         // On s'occupe maintenant des inputs
-        addKeyListener(listener);
         setFocusable(true);
 
         // Les menus
@@ -60,6 +55,11 @@ class Window extends JFrame {
 
         // Snake classique
         initSnakeClassic();
+
+        // Listeners
+        addMouseMotionListener(mj[modeDeJeuCourant]);
+        addMouseListener(mj[modeDeJeuCourant]);
+        addKeyListener(mj[modeDeJeuCourant]);
 
         // On crée les thread
         execGame = new Thread(){
@@ -80,6 +80,9 @@ class Window extends JFrame {
     }
 
     private void killGame(){
+        removeMouseListener(mj[modeDeJeuCourant]);
+        removeMouseMotionListener(mj[modeDeJeuCourant]);
+        removeKeyListener(mj[modeDeJeuCourant]);
 
         try {
             mj[modeDeJeuCourant].arreter();
@@ -93,36 +96,71 @@ class Window extends JFrame {
     public void initMenus(){
 
         // Menu principal ////////////////
-        mj[0] = new Menu(2);
-        mj[0].setWindow(this);
-        mj[0].setPanel(panel);
-        Menu menu = (Menu) mj[0];
-        panel.addMouseListener(menu);
-        panel.addMouseMotionListener(menu);
-        menu.setBackgroundImage(panel.getSprite("fondAcceuil"));
+            mj[0] = new Menu(2);
+            mj[0].setWindow(this);
+            mj[0].setPanel(panel);
+            Menu menuPrincipal = (Menu) mj[0];
+            menuPrincipal.setBackgroundImage(panel.getSprite("fondAcceuil"));
 
-        //Bouton jouer
-        BufferedImage[] img0 = {panel.getSprite("Menu_text_Jouer_Standby"), panel.getSprite("Menu_text_Jouer_Selected"), panel.getSprite("Menu_text_Jouer_Validated")};
-        menu.setBouton(0 ,new Bouton(img0, mj[0]));
-        menu.getBouton(0).setPosXY(250, 280);
-        menu.getBouton(0).setActionListener(
-                new ActionBouton(){
-                    @Override
-                    public void execute() {
-                        killGame();
-                        panel.removeMouseListener(menu);
-                        panel.removeMouseMotionListener(menu);
-                        modeDeJeuCourant = 1;
-                        game();
+            //Bouton jouer
+            BufferedImage[] img0 = {panel.getSprite("Menu_text_Jouer_Standby"), panel.getSprite("Menu_text_Jouer_Selected"), panel.getSprite("Menu_text_Jouer_Validated")};
+            menuPrincipal.setBouton(0 ,new Bouton(img0, mj[0]));
+            menuPrincipal.getBouton(0).setPosXY(250, 280);
+            menuPrincipal.getBouton(0).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            changerMJ(1);
+                        }
                     }
-                }
-        );
+            );
 
-        // Bouton quitter
-        BufferedImage[] img1 = {panel.getSprite("Menu_text_Quitter_Standby"), panel.getSprite("Menu_text_Quitter_Selected"), panel.getSprite("Menu_text_Quitter_Validated")};
-        menu.setBouton(1 ,new Bouton(img1, mj[0]));
-        menu.getBouton(1).setPosXY(250, 360);
-        menu.getBouton(1).setActionListener((ActionBouton)() -> System.exit(0));
+            // Bouton quitter
+            BufferedImage[] img1 = {panel.getSprite("Menu_text_Quitter_Standby"), panel.getSprite("Menu_text_Quitter_Selected"), panel.getSprite("Menu_text_Quitter_Validated")};
+            menuPrincipal.setBouton(1 ,new Bouton(img1, mj[0]));
+            menuPrincipal.getBouton(1).setPosXY(250, 360);
+            menuPrincipal.getBouton(1).setActionListener((ActionBouton)() -> System.exit(0));
+        //////////////////////////////////////
+
+        // Menu pause ////////////////////////
+            mj[2] = new Menu(2);
+            mj[2].setWindow(this);
+            mj[2].setPanel(panel);
+            Menu menuPause = (Menu) mj[2];
+            menuPause.setBackgroundImage(panel.getSprite("fondPause"));
+
+            //Bouton recommencer
+            BufferedImage[] img2 = {panel.getSprite("Menu_text_Recommencer_Standby"), panel.getSprite("Menu_text_Recommencer_Selected"), panel.getSprite("Menu_text_Recommencer_Validated")};
+            menuPause.setBouton(0 ,new Bouton(img2, mj[2]));
+            menuPause.getBouton(0).setPosXY(250, 280);
+            menuPause.getBouton(0).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            changerMJ(1);
+                        }
+                    }
+            );
+
+            // Bouton menu
+            BufferedImage[] img3 = {panel.getSprite("Menu_text_Menu_Standby"), panel.getSprite("Menu_text_Menu_Selected"), panel.getSprite("Menu_text_Menu_Validated")};
+            menuPause.setBouton(1 ,new Bouton(img3, mj[2]));
+            menuPause.getBouton(1).setPosXY(250, 360);
+            menuPause.getBouton(1).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            changerMJ(0);
+                        }
+                    }
+            );
+        //////////////////////////////////////
+    }
+
+    public void changerMJ(int n){
+        killGame();
+        modeDeJeuCourant = n;
+        game();
     }
 
     public void initSnakeClassic(){
@@ -132,70 +170,11 @@ class Window extends JFrame {
         mj[1].setPanel(panel);
 
         panel.setMJ(mj[1]);
-        listener.setMJ(mj[1]);
     }
 
     public void setModeDeJeuCourant(int modeDeJeuCourant) {
         this.modeDeJeuCourant = modeDeJeuCourant;
     }
-}
-
-// Inputs
-class MyKeyListener implements KeyListener {
-
-    // Va tenir la ref de le fenetre
-    private ModeDeJeu mj;
-
-    // Va stocker la dernière touche pressé
-    private String lastKey = "";
-
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    public void keyPressed(KeyEvent e) {
-        String key = KeyEvent.getKeyText(e.getKeyCode());
-
-        //System.out.println("keyPressed="+key);
-
-        // Si la touche est déjà pressé on ne fait rien
-        if(key.equals(lastKey))
-            return;
-
-        switch(key){
-            case "Haut":
-                mj.getTerrain().setSnakeDirection('N');
-                break;
-            case "Bas":
-                mj.getTerrain().setSnakeDirection('S');
-                break;
-            case "Droite":
-                mj.getTerrain().setSnakeDirection('E');
-                break;
-            case "Gauche":
-                mj.getTerrain().setSnakeDirection('W');
-                break;
-            case "Echap":
-                System.exit(0);
-                break;
-            default:
-                break;
-        }
-
-        lastKey = key;
-    }
-
-    public void keyReleased(KeyEvent e) {
-        //System.out.println("keyReleased="+KeyEvent.getKeyText(e.getKeyCode()));
-
-        // Si on relache la touche on réinitialise lastKey
-        lastKey = "";
-    }
-
-    public void setMJ(ModeDeJeu m){
-        mj = m;
-    }
-
 }
 
 interface ActionBouton {

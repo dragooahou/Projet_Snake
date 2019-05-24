@@ -1,6 +1,10 @@
 package Snake;
 
-abstract class ModeDeJeu{
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListener {
 
 	protected Panel panel;
 	protected Window window;
