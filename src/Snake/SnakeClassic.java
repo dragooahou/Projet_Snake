@@ -1,14 +1,16 @@
 package Snake;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 
 public class SnakeClassic extends ModeDeJeu{
 
     public SnakeClassic(){
+        // On a relancé le jeu
+        stopped = false;
 
     	// Grille sur laquelle va se déplacer le serpent
 	    terrain = new Terrain(0, 0, 25, 18, 32);
