@@ -2,9 +2,12 @@ package Snake;// IMPORTS
     import java.awt.*;
     import java.awt.event.*;
     import java.awt.image.BufferedImage;
+    import java.io.IOException;
     import java.lang.reflect.Executable;
     import java.util.EventListener;
 
+    import javax.sound.sampled.LineUnavailableException;
+    import javax.sound.sampled.UnsupportedAudioFileException;
     import javax.swing.JFrame;
 
 public class StartSnakeGame {
@@ -20,7 +23,8 @@ class Window extends JFrame {
 
     // Tableau des mods de jeu
     private ModeDeJeu[] mj = new ModeDeJeu[3];
-
+    private SimpleAudioPlayer audioPlayerJouer;
+    private Thread lancerMusique;
     private Panel panel = new Panel();
 
     private int modeDeJeuCourant = 0;
@@ -67,6 +71,7 @@ class Window extends JFrame {
         execGame = new Thread(){
             public void run(){
                 mj[modeDeJeuCourant].run();
+
             }
         };
 
@@ -76,7 +81,9 @@ class Window extends JFrame {
             }
         };
 
+
         execGame.start();
+
         drawGame.start();
 
     }
@@ -122,6 +129,29 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            lancerMusique = new Thread(){
+                                @Override
+                                public void run() {
+                                    try
+                                    {
+
+                                         audioPlayerJouer =
+                                                new SimpleAudioPlayer("Musique");
+
+
+
+
+                                    }
+
+                                    catch (Exception ex)
+                                    {
+                                        System.out.println("Error with playing sound.");
+                                        ex.printStackTrace();
+
+                                    }
+                                }
+                            };
+                            lancerMusique.start();
                             changerMJ(1);
                         }
                     }
@@ -179,6 +209,15 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             changerMJ(0);
+                            try {
+                                audioPlayerJouer.stop();
+                            } catch (UnsupportedAudioFileException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (LineUnavailableException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
             );
@@ -206,6 +245,7 @@ class Window extends JFrame {
 
     public void initSnakeClassic(){
         // Mode de jeu classique
+
         mj[1] = new SnakeClassic();
         mj[1].setWindow(this);
         mj[1].setPanel(panel);
