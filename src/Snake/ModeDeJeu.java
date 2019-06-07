@@ -11,6 +11,8 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 	protected Terrain terrain;
 
 	protected boolean stopped;
+	protected boolean paused;
+	protected int pausedMJ;
 
 	public void run(){ System.out.println("Ce mode de jeu n'a rien à executer."); }
 
@@ -28,6 +30,22 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 
     public void arreter(){ stopped = true; }
 
+    public void pause(int i){
+		pausedMJ = i;
+		paused = true;
+	}
+
+	public void resume(){
+		paused = false;
+	}
+
+	public int getPausedMJ() {
+		return pausedMJ;
+	}
+
+	public void setPausedMJ(int pausedMJ) {
+		this.pausedMJ = pausedMJ;
+	}
 
 	public Terrain getTerrain(){
 		return terrain;
