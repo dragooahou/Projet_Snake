@@ -3,6 +3,7 @@ package Snake;// IMPORTS
     import java.awt.event.*;
     import java.awt.image.BufferedImage;
     import java.lang.reflect.Executable;
+    import java.util.EventListener;
 
     import javax.swing.JFrame;
 
@@ -81,9 +82,8 @@ class Window extends JFrame {
     }
 
     private void killGame(){
-        removeMouseListener(mj[modeDeJeuCourant]);
-        removeMouseMotionListener(mj[modeDeJeuCourant]);
-        removeKeyListener(mj[modeDeJeuCourant]);
+
+        removeAllListeners();
 
         try {
             mj[modeDeJeuCourant].arreter();
@@ -91,6 +91,17 @@ class Window extends JFrame {
             drawGame.join();
         }catch (Exception e){ e.printStackTrace(); }
 
+    }
+
+    private void removeAllListeners(){
+        for (MouseMotionListener ml : getListeners(MouseMotionListener.class))
+            removeMouseMotionListener(ml);
+
+        for (MouseListener ml : getListeners(MouseListener.class))
+            removeMouseListener(ml);
+
+        for (KeyListener kl : getListeners(KeyListener.class))
+            removeKeyListener(kl);
     }
 
     // Initialiser tout les menus
@@ -131,7 +142,7 @@ class Window extends JFrame {
             menuPause.setBackgroundImage(panel.getSprite("Menu_Box_Pause"));
             menuPause.setBgCoords(new Point(200, 50));
             menuPause.setBgTaille(new Point(400, 500));
-
+/*
             //Bouton reprendre
             BufferedImage[] img4 = {panel.getSprite("Menu_text_Reprendre_Standby"), panel.getSprite("Menu_text_Reprendre_Selected"), panel.getSprite("Menu_text_Reprendre_Validated")};
             menuPause.setBouton(0 ,new Bouton(img4, mj[2]));
@@ -145,7 +156,7 @@ class Window extends JFrame {
                         }
                     }
             );
-
+*/
             //Bouton recommencer
             BufferedImage[] img2 = {panel.getSprite("Menu_text_Recommencer_Standby"), panel.getSprite("Menu_text_Recommencer_Selected"), panel.getSprite("Menu_text_Recommencer_Validated")};
             menuPause.setBouton(0 ,new Bouton(img2, mj[2]));
@@ -205,6 +216,7 @@ class Window extends JFrame {
     public void setModeDeJeuCourant(int modeDeJeuCourant) {
         this.modeDeJeuCourant = modeDeJeuCourant;
     }
+
 }
 
 interface ActionBouton {
