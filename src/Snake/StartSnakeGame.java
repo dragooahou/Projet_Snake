@@ -1,4 +1,5 @@
 package Snake;// IMPORTS
+    import java.awt.*;
     import java.awt.event.*;
     import java.awt.image.BufferedImage;
     import java.lang.reflect.Executable;
@@ -127,7 +128,23 @@ class Window extends JFrame {
             mj[2].setWindow(this);
             mj[2].setPanel(panel);
             Menu menuPause = (Menu) mj[2];
-            menuPause.setBackgroundImage(panel.getSprite("fondPause"));
+            menuPause.setBackgroundImage(panel.getSprite("Menu_Box_Pause"));
+            menuPause.setBgCoords(new Point(200, 50));
+            menuPause.setBgTaille(new Point(400, 500));
+
+            //Bouton reprendre
+            BufferedImage[] img4 = {panel.getSprite("Menu_text_Reprendre_Standby"), panel.getSprite("Menu_text_Reprendre_Selected"), panel.getSprite("Menu_text_Reprendre_Validated")};
+            menuPause.setBouton(0 ,new Bouton(img4, mj[2]));
+            menuPause.getBouton(0).setPosXY(250, 200);
+            menuPause.getBouton(0).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            resume();
+                            System.out.println("rep");
+                        }
+                    }
+            );
 
             //Bouton recommencer
             BufferedImage[] img2 = {panel.getSprite("Menu_text_Recommencer_Standby"), panel.getSprite("Menu_text_Recommencer_Selected"), panel.getSprite("Menu_text_Recommencer_Validated")};
@@ -143,7 +160,7 @@ class Window extends JFrame {
             );
 
             // Bouton menu
-            BufferedImage[] img3 = {panel.getSprite("Menu_text_Menu_Standby"), panel.getSprite("Menu_text_Menu_Selected"), panel.getSprite("Menu_text_Menu_Validated")};
+            BufferedImage[] img3 = {panel.getSprite("Menu_text_RetourMenu_Standby"), panel.getSprite("Menu_text_RetourMenu_Selected"), panel.getSprite("Menu_text_RetourMenu_Validated")};
             menuPause.setBouton(1 ,new Bouton(img3, mj[2]));
             menuPause.getBouton(1).setPosXY(250, 360);
             menuPause.getBouton(1).setActionListener(
@@ -161,6 +178,19 @@ class Window extends JFrame {
         killGame();
         modeDeJeuCourant = n;
         game();
+    }
+
+    public void pause(int i){
+        mj[modeDeJeuCourant].pause(i);
+        modeDeJeuCourant = 2;
+        game();
+    }
+
+    public void resume(){
+        int i = mj[modeDeJeuCourant].getPausedMJ();
+        killGame();
+        modeDeJeuCourant = i;
+        mj[i].resume();
     }
 
     public void initSnakeClassic(){

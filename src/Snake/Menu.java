@@ -1,6 +1,6 @@
 package Snake;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +15,9 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 
 	// image de l'arriere plan
 	private BufferedImage backgroundImage;
+
+	private Point bgCoords = new Point(0,0);
+	private Point bgTaille = new Point(800, 600);
 
 	// initialise les boutons, l'image de fond et le listener
 	// je sais pas comment les initialiser :(
@@ -42,7 +45,7 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 
 		// on dessine 1 fois l'arriere plan
 		Graphics g2d = panel.getGraph();
-		g2d.drawImage(backgroundImage, 0, 0, panel.getWidth(), panel.getHeight(), panel);
+		g2d.drawImage(backgroundImage, bgCoords.x, bgCoords.y, bgTaille.x, bgTaille.y, panel);
 
 		for (Bouton bou : tabBouton)
 			bou.draw();
@@ -72,12 +75,20 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 		this.backgroundImage = backgroundImage;
 	}
 
+	public void setBgCoords(Point bgCoords) {
+		this.bgCoords = bgCoords;
+	}
+
+	public void setBgTaille(Point bgTaille) {
+		this.bgTaille = bgTaille;
+	}
+
 	////// LES INTERFACES /////////////////////////////////////////////////:
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		for (Bouton bou : tabBouton) {
-			if(bou.isIn(e.getX(), e.getY()))
+			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top))
 				bou.getActionAFaire().execute();
 		}
 	}
@@ -85,7 +96,7 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for (Bouton bou : tabBouton) {
-			if(bou.isIn(e.getX(), e.getY()))
+			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top))
 				bou.setValeurImage(2);
 		}
 	}
@@ -113,11 +124,11 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Graphics g2d = panel.getGraph();
-		g2d.drawImage(backgroundImage, 0, 0, panel.getWidth(), panel.getHeight(), panel);
+		g2d.drawImage(backgroundImage, bgCoords.x, bgCoords.y, bgTaille.x, bgTaille.y, panel);
 
 		for (Bouton bou : tabBouton) {
 			bou.draw();
-			if(bou.isIn(e.getX(), e.getY())) {
+			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top)) {
 				bou.setValeurImage(1);
 			}
 			else {

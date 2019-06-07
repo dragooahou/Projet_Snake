@@ -19,6 +19,14 @@ public class SnakeClassic extends ModeDeJeu{
 	public void run(){
         while(!stopped){
 
+            if(paused) {
+                try{ Thread.sleep(25);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+                continue;
+            };
+
             // On met à jour 4 fois l'animation et on bouge le serpent
             for (int i = 0; i < 4; i++) {
 
@@ -42,7 +50,8 @@ public class SnakeClassic extends ModeDeJeu{
         // On lance la génération de fruits
         ActionListener spawnFruit = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                panel.drawTerrain(terrain.spawnFruit());
+                if(!paused)
+                    panel.drawTerrain(terrain.spawnFruit());
 
                 if(stopped){
                     Timer timer = (Timer) e.getSource();
@@ -57,8 +66,8 @@ public class SnakeClassic extends ModeDeJeu{
 
         ActionListener repaint = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-
-                panel.dessiner("snake");
+                if(!paused)
+                    panel.dessiner("snake");
 
                 if(stopped){
                     Timer timer = (Timer) e.getSource();
@@ -104,7 +113,7 @@ public class SnakeClassic extends ModeDeJeu{
                 terrain.setSnakeDirection('W');
                 break;
             case "Echap":
-                System.exit(0);
+                window.pause(1);
                 break;
             default:
                 break;
