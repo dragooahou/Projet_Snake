@@ -113,7 +113,7 @@ public class SnakeClassic extends ModeDeJeu{
                 terrain.setSnakeDirection('W');
                 break;
             case "Echap":
-                window.pause(1);
+                window.pause();
                 break;
             default:
                 break;

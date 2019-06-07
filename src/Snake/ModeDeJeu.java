@@ -30,8 +30,7 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 
     public void arreter(){ stopped = true; }
 
-    public void pause(int i){
-		pausedMJ = i;
+    public void pause(){
 		paused = true;
 	}
 
@@ -49,5 +48,9 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 
 	public Terrain getTerrain(){
 		return terrain;
+	}
+
+	public boolean isPaused() {
+		return paused;
 	}
 }
