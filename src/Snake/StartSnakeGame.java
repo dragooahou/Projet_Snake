@@ -2,8 +2,6 @@ package Snake;// IMPORTS
     import java.awt.*;
     import java.awt.event.*;
     import java.awt.image.BufferedImage;
-    import java.lang.reflect.Executable;
-    import java.util.EventListener;
 
     import javax.swing.JFrame;
 
@@ -43,7 +41,8 @@ class Window extends JFrame {
 
         // Les menus
         initMenus();
-
+        // Snake classique
+        initSnakeClassic();
 
         // On execute le jeu
         game();
@@ -55,8 +54,9 @@ class Window extends JFrame {
     // Le jeu s'execute ici
     private void game(){
 
-        // Snake classique
-        initSnakeClassic();
+
+        panel.setMJ(mj[modeDeJeuCourant]);
+
 
         // Listeners
         addMouseMotionListener(mj[modeDeJeuCourant]);
@@ -187,6 +187,7 @@ class Window extends JFrame {
     public void changerMJ(int n){
         killGame();
         modeDeJeuCourant = n;
+        initSnakeClassic();
         game();
     }
 
@@ -195,6 +196,7 @@ class Window extends JFrame {
         mj[modeDeJeuCourant].pause();
         modeDeJeuCourant = 2;
         mj[modeDeJeuCourant].setPausedMJ(i);
+        removeAllListeners();
         game();
     }
 
@@ -202,8 +204,13 @@ class Window extends JFrame {
         int i = mj[modeDeJeuCourant].getPausedMJ();
         killGame();
         modeDeJeuCourant = i;
-        mj[i].resume();
-        //System.out.println(mj[modeDeJeuCourant].isPaused());
+        panel.setMJ(mj[modeDeJeuCourant]);
+        if(modeDeJeuCourant == 1) panel.dessiner("terrain");
+        mj[modeDeJeuCourant].reprendre();
+
+        addMouseMotionListener(mj[modeDeJeuCourant]);
+        addMouseListener(mj[modeDeJeuCourant]);
+        addKeyListener(mj[modeDeJeuCourant]);
     }
 
     public void initSnakeClassic(){
@@ -211,8 +218,6 @@ class Window extends JFrame {
         mj[1] = new SnakeClassic();
         mj[1].setWindow(this);
         mj[1].setPanel(panel);
-
-        panel.setMJ(mj[1]);
     }
 
     public void setModeDeJeuCourant(int modeDeJeuCourant) {

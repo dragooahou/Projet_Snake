@@ -25,7 +25,7 @@ public class SnakeClassic extends ModeDeJeu{
                     e.printStackTrace();
                 }
                 continue;
-            };
+            }
 
             // On met à jour 4 fois l'animation et on bouge le serpent
             for (int i = 0; i < 4; i++) {

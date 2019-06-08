@@ -118,6 +118,9 @@ public class Panel extends JPanel {
     }
     // Dessiner une case précise du terrain
     public void drawTerrain(Point p){
+        if(mj.getTerrain() == null)
+            return;
+
         Graphics2D g2d = (Graphics2D) getGraphics();
 
 
@@ -141,6 +144,9 @@ public class Panel extends JPanel {
 
     // Dessiner le serpent et les objets
     public void drawSnake(Graphics2D g2d){
+        if(mj.getTerrain() == null)
+            return;
+
 
         // On recupère le terrain dans la classe fenetre
         Terrain terrain = mj.getTerrain();

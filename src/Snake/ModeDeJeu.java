@@ -34,7 +34,7 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 		paused = true;
 	}
 
-	public void resume(){
+	public void reprendre(){
 		paused = false;
 	}
 
