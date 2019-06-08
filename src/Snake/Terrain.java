@@ -52,10 +52,14 @@ public class Terrain {
 
 	// Retourne l'objet dans la case aux coordonnées spécifiées
 	public String objectOnCase (int x, int y) {
+		if(x < 0 || y < 0 || x >= width || y >= height)
+			return "";
 		return squareTab[x][y].getObject();
 	}
 
 	public String backgroundOnCase(int x, int y){
+		if(x < 0 || y < 0 || x >= width || y >= height)
+			return "";
 		return squareTab[x][y].getBackground();
 	}
 
@@ -114,15 +118,22 @@ public class Terrain {
     }
 
     // Met à jour le terrain
-    public void update(){
+    public boolean update(){
     	// Sécurité
     	if(snake == null){
     		System.out.println("pas de serpent");
-    		return;
+    		return true;
     	}
 
+		//Sécurité
+		SnakePart[] p = snake.getPositions();
+		int x = p[0].getXPos();
+		int y = p[0].getYPos();
+		if(x < 0 || y < 0 || x >= width-1 || y >= height-1)
+			return true;
+
+
     	// On commence par vider les endroits ou il y a le serpent
-    	SnakePart[] p = snake.getPositions();
 
     	for(int i = 0; i < p.length; i++)
     		squareTab[p[i].getXPos()][p[i].getYPos()].setObject("");
@@ -133,7 +144,7 @@ public class Terrain {
     			break;
     		case 1:
     			System.out.println("AÏE");
-    			break;
+    			return true;
     		case 2:
     			System.out.println("GAGNÉ");
     			break;
@@ -157,6 +168,8 @@ public class Terrain {
 
     	squareTab[p[p.length-2].getXPos()][p[p.length-2].getYPos()].setObject(skin + "_arriere" + p[p.length-2].getDirection());
     	squareTab[p[p.length-1].getXPos()][p[p.length-1].getYPos()].setObject(skin + "_queue" + p[p.length-1].getDirection());
+
+    	return false;
     }
 
     public Square[][] getSquareTab(){

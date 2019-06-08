@@ -67,6 +67,7 @@ public class Snake {
 			isOnSnake(positions[0].getXPos(), positions[0].getYPos()))
 			return 1;
 
+		// On vérifie que on serait pas sur un fruit
 		if(tab[positions[0].getXPos()][positions[0].getYPos()].getObject() == "Sprite_Tomato1")
 			if(grow())
 				return 2;

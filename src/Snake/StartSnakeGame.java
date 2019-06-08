@@ -17,7 +17,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[3];
+    private ModeDeJeu[] mj = new ModeDeJeu[4];
 
     private Panel panel = new Panel();
 
@@ -84,12 +84,7 @@ class Window extends JFrame {
     private void killGame(){
 
         removeAllListeners();
-
-        try {
-            mj[modeDeJeuCourant].arreter();
-            execGame.join();
-            drawGame.join();
-        }catch (Exception e){ e.printStackTrace(); }
+        mj[modeDeJeuCourant].arreter();
 
     }
 
@@ -182,12 +177,47 @@ class Window extends JFrame {
                     }
             );
         //////////////////////////////////////
+
+        // Menu perdu ////////////////////////
+            mj[3] = new Menu(2);
+            mj[3].setWindow(this);
+            mj[3].setPanel(panel);
+            Menu menuPerdu = (Menu) mj[3];
+            menuPerdu.setBackgroundImage(panel.getSprite("Menu_Box_Pause"));
+            menuPerdu.setBgCoords(new Point(200, 50));
+            menuPerdu.setBgTaille(new Point(400, 500));
+
+
+            //Bouton recommencer
+            menuPerdu.setBouton(0 ,new Bouton(img2, mj[3]));
+            menuPerdu.getBouton(0).setPosXY(250, 280);
+            menuPerdu.getBouton(0).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            changerMJ(1);
+                        }
+                    }
+            );
+
+            // Bouton menu
+            menuPerdu.setBouton(1 ,new Bouton(img3, mj[3]));
+            menuPerdu.getBouton(1).setPosXY(250, 360);
+            menuPerdu.getBouton(1).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            changerMJ(0);
+                        }
+                    }
+            );
+        //////////////////////////////////////
     }
 
     public void changerMJ(int n){
         killGame();
         modeDeJeuCourant = n;
-        initSnakeClassic();
+        if(n == 1) initSnakeClassic();
         game();
     }
 

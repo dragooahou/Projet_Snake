@@ -9,8 +9,9 @@ import javax.swing.Timer;
 public class SnakeClassic extends ModeDeJeu{
 
     public SnakeClassic(){
-        // On a relancé le jeu
+
         stopped = false;
+        paused = false;
 
     	// Grille sur laquelle va se déplacer le serpent
 	    terrain = new Terrain(0, 0, 25, 18, 32);
@@ -38,7 +39,10 @@ public class SnakeClassic extends ModeDeJeu{
                 }
             }
             // On met à jour le terrain
-            terrain.update();
+            // Si le serpent est mort
+            if(terrain.update()) {
+                window.changerMJ(3);
+            }
         }
     }
 
