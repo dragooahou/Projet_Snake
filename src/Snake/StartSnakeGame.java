@@ -183,7 +183,7 @@ class Window extends JFrame {
             mj[3].setWindow(this);
             mj[3].setPanel(panel);
             Menu menuPerdu = (Menu) mj[3];
-            menuPerdu.setBackgroundImage(panel.getSprite("Menu_Box_Pause"));
+            menuPerdu.setBackgroundImage(panel.getSprite("Menu_Box_Perdu"));
             menuPerdu.setBgCoords(new Point(200, 50));
             menuPerdu.setBgTaille(new Point(400, 500));
 
