@@ -7,15 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-import java.net.URISyntaxException;
 import java.util.*;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 
 import java.util.jar.*;
-
-import java.nio.file.*;
 
 public class Panel extends JPanel {
 
@@ -76,6 +73,10 @@ public class Panel extends JPanel {
                 drawSnake(g2d);
                 break;
 
+            case "fruits":
+                drawFruits(g2d);
+                break;
+
             case "terrain":
                 drawTerrain(g2d);
                 break;
@@ -89,6 +90,29 @@ public class Panel extends JPanel {
         // On libère la classe Graphics
         g.dispose();
 
+    }
+
+    // Dessiner fruit
+    private void drawFruits(Graphics2D g2d){
+        // On recupère le terrain dans la classe fenetre
+        Terrain terrain = mj.getTerrain();
+        if(terrain == null) return;
+
+        // On recupère la taille d'une tuile et la position x et y du terrain dans la fenetre
+        int squareSize = terrain.getSquareSize();
+        int posX = terrain.getXposition();
+        int posY = terrain.getYposition();
+
+        for (int i = 0; i < terrain.getSquareTab().length; i++) {
+            for (int j = 0; j < terrain.getSquareTab()[i].length; j++) {
+
+                // Si il y a un objet sur cette tuile le dessiner aussi
+                if(ListeFruits.isFruit(terrain.objectOnCase(i,j))){
+                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                }
+
+            }
+        }
     }
 
     // Dessiner le terrain

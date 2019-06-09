@@ -201,9 +201,28 @@ public class Terrain {
 		Random r = new Random();
 		int x = r.nextInt(width);
 		int y = r.nextInt(height);
-		setCaseObject("Sprite_Tomato1", x, y);
+		setCaseObject(ListeFruits.randomFruit(), x, y);
 		return new Point(x,y);
 	}
+
+	// Met a jour l'animation de fruit
+	public void updateAnimFruit(){
+		for (int i = 0; i < squareTab.length; i++) {
+			for (int j = 0; j < squareTab[i].length; j++) {
+
+				// Si il y a un objet sur cette tuile le dessiner aussi
+				if(ListeFruits.isFruit(objectOnCase(i,j))){
+					int length = objectOnCase(i,j).length();
+					int no = Integer.parseInt(objectOnCase(i,j).substring(length - 1, length));
+					if (no == 1) no = 2;
+					else if (no == 2) no = 1;
+					setCaseObject(objectOnCase(i,j).substring(0, length - 1) + no ,i,j);
+				}
+
+			}
+		}
+	}
+
 }
 
 

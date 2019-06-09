@@ -33,7 +33,7 @@ public class SnakeClassic extends ModeDeJeu{
 
                 panel.updateAnim();
 
-                try{ Thread.sleep(25);
+                try{ Thread.sleep(30);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
@@ -83,6 +83,25 @@ public class SnakeClassic extends ModeDeJeu{
         Timer drawClock = new Timer(20, repaint);
         drawClock.start();
         drawClock.setRepeats(true);
+
+        // On lance la génération de fruits
+        ActionListener animFruit = new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                if(!paused) {
+                    terrain.updateAnimFruit();
+                    panel.dessiner("fruits");
+                }
+
+                if(stopped){
+                    Timer timer = (Timer) e.getSource();
+                    timer.stop();
+                }
+            }
+        };
+
+        Timer animeFruitClock = new Timer(500, animFruit);
+        animeFruitClock.start();
+        animeFruitClock.setRepeats(true);
 
     }
 
