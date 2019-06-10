@@ -12,6 +12,7 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 
 	protected boolean stopped;
 	protected boolean paused;
+	protected boolean demarrage;
 	protected int pausedMJ;
 
 	public void run(){ System.out.println("Ce mode de jeu n'a rien à executer."); }
@@ -52,5 +53,9 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 
 	public boolean isPaused() {
 		return paused;
+	}
+
+	public void setDemarrage(boolean demarrage) {
+		this.demarrage = demarrage;
 	}
 }

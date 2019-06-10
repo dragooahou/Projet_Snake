@@ -12,6 +12,7 @@ public class SnakeClassic extends ModeDeJeu{
 
         stopped = false;
         paused = false;
+        demarrage = true;
 
     	// Grille sur laquelle va se déplacer le serpent
 	    terrain = new Terrain(0, 0, 25, 18, 32);
@@ -20,7 +21,7 @@ public class SnakeClassic extends ModeDeJeu{
 	public void run(){
         while(!stopped){
 
-            if(paused) {
+            if(paused || demarrage) {
                 try{ Thread.sleep(25);
                 }catch(InterruptedException e){
                     e.printStackTrace();
@@ -49,12 +50,12 @@ public class SnakeClassic extends ModeDeJeu{
     public void draw(){
         // La si on met pas 2 fois ya pas tout qui est dessiné ! WTF
         panel.dessiner("terrain");
-        panel.dessiner("terrain");
+        //panel.dessiner("snake");
 
         // On lance la génération de fruits
         ActionListener spawnFruit = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                if(!paused)
+                if(!paused && !demarrage)
                     panel.drawTerrain(terrain.spawnFruit());
 
                 if(stopped){
@@ -70,7 +71,7 @@ public class SnakeClassic extends ModeDeJeu{
 
         ActionListener repaint = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                if(!paused)
+                if(!paused && !demarrage)
                     panel.dessiner("snake");
 
                 if(stopped){
@@ -87,7 +88,7 @@ public class SnakeClassic extends ModeDeJeu{
         // On lance la génération de fruits
         ActionListener animFruit = new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                if(!paused) {
+                if(!paused && !demarrage) {
                     terrain.updateAnimFruit();
                     panel.dessiner("fruits");
                 }
@@ -115,6 +116,9 @@ public class SnakeClassic extends ModeDeJeu{
 
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
+
+        if(demarrage)
+            demarrage = false;
 
         //System.out.println("keyPressed="+key);
 

@@ -49,9 +49,6 @@ class Window extends JFrame {
         game();
     }
 
-    private Thread execGame;
-    private Thread drawGame;
-
     // Le jeu s'execute ici
     private void game(){
 
@@ -65,17 +62,9 @@ class Window extends JFrame {
         addKeyListener(mj[modeDeJeuCourant]);
 
         // On crée les thread
-        execGame = new Thread(){
-            public void run(){
-                mj[modeDeJeuCourant].run();
-            }
-        };
+        Thread execGame = new Thread(() -> mj[modeDeJeuCourant].run());
 
-        drawGame = new Thread(){
-            public void run(){
-                mj[modeDeJeuCourant].draw();
-            }
-        };
+        Thread drawGame = new Thread(() -> mj[modeDeJeuCourant].draw());
 
         execGame.start();
         drawGame.start();
@@ -243,26 +232,26 @@ class Window extends JFrame {
         //////////////////////////////////////
 
         // Menu credit ///////////////////////
-        mj[4] = new Menu(1);
-        mj[4].setWindow(this);
-        mj[4].setPanel(panel);
-        Menu menuCredit = (Menu) mj[4];
-        menuCredit.setBackgroundImage(panel.getSprite("credits"));
+            mj[4] = new Menu(1);
+            mj[4].setWindow(this);
+            mj[4].setPanel(panel);
+            Menu menuCredit = (Menu) mj[4];
+            menuCredit.setBackgroundImage(panel.getSprite("credits"));
 
 
-        // Bouton menu
-        BufferedImage[] img7 = {panel.getSprite(""), panel.getSprite(""), panel.getSprite("")};
-        menuCredit.setBouton(0 ,new Bouton(img7, mj[4]));
-        menuCredit.getBouton(0).setPosXY(0, 0);
-        menuCredit.getBouton(0).setTaille(getHeight(), getWidth());
-        menuCredit.getBouton(0).setActionListener(
-                new ActionBouton(){
-                    @Override
-                    public void execute() {
-                        changerMJ(0);
+            // Bouton menu
+            BufferedImage[] img7 = {panel.getSprite(""), panel.getSprite(""), panel.getSprite("")};
+            menuCredit.setBouton(0 ,new Bouton(img7, mj[4]));
+            menuCredit.getBouton(0).setPosXY(0, 0);
+            menuCredit.getBouton(0).setTaille(getHeight(), getWidth());
+            menuCredit.getBouton(0).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            changerMJ(0);
+                        }
                     }
-                }
-        );
+            );
         //////////////////////////////////////
     }
 
@@ -288,6 +277,8 @@ class Window extends JFrame {
         modeDeJeuCourant = i;
         panel.setMJ(mj[modeDeJeuCourant]);
         if(modeDeJeuCourant == 1) panel.dessiner("terrain");
+        mj[modeDeJeuCourant].setDemarrage(true);
+        panel.dessiner("snake");
         mj[modeDeJeuCourant].reprendre();
 
         addMouseMotionListener(mj[modeDeJeuCourant]);
