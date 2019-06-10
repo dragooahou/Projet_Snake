@@ -28,6 +28,9 @@ public class Panel extends JPanel {
     // Va contenir tous les sprites avec leur nom
     private Map<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
 
+    // Liste des skins
+    private ArrayList<String> skinList = new ArrayList<>();
+
     // Contient le numero de la frame d'animation à afficher
     private int frameNo = 4;
 
@@ -206,6 +209,8 @@ public class Panel extends JPanel {
 
     // Charge automatiquement les sprites de serpent dans la hashmap
     public void loadSnakeSprites(String file){
+        skinList.add("snake_" + fileName(file));
+
         BufferedImage img = loadImage(file);
 
         // Cette partie du code est vraiment dégueulasse (à refaire si possible)
@@ -221,9 +226,11 @@ public class Panel extends JPanel {
                 sprites.put("snake_" + fileName(file) + "_coude" + n + cards[(rot/90+3)%4] + i, rotate(img.getSubimage(0,80+16*i,16,16), rot));
                 sprites.put("snake_" + fileName(file) + "_coude" + cards[(rot/90+3)%4] + n + i, rotate((img.getSubimage(0,80+16*i,16,16)), rot));
                 //System.out.println("snake_" + fileName(file) + "_coude" + n + cards[(rot/90+3)%4] + i);
+
             }
             rot += 90;
         }
+        sprites.put("snake_" + fileName(file) + "_show", img.getSubimage(0,16,16,64));
     }
 
     public void setMJ(ModeDeJeu m){
@@ -335,5 +342,19 @@ public class Panel extends JPanel {
 
     public BufferedImage getSprite(String nom) {
         return sprites.get(nom);
+    }
+
+    public String cycleSkin(String sk, boolean reversed){
+        ArrayList<String> skList = (ArrayList<String>) skinList.clone();
+        if(reversed) Collections.reverse(skList);
+        boolean current = false;
+        for (String str : skList) {
+            if(current)
+                return str;
+            if(str.equals(sk))
+                current = true;
+        }
+        //Si on arrive la on prend le premier
+        return skList.get(0);
     }
 }

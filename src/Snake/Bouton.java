@@ -96,6 +96,10 @@ public class Bouton {
         return tabImages;
     }
 
+    public void setTabImages(BufferedImage[] tabImages) {
+        this.tabImages = tabImages;
+    }
+
     public int getValeurImage() {
         return valeurImage;
     }

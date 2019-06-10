@@ -40,6 +40,7 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 		}
 	}
 
+
 	// Boucle principale de dessin
 	public void draw() {
 
