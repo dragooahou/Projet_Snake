@@ -18,7 +18,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[4];
+    private ModeDeJeu[] mj = new ModeDeJeu[5];
 
     private Panel panel = new Panel();
 
@@ -144,7 +144,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
-                            System.out.println("credits");
+                            changerMJ(4);
                         }
                     }
             );
@@ -240,6 +240,29 @@ class Window extends JFrame {
                         }
                     }
             );
+        //////////////////////////////////////
+
+        // Menu credit ///////////////////////
+        mj[4] = new Menu(1);
+        mj[4].setWindow(this);
+        mj[4].setPanel(panel);
+        Menu menuCredit = (Menu) mj[4];
+        menuCredit.setBackgroundImage(panel.getSprite("credits"));
+
+
+        // Bouton menu
+        BufferedImage[] img7 = {panel.getSprite(""), panel.getSprite(""), panel.getSprite("")};
+        menuCredit.setBouton(0 ,new Bouton(img7, mj[4]));
+        menuCredit.getBouton(0).setPosXY(0, 0);
+        menuCredit.getBouton(0).setTaille(getHeight(), getWidth());
+        menuCredit.getBouton(0).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        changerMJ(0);
+                    }
+                }
+        );
         //////////////////////////////////////
     }
 
