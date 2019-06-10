@@ -19,6 +19,7 @@ public class SnakeClassic extends ModeDeJeu{
     }
 
 	public void run(){
+        panel.drawTerrain(terrain.spawnFruit());
         while(!stopped){
 
             if(paused || demarrage) {
@@ -41,33 +42,21 @@ public class SnakeClassic extends ModeDeJeu{
             }
             // On met à jour le terrain
             // Si le serpent est mort
-            if(terrain.update()) {
-                window.changerMJ(3);
+            switch(terrain.update()) {
+                case 0:
+                    break;
+                case 1:
+                    window.changerMJ(3);
+                    break;
+                case 2:
+                    panel.drawTerrain(terrain.spawnFruit());
+                    break;
             }
         }
     }
 
     public void draw(){
-        // La si on met pas 2 fois ya pas tout qui est dessiné ! WTF
         panel.dessiner("terrain");
-        //panel.dessiner("snake");
-
-        // On lance la génération de fruits
-        ActionListener spawnFruit = new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                if(!paused && !demarrage)
-                    panel.drawTerrain(terrain.spawnFruit());
-
-                if(stopped){
-                    Timer timer = (Timer) e.getSource();
-                    timer.stop();
-                }
-            }
-        };
-
-        Timer fruitClock = new Timer(1000, spawnFruit);
-        fruitClock.start();
-        fruitClock.setRepeats(true);
 
         ActionListener repaint = new ActionListener() {
             public void actionPerformed(ActionEvent e){

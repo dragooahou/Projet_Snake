@@ -118,11 +118,11 @@ public class Terrain {
     }
 
     // Met à jour le terrain
-    public boolean update(){
+    public int update(){
     	// Sécurité
     	if(snake == null){
     		System.out.println("pas de serpent");
-    		return true;
+    		return 1;
     	}
 
 		//Sécurité
@@ -130,8 +130,9 @@ public class Terrain {
 		int x = p[0].getXPos();
 		int y = p[0].getYPos();
 		if(x < 0 || y < 0 || x >= width-1 || y >= height-1)
-			return true;
+			return 1;
 
+		boolean isFruit = false;
 
     	// On commence par vider les endroits ou il y a le serpent
 
@@ -143,10 +144,9 @@ public class Terrain {
     		case 0:
     			break;
     		case 1:
-    			System.out.println("AÏE");
-    			return true;
+    			return 1;
     		case 2:
-    			System.out.println("GAGNÉ");
+    			isFruit = true;
     			break;
     		default:
     	}
@@ -169,7 +169,8 @@ public class Terrain {
     	squareTab[p[p.length-2].getXPos()][p[p.length-2].getYPos()].setObject(skin + "_arriere" + p[p.length-2].getDirection());
     	squareTab[p[p.length-1].getXPos()][p[p.length-1].getYPos()].setObject(skin + "_queue" + p[p.length-1].getDirection());
 
-    	return false;
+    	if(isFruit) return 2;
+    	return 0;
     }
 
     public Square[][] getSquareTab(){
@@ -199,8 +200,12 @@ public class Terrain {
 	// Fait spawn un fruit sur le terrain à un emplacement aléatoire
 	public Point spawnFruit(){
 		Random r = new Random();
-		int x = r.nextInt(width);
-		int y = r.nextInt(height);
+		int x;
+		int y;
+		do {
+			x = r.nextInt(width);
+			y = r.nextInt(height);
+		}while(snake.isOnSnake(x, y));
 		setCaseObject(ListeFruits.randomFruit(), x, y);
 		return new Point(x,y);
 	}

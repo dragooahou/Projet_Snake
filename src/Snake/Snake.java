@@ -70,9 +70,10 @@ public class Snake {
             return 1;
 
         // On vérifie que on serait pas sur un fruit
-        if(ListeFruits.isFruit(tab[positions[0].getXPos()][positions[0].getYPos()].getObject()))
-            if(grow())
-                return 2;
+        if(ListeFruits.isFruit(tab[positions[0].getXPos()][positions[0].getYPos()].getObject())) {
+            grow();
+            return 2;
+        }
 
         return 0;
     }
