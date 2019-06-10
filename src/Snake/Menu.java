@@ -97,8 +97,11 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for (Bouton bou : tabBouton) {
-			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top))
+			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top)) {
 				bou.setValeurImage(2);
+				bou.draw();
+			}
+
 		}
 	}
 

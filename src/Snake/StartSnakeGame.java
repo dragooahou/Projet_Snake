@@ -103,7 +103,7 @@ class Window extends JFrame {
     public void initMenus(){
 
         // Menu principal ////////////////
-            mj[0] = new Menu(2);
+            mj[0] = new Menu(4);
             mj[0].setWindow(this);
             mj[0].setPanel(panel);
             Menu menuPrincipal = (Menu) mj[0];
@@ -122,11 +122,39 @@ class Window extends JFrame {
                     }
             );
 
+            //Bouton skin
+            BufferedImage[] img5 = {panel.getSprite("Menu_text_Skin_Standby"), panel.getSprite("Menu_text_Skin_Selected"), panel.getSprite("Menu_text_Skin_Validated")};
+            menuPrincipal.setBouton(1 ,new Bouton(img5, mj[0]));
+            menuPrincipal.getBouton(1).setPosXY(250, 360);
+            menuPrincipal.getBouton(1).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            System.out.println("skin");
+                        }
+                    }
+            );
+
+            //Bouton credit
+            BufferedImage[] img6 = {panel.getSprite("Menu_text_Credit_Standby"), panel.getSprite("Menu_text_Credit_Selected"), panel.getSprite("Menu_text_Credit_Validated")};
+            menuPrincipal.setBouton(2 ,new Bouton(img6, mj[0]));
+            menuPrincipal.getBouton(2).setPosXY(250, 440);
+            menuPrincipal.getBouton(2).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            System.out.println("credits");
+                        }
+                    }
+            );
+
+
+
             // Bouton quitter
             BufferedImage[] img1 = {panel.getSprite("Menu_text_Quitter_Standby"), panel.getSprite("Menu_text_Quitter_Selected"), panel.getSprite("Menu_text_Quitter_Validated")};
-            menuPrincipal.setBouton(1 ,new Bouton(img1, mj[0]));
-            menuPrincipal.getBouton(1).setPosXY(250, 360);
-            menuPrincipal.getBouton(1).setActionListener((ActionBouton)() -> System.exit(0));
+            menuPrincipal.setBouton(3 ,new Bouton(img1, mj[0]));
+            menuPrincipal.getBouton(3).setPosXY(250, 520);
+            menuPrincipal.getBouton(3).setActionListener((ActionBouton)() -> System.exit(0));
         //////////////////////////////////////
 
         // Menu pause ////////////////////////
