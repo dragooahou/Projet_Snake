@@ -103,7 +103,7 @@ public class Terrain {
 
     // Instantie un serpent et le rend visible
     private void setSnake(){
-    	snake = new Snake(5, 1000, "snake_default");
+    	snake = new Snake(5, 1000, SaveManager.getSkin());
 
     	SnakePart[] p = snake.getPositions();
     	String skin = snake.getSkin();

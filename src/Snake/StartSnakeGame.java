@@ -8,6 +8,7 @@ package Snake;// IMPORTS
 public class StartSnakeGame {
     // Point d'entré du jeu
     public static void main(String[] args) {
+        SaveManager.init();
         // On créé une fenêtre et on execute la méthode game()
         new Window();
     }

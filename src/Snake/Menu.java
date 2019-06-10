@@ -83,7 +83,7 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 		this.bgTaille = bgTaille;
 	}
 
-	////// LES INTERFACES /////////////////////////////////////////////////:
+	////// LES INTERFACES /////////////////////////////////////////////////
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
