@@ -7,25 +7,26 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 
-public class SnakeClassic extends ModeDeJeu{
+public class SnakeClassic extends ModeDeJeu {
 
-    public SnakeClassic(){
+    public SnakeClassic() {
 
         stopped = false;
         paused = false;
         demarrage = true;
 
-    	// Grille sur laquelle va se déplacer le serpent
-	    terrain = new Terrain(0, 0, 25, 18, 32);
+        // Grille sur laquelle va se déplacer le serpent
+        terrain = new Terrain(0, 0, 25, 18, 32);
     }
 
-	public void run(){
+    public void run() {
         panel.drawTerrain(terrain.spawnFruit());
-        while(!stopped){
+        while (!stopped) {
 
-            if(paused || demarrage) {
-                try{ Thread.sleep(25);
-                }catch(InterruptedException e){
+            if (paused || demarrage) {
+                try {
+                    Thread.sleep(25);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 continue;
@@ -36,19 +37,20 @@ public class SnakeClassic extends ModeDeJeu{
 
                 panel.updateAnim();
 
-                try{ Thread.sleep(30);
-                }catch(InterruptedException e){
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             // On met à jour le terrain
             // Si le serpent est mort
-            switch(terrain.update()) {
+            switch (terrain.update()) {
                 case 0:
                     break;
                 case 1:
                     SoundManager.stop("musicAmbiance");
-                    oof();
+                    die();
                     window.changerMJ(3);
                     break;
                 case 2:
@@ -62,15 +64,15 @@ public class SnakeClassic extends ModeDeJeu{
         }
     }
 
-    public void draw(){
+    public void draw() {
         panel.dessiner("terrain");
 
         ActionListener repaint = new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                if(!paused && !demarrage)
+            public void actionPerformed(ActionEvent e) {
+                if (!paused && !demarrage)
                     panel.dessiner("snake");
 
-                if(stopped){
+                if (stopped) {
                     Timer timer = (Timer) e.getSource();
                     timer.stop();
                 }
@@ -83,13 +85,13 @@ public class SnakeClassic extends ModeDeJeu{
 
         // On lance la génération de fruits
         ActionListener animFruit = new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                if(!paused && !demarrage) {
+            public void actionPerformed(ActionEvent e) {
+                if (!paused && !demarrage) {
                     terrain.updateAnimFruit();
                     panel.dessiner("fruits");
                 }
 
-                if(stopped){
+                if (stopped) {
                     Timer timer = (Timer) e.getSource();
                     timer.stop();
                 }
@@ -113,16 +115,16 @@ public class SnakeClassic extends ModeDeJeu{
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
-        if(demarrage)
+        if (demarrage)
             demarrage = false;
 
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien
-        if(key.equals(lastKey))
+        if (key.equals(lastKey))
             return;
 
-        switch(key){
+        switch (key) {
             case "Haut":
                 terrain.setSnakeDirection('N');
                 break;
@@ -151,9 +153,10 @@ public class SnakeClassic extends ModeDeJeu{
         // Si on relache la touche on réinitialise lastKey
         lastKey = "";
     }
-    public void miam(){
+
+    public void miam() {
         SoundManager.stop("crocpomme");
-        SoundManager.create("crocpomme", "crocpomme",false);
+        SoundManager.create("crocpomme", "crocpomme", false);
         SoundManager.play("crocpomme");
     }
 
@@ -191,9 +194,26 @@ public class SnakeClassic extends ModeDeJeu{
     public void mouseMoved(MouseEvent e) {
 
     }
-    public void oof(){
+
+    public void die() {
+        int i = 1+ (int)(Math.random() * 3 );
         SoundManager.stop("oof");
-        SoundManager.create("oof", "oof",false);
-        SoundManager.play("oof");
+        SoundManager.stop("nope");
+        SoundManager.stop("poinn");
+        switch (i) {
+            case 1 :
+                SoundManager.create("oof", "oof", false);
+                SoundManager.play("oof");
+                break;
+            case 2 :
+                SoundManager.create("nope", "nope", false);
+                SoundManager.play("nope");
+                break;
+            case 3 :
+                SoundManager.create("poinn", "poinn", false);
+                SoundManager.play("poinn");
+                break;
+
+        }
     }
 }
