@@ -51,7 +51,9 @@ public class SnakeClassic extends ModeDeJeu{
                     break;
                 case 2:
                     panel.drawTerrain(terrain.spawnFruit());
-                    for (Point p : terrain.tryAddRock(2, 33)) panel.drawTerrain(p);
+                    for (Point p : terrain.tryAddRock(1, 50)) panel.drawTerrain(p);
+                    for (Point p : terrain.tryAddRock(1, 20)) panel.drawTerrain(p);
+                    for (Point p : terrain.tryAddRock(1, 12)) panel.drawTerrain(p);
                     break;
             }
         }

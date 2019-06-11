@@ -250,7 +250,7 @@ public class Terrain {
 			do {
 				x = r.nextInt(width);
 				y = r.nextInt(height);
-			} while (snake.isOnSnake(x, y));
+			} while (snake.isOnSnake(x, y) || x == snake.getPositions()[0].getXPos() ||  y == snake.getPositions()[0].getYPos());
 			tab[i] = new Point(x,y);
 		}
 		for (Point p: tab) setCaseObject("Sprite_Rock", p.x, p.y);
