@@ -29,7 +29,7 @@ class Window extends JFrame {
 
     // Constructeur
     public Window(){
-        this.setTitle("Snake.Snake Game");
+        this.setTitle("Snake : Chase of Kebab");
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

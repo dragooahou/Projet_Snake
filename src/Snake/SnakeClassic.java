@@ -56,6 +56,7 @@ public class SnakeClassic extends ModeDeJeu {
                     break;
                 case 1:
                     SoundManager.stop("musicAmbiance");
+                    if(SaveManager.getHiscore() < hud.getScore()) SaveManager.setHiscore(hud.getScore());
                     die();
                     window.changerMJ(3);
                     break;
