@@ -316,15 +316,22 @@ public class Panel extends JPanel {
             jar.close();
         }
         else { // Run in IDE
-
-            try (
-                InputStream in = getResourceAsStream(path);
-                BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            try (InputStream in = getResourceAsStream(path); BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
                 String resource;
 
                 while ((resource = br.readLine()) != null) {
                     if (resource.endsWith(".png"))
                         filenames.add(path + resource);
+                }
+            }catch(NullPointerException e){
+                // Run standalone
+                try (InputStream in = getResourceAsStream("resources" + path); BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+                    String resource;
+
+                    while ((resource = br.readLine()) != null) {
+                        if (resource.endsWith(".png"))
+                            filenames.add(path + resource);
+                    }
                 }
             }
         }
