@@ -34,8 +34,8 @@ public class Snake {
 
         // On set les positions de départ
         for (int i = 0; i < length; i++) {
-            positions[i] = new SnakePart(15, 13+i, 'N');
-            prevPositions[i] = new SnakePart(15, 13+i, 'N');
+            positions[i] = new SnakePart(15, 12+i, 'N');
+            prevPositions[i] = new SnakePart(15, 12+i, 'N');
         }
 
     }

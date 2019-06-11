@@ -20,6 +20,7 @@ public class SaveManager {
             } catch (IOException e) { e.printStackTrace(); }
             setSkin("snake_default");
             unmute();
+            setHiscore(0);
         }
 
         try{
@@ -30,7 +31,7 @@ public class SaveManager {
         }
     }
 
-
+    //////// SKIN ////////////////////////////////////
     public static String getSkin() {
         try{
             p.load(new FileInputStream(FILE_NAME));
@@ -49,7 +50,7 @@ public class SaveManager {
         }catch (Exception e){ e.printStackTrace(); }
     }
 
-    // Sons
+    ///////// SONS ////////////////////////////////////
     public static String isMuted() {
         try{
             p.load(new FileInputStream(FILE_NAME));
@@ -71,6 +72,26 @@ public class SaveManager {
     public static void mute() {
         try (OutputStream output = new FileOutputStream(FILE_NAME)) {
             p.setProperty("sound", "off");
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    ///////// HISCORE ////////////////////////////////////
+    public static int getHiscore() {
+        try{
+            p.load(new FileInputStream(FILE_NAME));
+            return Integer.parseInt(p.getProperty("hiscore"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void setHiscore(int i) {
+        String s = i + "";
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("hiscore", s);
             p.store(output, null);
         }catch (Exception e){ e.printStackTrace(); }
     }

@@ -14,13 +14,19 @@ public class SnakeClassic extends ModeDeJeu {
         stopped = false;
         paused = false;
         demarrage = true;
+        hud = new Interface();
 
         // Grille sur laquelle va se déplacer le serpent
-        terrain = new Terrain(0, 0, 25, 18, 32);
+        terrain = new Terrain(0, 32, 25, 17, 32);
     }
 
     public void run() {
+        hud.setBackgound(panel.getSprite("interface"));
+        hud.setMj(this);
+        hud.draw();
+
         panel.drawTerrain(terrain.spawnFruit());
+
         while (!stopped) {
 
             if (paused || demarrage) {
@@ -59,6 +65,7 @@ public class SnakeClassic extends ModeDeJeu {
                     for (Point p : terrain.tryAddRock(1, 50)) panel.drawTerrain(p);
                     for (Point p : terrain.tryAddRock(1, 20)) panel.drawTerrain(p);
                     for (Point p : terrain.tryAddRock(1, 12)) panel.drawTerrain(p);
+                    hud.addScore(100);
                     break;
             }
         }

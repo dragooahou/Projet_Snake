@@ -9,6 +9,7 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 	protected Panel panel;
 	protected Window window;
 	protected Terrain terrain;
+	protected Interface hud;
 
 	protected boolean stopped;
 	protected boolean paused;
