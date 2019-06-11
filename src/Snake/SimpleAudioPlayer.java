@@ -1,10 +1,15 @@
 package Snake;// Java program to play an Audio
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.jar.JarFile;
 
 public class SimpleAudioPlayer
 {
@@ -21,15 +26,9 @@ public class SimpleAudioPlayer
     static String filePath;
 
     // constructor to initialize streams and clip
-    public SimpleAudioPlayer(String filePath, boolean boolier)
-            throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException
-    {
-        /*sons.put("Manger",loadClip( ""+System.class.getResource("/sound/crocpomme.wav").getPath() ,false));
-        sons.put("musicAmbiance",loadClip(""+ System.class.getResource("/sound/ambiance.wav").getPath(),true ));
-        sons.put("Musique2",loadClip(""+ System.class.getResource("/sound/wii.wav").getPath(),true ));
-        sons.put("Button",loadClip(""+ System.class.getResource("/sound/buttoninstant.wav").getPath(),false ));*/
-        sons.put("Son",loadClip( ""+System.class.getResource("/sound/"+filePath+".wav").getPath() ,boolier));
+    public SimpleAudioPlayer(String filePath, boolean boolier) {
+
+            sons.put("Son", loadClip("" + System.class.getResource("/sound/" + filePath + ".wav").getPath(), boolier));
 
 
     }
@@ -122,15 +121,31 @@ public class SimpleAudioPlayer
 
     public Clip loadClip(String filename,boolean continuous)
     {
-        try
-        {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename).getAbsoluteFile());
-            clip = AudioSystem.getClip();
-            clip.open(audioIn);
+
+        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+        if(jarFile.isFile()) {  // Run with JAR file
+            filename = filename.substring(filename.lastIndexOf("!") + 1);
+            System.out.println(filename);
+            try (InputStream in = getClass().getResourceAsStream(filename)) {
+                InputStream bufferedIn = new BufferedInputStream(in);
+                try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(bufferedIn)) {
+                    clip = AudioSystem.getClip();
+                    clip.open(audioIn);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
+        else{
+            try {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename).getAbsoluteFile());
+                clip = AudioSystem.getClip();
+                clip.open(audioIn);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
         if (continuous){clip.loop(Clip.LOOP_CONTINUOUSLY);}
         return clip;
