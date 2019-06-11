@@ -1,5 +1,6 @@
 package Snake;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -50,6 +51,7 @@ public class SnakeClassic extends ModeDeJeu{
                     break;
                 case 2:
                     panel.drawTerrain(terrain.spawnFruit());
+                    for (Point p : terrain.tryAddRock(2, 33)) panel.drawTerrain(p);
                     break;
             }
         }

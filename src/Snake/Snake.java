@@ -64,7 +64,7 @@ public class Snake {
         // On fait avancer le serpent
         move();
 
-        // On vérifie que sa tête ne soit pas hors du terrain ou qu'il ne se morde pas la queue
+        // On vérifie que sa tête ne soit pas hors du terrain ou qu'il ne se morde pas la queue ou qu'il ne soit pas sur un rocher
         if(positions[0].getXPos() < 0 || positions[0].getXPos() > tab.length || positions[0].getYPos() < 0 || positions[0].getYPos() > tab[0].length ||
                 isOnSnake(positions[0].getXPos(), positions[0].getYPos()))
             return 1;

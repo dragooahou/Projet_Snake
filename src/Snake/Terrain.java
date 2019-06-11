@@ -23,6 +23,9 @@ public class Terrain {
 	private int posX;
 	private int posY;
 
+	// Conteur pour ajouter des rochers
+	private int rockCounter = 0;
+
 	// Constructeur
 	// x et y : position du terrain dans la fenetre
 	// width et height : taille du terrain et tuiles
@@ -142,6 +145,7 @@ public class Terrain {
     	// On met a jour le serpent
     	switch(snake.update(squareTab)){
     		case 0:
+				if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
     			break;
     		case 1:
     			return 1;
@@ -210,6 +214,8 @@ public class Terrain {
 		return new Point(x,y);
 	}
 
+
+
 	// Met a jour l'animation de fruit
 	public void updateAnimFruit(){
 		for (int i = 0; i < squareTab.length; i++) {
@@ -226,6 +232,29 @@ public class Terrain {
 
 			}
 		}
+	}
+
+	// Essaye d'ajouter un rocher
+	// nb : le nombre
+	// chance : la probabilité d'en faire apparaitre un en pourcent
+	public Point[] tryAddRock(int nb, int chance){
+		Random r = new Random();
+		int prob = r.nextInt(100);
+		if(prob > chance)
+			return new Point[]{new Point(0,0)};
+
+		int x;
+		int y;
+		Point[] tab = new Point[nb];
+		for (int i = 0; i < nb; i++) {
+			do {
+				x = r.nextInt(width);
+				y = r.nextInt(height);
+			} while (snake.isOnSnake(x, y));
+			tab[i] = new Point(x,y);
+		}
+		for (Point p: tab) setCaseObject("Sprite_Rock", p.x, p.y);
+		return tab;
 	}
 
 }
