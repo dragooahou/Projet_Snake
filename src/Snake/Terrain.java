@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class Terrain {
 
@@ -132,7 +133,7 @@ public class Terrain {
 		SnakePart[] p = snake.getPositions();
 		int x = p[0].getXPos();
 		int y = p[0].getYPos();
-		if(x < 0 || y < 0 || x >= width-1 || y >= height-1)
+		if(x < 0 || y < 0 || x > width || y > height)
 			return 1;
 
 		boolean isFruit = false;
@@ -142,18 +143,22 @@ public class Terrain {
     	for(int i = 0; i < p.length; i++)
     		squareTab[p[i].getXPos()][p[i].getYPos()].setObject("");
 
-    	// On met a jour le serpent
-    	switch(snake.update(squareTab)){
-    		case 0:
-				if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
-    			break;
-    		case 1:
-    			return 1;
-    		case 2:
-    			isFruit = true;
-    			break;
-    		default:
-    	}
+    	try{
+			// On met a jour le serpent
+			switch(snake.update(squareTab)){
+				case 0:
+					if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
+					break;
+				case 1:
+					return 1;
+				case 2:
+					isFruit = true;
+					break;
+				default:
+			}
+    	}catch(Exception e){
+    		if(e instanceof ArrayIndexOutOfBoundsException) return 1;
+		}
 
     	// On remet le serpent sur le terrain
     	p = snake.getPositions();
