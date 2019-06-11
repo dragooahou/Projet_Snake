@@ -125,7 +125,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
-                            SoundManager.create("wii", "wii",true);
+                            SoundManager.create("hardC", "hardC",true);
                             pop();
                             changerMJ(5);
                         }
@@ -313,7 +313,7 @@ class Window extends JFrame {
                 new ActionBouton(){
                     @Override
                     public void execute() {
-                        SoundManager.stop("wii");
+                        SoundManager.stop("hardC");
                         pop();
                         changerMJ(0);
                     }
