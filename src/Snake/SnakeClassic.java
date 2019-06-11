@@ -47,6 +47,8 @@ public class SnakeClassic extends ModeDeJeu{
                 case 0:
                     break;
                 case 1:
+                    SoundManager.stop("musicAmbiance");
+
                     window.changerMJ(3);
                     break;
                 case 2:
