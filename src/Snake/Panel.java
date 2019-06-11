@@ -198,8 +198,17 @@ public class Panel extends JPanel {
     // Methode qui raccourci le chargement des sprites
     // et qui le fait en toute sécurité
     public BufferedImage loadImage(String file){
+        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+        if(jarFile.isFile()) {  // Run with JAR file
+            try {
+                final JarFile jar = new JarFile(jarFile);
+                return ImageIO.read(jar.getInputStream(jar.getEntry(file)));
+            }catch(Exception e){ e.printStackTrace(); }
+        }
+
         try{
-            return ImageIO.read(System.class.getResourceAsStream(file));
+            return ImageIO.read(new FileInputStream("resources" + file));
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -302,7 +311,7 @@ public class Panel extends JPanel {
             while(entries.hasMoreElements()) {
                 final String name = entries.nextElement().getName();
                 if(("/" + name).startsWith(path) && name.endsWith(".png")) { //filter according to the path
-                    filenames.add("/" + name);                }
+                    filenames.add(name);                }
             }
             jar.close();
         }

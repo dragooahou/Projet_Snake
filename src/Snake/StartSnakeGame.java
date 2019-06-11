@@ -2,8 +2,10 @@ package Snake;// IMPORTS
     import java.awt.*;
     import java.awt.event.*;
     import java.awt.image.BufferedImage;
+    import java.io.FileInputStream;
     import java.util.Map;
 
+    import javax.imageio.ImageIO;
     import javax.swing.JFrame;
 
 public class StartSnakeGame {
