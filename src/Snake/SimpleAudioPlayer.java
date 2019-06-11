@@ -28,7 +28,7 @@ public class SimpleAudioPlayer
     // constructor to initialize streams and clip
     public SimpleAudioPlayer(String filePath, boolean boolier) {
 
-            sons.put("Son", loadClip("" + System.class.getResource("/sound/" + filePath + ".wav").getPath(), boolier));
+            sons.put("Son", loadClip("sound/" + filePath + ".wav", boolier));
 
 
     }
@@ -124,9 +124,15 @@ public class SimpleAudioPlayer
 
         final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
         if(jarFile.isFile()) {  // Run with JAR file
-            filename = filename.substring(filename.lastIndexOf("!") + 1);
+            JarFile jar = null;
             System.out.println(filename);
-            try (InputStream in = getClass().getResourceAsStream(filename)) {
+            try {
+                jar = new JarFile(jarFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert jar != null;
+            try (InputStream in = jar.getInputStream(jar.getEntry(filename))) {
                 InputStream bufferedIn = new BufferedInputStream(in);
                 try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(bufferedIn)) {
                     clip = AudioSystem.getClip();
@@ -138,7 +144,7 @@ public class SimpleAudioPlayer
         }
         else{
             try {
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename).getAbsoluteFile());
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("resources/" + filename));
                 clip = AudioSystem.getClip();
                 clip.open(audioIn);
             }
