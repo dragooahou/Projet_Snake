@@ -214,7 +214,7 @@ public class Terrain {
 		do {
 			x = r.nextInt(width);
 			y = r.nextInt(height);
-		}while(snake.isOnSnake(x, y));
+		}while(snake.isOnSnake(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
 		setCaseObject(ListeFruits.randomFruit(), x, y);
 		return new Point(x,y);
 	}
