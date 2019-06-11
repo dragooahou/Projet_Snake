@@ -48,7 +48,7 @@ public class SnakeClassic extends ModeDeJeu{
                     break;
                 case 1:
                     SoundManager.stop("musicAmbiance");
-
+                    oof();
                     window.changerMJ(3);
                     break;
                 case 2:
@@ -190,5 +190,10 @@ public class SnakeClassic extends ModeDeJeu{
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+    public void oof(){
+        SoundManager.stop("oof");
+        SoundManager.create("oof", "oof",false);
+        SoundManager.play("oof");
     }
 }
