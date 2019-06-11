@@ -349,8 +349,9 @@ class Window extends JFrame {
         menuSkin.setBackgroundImage(panel.getSprite("fondAcceuil"));
 
 
-        // Bouton menu
-        menuSkin.setBouton(0,new Bouton(img3, mj[5]));
+        // Bouton retour menu
+        BufferedImage[] img10 = {panel.getSprite("Menu_text_RetourMenu_Standby"), panel.getSprite("Menu_text_RetourMenu_Selected"), panel.getSprite("\"Menu_text_RetourMenu_Validated")};
+        menuSkin.setBouton(0,new Bouton(img10, mj[5]));
         menuSkin.getBouton(0).setPosXY(250, 490);
         menuSkin.getBouton(0).setActionListener(
                 new ActionBouton(){
