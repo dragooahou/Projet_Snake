@@ -128,17 +128,25 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		Graphics g2d = panel.getGraph();
-		g2d.drawImage(backgroundImage, bgCoords.x, bgCoords.y, bgTaille.x, bgTaille.y, panel);
+		boolean dessiner = false;
 
 		for (Bouton bou : tabBouton) {
-			bou.draw();
-			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top)) {
+			if(bou.isIn(e.getX(), e.getY() - window.getInsets().top) && (bou.getValeurImage() == 0 || bou.getValeurImage() == 2)) {
 				bou.setValeurImage(1);
+				dessiner = true;
 			}
-			else {
+			else if(!(bou.isIn(e.getX(), e.getY() - window.getInsets().top)) && (bou.getValeurImage() == 1 || bou.getValeurImage() == 2)){
 				bou.setValeurImage(0);
+				dessiner = true;
 			}
+		}
+
+		if(!dessiner) return;
+
+		Graphics g2d = panel.getGraph();
+		g2d.drawImage(backgroundImage, bgCoords.x, bgCoords.y, bgTaille.x, bgTaille.y, panel);
+		for (Bouton bou : tabBouton) {
+			bou.draw();
 		}
 	}
 
