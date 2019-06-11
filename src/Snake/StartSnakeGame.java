@@ -150,7 +150,7 @@ class Window extends JFrame {
             menuPrincipal.setBouton(4 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                           panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                           panel.getSprite("Menu_Sound_" + SaveManager.isMuted())}, mj[0]));
-            menuPrincipal.getBouton(4).setPosXY(20,20);
+            menuPrincipal.getBouton(4).setPosXY(720,500);
             menuPrincipal.getBouton(4).setTaille(60, 60);
             menuPrincipal.getBouton(4).setActionListener(
                     new ActionBouton(){
@@ -174,6 +174,7 @@ class Window extends JFrame {
             menuPrincipal.setBouton(3 ,new Bouton(img1, mj[0]));
             menuPrincipal.getBouton(3).setPosXY(250, 490);
             menuPrincipal.getBouton(3).setActionListener((ActionBouton)() -> System.exit(0));
+
         //////////////////////////////////////
 
         // Menu pause ////////////////////////
@@ -269,6 +270,8 @@ class Window extends JFrame {
                         }
                     }
             );
+
+
         //////////////////////////////////////
 
         // Menu credit ///////////////////////
@@ -288,6 +291,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            pop();
                             changerMJ(0);
                         }
                     }

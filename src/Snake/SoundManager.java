@@ -12,16 +12,20 @@ public class SoundManager {
     private static HashMap<String, SimpleAudioPlayer> players = new HashMap<>();
 
     public static void create(String name, String clipName, boolean bool){
-        try{
-            if(players.get(name) == null)
-                players.put(name, new SimpleAudioPlayer(clipName,bool));
-        }catch (Exception e){
-            e.printStackTrace();
+        if(SaveManager.isMuted().equals("on")) {
+            try {
+                if (players.get(name) == null)
+                    players.put(name, new SimpleAudioPlayer(clipName, bool));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void play(String name){
-        players.get(name).play();
+        if(SaveManager.isMuted().equals("on")) {
+            players.get(name).play();
+        }
     }
 
     public static void stop(String name){
