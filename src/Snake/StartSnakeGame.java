@@ -110,6 +110,8 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            pop();
+                            SoundManager.create("musicAmbiance", "ambiance",true);
                             changerMJ(1);
                         }
                     }
@@ -123,6 +125,8 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.create("wii", "wii",true);
+                            pop();
                             changerMJ(5);
                         }
                     }
@@ -136,6 +140,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            pop();
                             changerMJ(4);
                         }
                     }
@@ -167,6 +172,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            pop();
                             resume();
                         }
                     }
@@ -180,6 +186,9 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.stop("musicAmbiance");
+                            pop();
+                            SoundManager.create("musicAmbiance", "ambiance",true);
                             changerMJ(1);
                         }
                     }
@@ -193,6 +202,8 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.stop("musicAmbiance");
+                            pop();
                             changerMJ(0);
                         }
                     }
@@ -216,6 +227,9 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.stop("musicAmbiance");
+                            pop();
+                            SoundManager.create("musicAmbiance", "ambiance",true);
                             changerMJ(1);
                         }
                     }
@@ -228,6 +242,8 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.stop("musicAmbiance");
+                            pop();
                             changerMJ(0);
                         }
                     }
@@ -272,6 +288,8 @@ class Window extends JFrame {
                 new ActionBouton(){
                     @Override
                     public void execute() {
+                        SoundManager.stop("wii");
+                        pop();
                         changerMJ(0);
                     }
                 }
@@ -365,7 +383,11 @@ class Window extends JFrame {
     public void setModeDeJeuCourant(int modeDeJeuCourant) {
         this.modeDeJeuCourant = modeDeJeuCourant;
     }
-
+    public void pop(){
+        SoundManager.stop("pop");
+        SoundManager.create("pop", "buttoninstant",false);
+        SoundManager.play("pop");
+    }
 }
 
 interface ActionBouton {
