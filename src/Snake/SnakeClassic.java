@@ -50,6 +50,7 @@ public class SnakeClassic extends ModeDeJeu{
                     window.changerMJ(3);
                     break;
                 case 2:
+                    miam();
                     panel.drawTerrain(terrain.spawnFruit());
                     for (Point p : terrain.tryAddRock(1, 50)) panel.drawTerrain(p);
                     for (Point p : terrain.tryAddRock(1, 20)) panel.drawTerrain(p);
@@ -147,6 +148,11 @@ public class SnakeClassic extends ModeDeJeu{
 
         // Si on relache la touche on réinitialise lastKey
         lastKey = "";
+    }
+    public void miam(){
+        SoundManager.stop("crocpomme");
+        SoundManager.create("crocpomme", "crocpomme",false);
+        SoundManager.play("crocpomme");
     }
 
     @Override
