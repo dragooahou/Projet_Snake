@@ -19,6 +19,7 @@ public class SaveManager {
                 writer.close();
             } catch (IOException e) { e.printStackTrace(); }
             setSkin("snake_default");
+            unmute();
         }
 
         try{
@@ -44,6 +45,32 @@ public class SaveManager {
     public static void setSkin(String s) {
         try (OutputStream output = new FileOutputStream(FILE_NAME)) {
             p.setProperty("skin", s);
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    // Sons
+    public static String isMuted() {
+        try{
+            p.load(new FileInputStream(FILE_NAME));
+            return p.getProperty("sound");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return "on";
+        }
+    }
+
+    public static void unmute() {
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("sound", "on");
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    public static void mute() {
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("sound", "off");
             p.store(output, null);
         }catch (Exception e){ e.printStackTrace(); }
     }

@@ -96,7 +96,7 @@ class Window extends JFrame {
     public void initMenus(){
 
         // Menu principal ////////////////
-            mj[0] = new Menu(4);
+            mj[0] = new Menu(5);
             mj[0].setWindow(this);
             mj[0].setPanel(panel);
             Menu menuPrincipal = (Menu) mj[0];
@@ -142,6 +142,27 @@ class Window extends JFrame {
                         public void execute() {
                             pop();
                             changerMJ(4);
+                        }
+                    }
+            );
+
+            //Bouton mute
+            menuPrincipal.setBouton(4 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                                                          panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                                                          panel.getSprite("Menu_Sound_" + SaveManager.isMuted())}, mj[0]));
+            menuPrincipal.getBouton(4).setPosXY(20,20);
+            menuPrincipal.getBouton(4).setTaille(60, 60);
+            menuPrincipal.getBouton(4).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            pop();
+                            if(SaveManager.isMuted().equals("on")) SaveManager.mute();
+                            else SaveManager.unmute();
+                            menuPrincipal.getBouton(4).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                                                                            panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                                                                            panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
+                            menuPrincipal.getBouton(4).draw();
                         }
                     }
             );
