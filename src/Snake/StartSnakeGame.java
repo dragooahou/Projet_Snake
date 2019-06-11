@@ -178,7 +178,7 @@ class Window extends JFrame {
         //////////////////////////////////////
 
         // Menu pause ////////////////////////
-            mj[2] = new Menu(3);
+            mj[2] = new Menu(4);
             mj[2].setWindow(this);
             mj[2].setPanel(panel);
             Menu menuPause = (Menu) mj[2];
@@ -195,6 +195,7 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
+                            SoundManager.create("musicAmbiance","ambiance",true);
                             resume();
                         }
                     }
@@ -230,10 +231,31 @@ class Window extends JFrame {
                         }
                     }
             );
+
+            //Bouton mute
+            menuPause.setBouton(3 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted())}, mj[2]));
+            menuPause.getBouton(3).setPosXY(490,450);
+            menuPause.getBouton(3).setTaille(60, 60);
+            menuPause.getBouton(3).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            pop();
+                            if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");}
+                            else SaveManager.unmute();
+                            menuPause.getBouton(3).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
+                            menuPause.getBouton(3).draw();
+                        }
+                    }
+            );
         //////////////////////////////////////
 
         // Menu perdu ////////////////////////
-            mj[3] = new Menu(2);
+            mj[3] = new Menu(3);
             mj[3].setWindow(this);
             mj[3].setPanel(panel);
             Menu menuPerdu = (Menu) mj[3];
@@ -267,6 +289,27 @@ class Window extends JFrame {
                             SoundManager.stop("musicAmbiance");
                             pop();
                             changerMJ(0);
+                        }
+                    }
+            );
+
+            //Bouton mute
+            menuPerdu.setBouton(2 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted())}, mj[3]));
+            menuPerdu.getBouton(2).setPosXY(490,450);
+            menuPerdu.getBouton(2).setTaille(60, 60);
+            menuPerdu.getBouton(2).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            pop();
+                            if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");}
+                            else SaveManager.unmute();
+                            menuPerdu.getBouton(2).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                                    panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
+                            menuPerdu.getBouton(2).draw();
                         }
                     }
             );

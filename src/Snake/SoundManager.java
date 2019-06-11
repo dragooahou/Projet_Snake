@@ -59,7 +59,7 @@ public class SoundManager {
 
     public static void mute(){
     	for (Map.Entry<String, SimpleAudioPlayer> sound : players.entrySet()) {
-          pause(sound.getKey());
+          stop(sound.getKey());
         }
 
     }
