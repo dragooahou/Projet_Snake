@@ -125,7 +125,6 @@ public class SimpleAudioPlayer
         final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
         if(jarFile.isFile()) {  // Run with JAR file
             JarFile jar = null;
-            System.out.println(filename);
             try {
                 jar = new JarFile(jarFile);
             } catch (IOException e) {
