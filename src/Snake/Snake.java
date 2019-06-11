@@ -19,6 +19,8 @@ public class Snake {
     // L'apparence du serpent
     private String skin;
 
+    private boolean peuxTourner = true;
+
     // Constructeur
     // l = longueur
     // mLenght = maxlongeur
@@ -80,6 +82,7 @@ public class Snake {
 
     // Deplacer le serpent
     private void move(){
+        peuxTourner = true;
 
         // On enlève le coude de la tête
         positions[0].setElbow(false);
@@ -149,6 +152,7 @@ public class Snake {
 
     public void setHeadDirection(char dir){
         char partDir = positions[0].getDirection();
+        if(!peuxTourner) return;
 
         // Si on veut aller tout droit ou à l'opposé un ne fait rien
         if(partDir == dir ||
@@ -158,6 +162,7 @@ public class Snake {
                 ( dir == 'W' && partDir == 'E' ))
             return;
 
+        peuxTourner = false;
         // On set la direction
         positions[0].setDirection(dir);
         // On set le coude
