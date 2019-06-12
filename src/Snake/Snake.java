@@ -25,7 +25,7 @@ public class Snake {
     // l = longueur
     // mLenght = maxlongeur
     // sk = skin
-    public Snake(int l, int mLength, String sk){
+    public Snake(int l, int mLength, String sk, int xpos, int ypos){
         positions = new SnakePart[mLength];
         prevPositions = new SnakePart[mLength];
         length = l;
@@ -34,8 +34,8 @@ public class Snake {
 
         // On set les positions de départ
         for (int i = 0; i < length; i++) {
-            positions[i] = new SnakePart(15, 12+i, 'N');
-            prevPositions[i] = new SnakePart(15, 12+i, 'N');
+            positions[i] = new SnakePart(xpos, ypos+i, 'N');
+            prevPositions[i] = new SnakePart(xpos, ypos+i, 'N');
         }
 
     }

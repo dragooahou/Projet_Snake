@@ -17,9 +17,9 @@ public class Interface {
 
     public void draw(){
         Graphics2D g2d = mj.panel.getGraph();
-        g2d.drawImage(backgound, backGoundPosition.x, backGoundPosition.y, 1600, 32, mj.panel);
-        writeScore(g2d, score, 400, 0);
-        writeScore(g2d, hiscore, 200, 0);
+        g2d.drawImage(backgound, backGoundPosition.x, backGoundPosition.y, mj.panel);
+        writeScore(g2d, score, 450, 0);
+        writeScore(g2d, hiscore, 180, 0);
     }
 
     private void writeScore(Graphics2D g2d ,int n, int x, int y){

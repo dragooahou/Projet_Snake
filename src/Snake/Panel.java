@@ -183,15 +183,15 @@ public class Panel extends JPanel {
         int posX = terrain.getXposition();
         int posY = terrain.getYposition();
 
-
-        // On dessine le serpent : on parcour le serpent et on redessine le terrain et le serpent
-        SnakePart[] partPositions = terrain.getSnake().getPositions();
-
-        for (SnakePart part : partPositions) {
-            int x = part.getXPos();
-            int y = part.getYPos();
-            g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
-            g2d.drawImage(sprites.get(terrain.objectOnCase(part.getXPos(),part.getYPos()) + frameNo), part.getXPos()*squareSize + posX, part.getYPos()*squareSize + posY, squareSize, squareSize, this);
+        for (Snake snake: terrain.getSnakes()) {
+            // On dessine le serpent : on parcour le serpent et on redessine le terrain et le serpent
+            SnakePart[] partPositions = snake.getPositions();
+            for (SnakePart part : partPositions) {
+                int x = part.getXPos();
+                int y = part.getYPos();
+                g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
+                g2d.drawImage(sprites.get(terrain.objectOnCase(part.getXPos(),part.getYPos()) + frameNo), part.getXPos()*squareSize + posX, part.getYPos()*squareSize + posY, squareSize, squareSize, this);
+            }
         }
     }
 

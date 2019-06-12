@@ -1,9 +1,12 @@
 package Snake;
 
+import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
@@ -15,7 +18,7 @@ public class Terrain {
 	private int height;
 
 	// Le serpent qui va se depacer sur le terrain
-	private Snake snake;
+	private ArrayList<Snake> snakes = new ArrayList<>();
 
 	// Taille des cases en pixels
 	private int squareSize;
@@ -49,9 +52,6 @@ public class Terrain {
 		posY = y;
 
 		generateBackground();
-
-		setSnake();
-
 	}
 
 	// Retourne l'objet dans la case aux coordonnées spécifiées
@@ -106,11 +106,11 @@ public class Terrain {
     }
 
     // Instantie un serpent et le rend visible
-    private void setSnake(){
-    	snake = new Snake(5, 1000, SaveManager.getSkin());
+    public void setSnake(int n, int xpos, int ypos){
+    	snakes.add(n, new Snake(5, 1000, SaveManager.getSkin(), xpos, ypos));
 
-    	SnakePart[] p = snake.getPositions();
-    	String skin = snake.getSkin();
+    	SnakePart[] p = snakes.get(n).getPositions();
+    	String skin = snakes.get(n).getSkin();
 
     	squareTab[p[0].getXPos()][p[0].getYPos()].setObject(skin + "_tete" + p[0].getDirection()  + "4");
     	squareTab[p[1].getXPos()][p[1].getYPos()].setObject(skin + "_cou"  + p[0].getDirection() + "4");
@@ -121,16 +121,17 @@ public class Terrain {
     	squareTab[p[p.length-1].getXPos()][p[p.length-1].getYPos()].setObject(skin + "_queue" + p[0].getDirection()+ "4");
     }
 
+
     // Met à jour le terrain
-    public int update(){
+    public int update(int n){
     	// Sécurité
-    	if(snake == null){
+    	if(snakes.get(n) == null){
     		System.out.println("pas de serpent");
     		return 1;
     	}
 
 		//Sécurité
-		SnakePart[] p = snake.getPositions();
+		SnakePart[] p = snakes.get(n).getPositions();
 		int x = p[0].getXPos();
 		int y = p[0].getYPos();
 		if(x < 0 || y < 0 || x > width || y > height)
@@ -145,7 +146,7 @@ public class Terrain {
 
     	try{
 			// On met a jour le serpent
-			switch(snake.update(squareTab)){
+			switch(snakes.get(n).update(squareTab)){
 				case 0:
 					if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
 					break;
@@ -161,8 +162,8 @@ public class Terrain {
 		}
 
     	// On remet le serpent sur le terrain
-    	p = snake.getPositions();
-    	String skin = snake.getSkin();
+    	p = snakes.get(n).getPositions();
+    	String skin = snakes.get(n).getSkin();
 
     	squareTab[p[0].getXPos()][p[0].getYPos()].setObject(skin + "_tete" + p[0].getDirection());
     	squareTab[p[1].getXPos()][p[1].getYPos()].setObject(skin + "_cou"  + p[1].getDirection());
@@ -182,6 +183,7 @@ public class Terrain {
     	return 0;
     }
 
+
     public Square[][] getSquareTab(){
     	return squareTab;
     }
@@ -198,12 +200,12 @@ public class Terrain {
 		return posY;
 	}
 
-	public void setSnakeDirection(char dir){
-        snake.setHeadDirection(dir);
+	public void setSnakeDirection(int n, char dir){
+        snakes.get(n).setHeadDirection(dir);
     }
 
-    public Snake getSnake(){
-		return snake;
+    public Snake getSnake(int n){
+		return snakes.get(n);
 	}
 
 	// Fait spawn un fruit sur le terrain à un emplacement aléatoire
@@ -214,7 +216,7 @@ public class Terrain {
 		do {
 			x = r.nextInt(width);
 			y = r.nextInt(height);
-		}while(snake.isOnSnake(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
+		}while(snakes.get(0).isOnSnake(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
 		setCaseObject(ListeFruits.randomFruit(), x, y);
 		return new Point(x,y);
 	}
@@ -255,13 +257,16 @@ public class Terrain {
 			do {
 				x = r.nextInt(width);
 				y = r.nextInt(height);
-			} while (snake.isOnSnake(x, y) || x == snake.getPositions()[0].getXPos() ||  y == snake.getPositions()[0].getYPos());
+			} while (snakes.get(0).isOnSnake(x, y) || x == snakes.get(0).getPositions()[0].getXPos() ||  y == snakes.get(0).getPositions()[0].getYPos());
 			tab[i] = new Point(x,y);
 		}
 		for (Point p: tab) setCaseObject("Sprite_Rock", p.x, p.y);
 		return tab;
 	}
 
+	public ArrayList<Snake> getSnakes() {
+		return snakes;
+	}
 }
 
 
@@ -289,5 +294,7 @@ class Square {
 	public String getBackground(){
 		return background;
 	}
+
+
 
 }

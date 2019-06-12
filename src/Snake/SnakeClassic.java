@@ -18,6 +18,7 @@ public class SnakeClassic extends ModeDeJeu {
 
         // Grille sur laquelle va se déplacer le serpent
         terrain = new Terrain(0, 32, 25, 17, 32);
+        terrain.setSnake(0,15,12);
     }
 
     public void run() {
@@ -51,7 +52,7 @@ public class SnakeClassic extends ModeDeJeu {
             }
             // On met à jour le terrain
             // Si le serpent est mort
-            switch (terrain.update()) {
+            switch (terrain.update(0)) {
                 case 0:
                     break;
                 case 1:
@@ -134,16 +135,16 @@ public class SnakeClassic extends ModeDeJeu {
 
         switch (key) {
             case "Haut":
-                terrain.setSnakeDirection('N');
+                terrain.setSnakeDirection(0,'N');
                 break;
             case "Bas":
-                terrain.setSnakeDirection('S');
+                terrain.setSnakeDirection(0,'S');
                 break;
             case "Droite":
-                terrain.setSnakeDirection('E');
+                terrain.setSnakeDirection(0,'E');
                 break;
             case "Gauche":
-                terrain.setSnakeDirection('W');
+                terrain.setSnakeDirection(0,'W');
                 break;
             case "Echap":
                 window.pause();
