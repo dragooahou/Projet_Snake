@@ -22,7 +22,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[8];
+    private ModeDeJeu[] mj = new ModeDeJeu[9];
 
     private Panel panel = new Panel();
 
@@ -179,13 +179,14 @@ class Window extends JFrame {
             menuPrincipal.setBouton(5 ,new Bouton(new BufferedImage[]{panel.getSprite("Sprite_Success_icon"),
                                                                         panel.getSprite("Sprite_Success_icon"),
                     panel.getSprite("Sprite_Success_icon")}, mj[0]));
-            menuPrincipal.getBouton(5).setPosXY(720,430);
-            menuPrincipal.getBouton(5).setTaille(60, 60);
+            menuPrincipal.getBouton(5).setPosXY(725,440);
+            menuPrincipal.getBouton(5).setTaille(50, 50);
             menuPrincipal.getBouton(5).setActionListener(
                     new ActionBouton(){
                         @Override
                         public void execute() {
                             pop();
+                            changerMJ(8);
                         }
                     }
             );
@@ -503,6 +504,60 @@ class Window extends JFrame {
                     }
                 }
         );
+        //////////////////////////////////////
+
+        // Menu Succes ///////////////////////
+        mj[8] = new Menu(3);
+        mj[8].setWindow(this);
+        mj[8].setPanel(panel);
+        Menu menuSucces = (Menu) mj[8];
+        menuSucces.setBackgroundImage(panel.getSprite("fondAcceuil"));
+
+
+        // Bouton qui affiche succes 1
+        menuSucces.setBouton(1,new Bouton(new BufferedImage[] {panel.getSprite("Sprite_success_1start"), panel.getSprite("Sprite_success_1start"), panel.getSprite("Sprite_success_1start")}, mj[8]));
+        menuSucces.getBouton(1).setPosXY(364, 320);
+        menuSucces.getBouton(1).setTaille(60, 60);
+        menuSucces.getBouton(1).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+
+                    }
+                }
+        );
+
+        // Bouton qui affiche succes 2
+        menuSucces.setBouton(2,new Bouton(new BufferedImage[] {panel.getSprite("Sprite_success_10fruits"), panel.getSprite("Sprite_success_10fruits"), panel.getSprite("Sprite_success_10fruits")}, mj[8]));
+        menuSucces.getBouton(2).setPosXY(364, 390);
+        menuSucces.getBouton(2).setTaille(60, 60);
+        menuSucces.getBouton(2).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+
+                    }
+                }
+        );
+
+
+        // Bouton invisible
+        menuSucces.setBouton(0 ,new Bouton(img7, mj[8]));
+        menuSucces.getBouton(0).setPosXY(0, 0);
+        menuSucces.getBouton(0).setTaille(getHeight(), getWidth());
+        menuSucces.getBouton(0).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        pop();
+                        SoundManager.create("musicMenu", "Snake_menu",true);
+                        changerMJ(0);
+                    }
+                }
+        );
+
+
+
         //////////////////////////////////////
     }
 

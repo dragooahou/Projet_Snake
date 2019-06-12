@@ -216,7 +216,6 @@ public class SnakeClassic extends ModeDeJeu {
             SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
         }
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
-        System.out.println(i);
         SoundManager.create(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i), false);
         SoundManager.play(SimpleAudioPlayer.getDeathSounds().get(i));
 
