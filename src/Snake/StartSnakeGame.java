@@ -97,7 +97,7 @@ class Window extends JFrame {
     public void initMenus(){
 
         // Menu principal ////////////////
-            mj[0] = new Menu(5);
+            mj[0] = new Menu(6);
             mj[0].setWindow(this);
             mj[0].setPanel(panel);
             Menu menuPrincipal = (Menu) mj[0];
@@ -171,6 +171,21 @@ class Window extends JFrame {
                             menuPrincipal.getBouton(4).draw();
                             menuPrincipal.getBouton(4).setTaille(60, 60);
                             menuPrincipal.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
+                        }
+                    }
+            );
+
+            //Bouton Achievement
+            menuPrincipal.setBouton(5 ,new Bouton(new BufferedImage[]{panel.getSprite("Sprite_Success_icon"),
+                                                                        panel.getSprite("Sprite_Success_icon"),
+                    panel.getSprite("Sprite_Success_icon")}, mj[0]));
+            menuPrincipal.getBouton(5).setPosXY(720,430);
+            menuPrincipal.getBouton(5).setTaille(60, 60);
+            menuPrincipal.getBouton(5).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            pop();
                         }
                     }
             );

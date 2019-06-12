@@ -24,6 +24,8 @@ public class Panel extends JPanel {
     private final String FRUITS_SPRITE_DIR = "/sprites/fruits/";
     // Répertoire des sprites du menu
     private final String MENU_SPRITE_DIR = "/sprites/menu/";
+    // Répertoire des sprites des succes
+    private final String SUCCES_SPRITE_DIR = "/sprites/success/";
 
     // Va contenir tous les sprites avec leur nom
     private Map<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
@@ -53,6 +55,9 @@ public class Panel extends JPanel {
                 loadSnakeSprites(file);
 
             for(String file : searchSprite(MENU_SPRITE_DIR))
+                sprites.put(fileName(file), loadImage(file));
+
+            for(String file : searchSprite(SUCCES_SPRITE_DIR))
                 sprites.put(fileName(file), loadImage(file));
 
 
