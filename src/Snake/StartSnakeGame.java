@@ -20,7 +20,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[7];
+    private ModeDeJeu[] mj = new ModeDeJeu[8];
 
     private Panel panel = new Panel();
 
@@ -112,10 +112,8 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
-                            SoundManager.stop("musicMenu");
                             pop();
-                            SoundManager.create("musicAmbiance", "ambiance",true);
-                            changerMJ(6);
+                            changerMJ(7);
                         }
                     }
             );
@@ -360,77 +358,130 @@ class Window extends JFrame {
         //////////////////////////////////////
 
         // Menu skin ////////////////////////
-        mj[5] = new Menu(4);
-        mj[5].setWindow(this);
-        mj[5].setPanel(panel);
-        Menu menuSkin = (Menu) mj[5];
-        menuSkin.setBackgroundImage(panel.getSprite("fondAcceuil"));
+            mj[5] = new Menu(4);
+            mj[5].setWindow(this);
+            mj[5].setPanel(panel);
+            Menu menuSkin = (Menu) mj[5];
+            menuSkin.setBackgroundImage(panel.getSprite("fondAcceuil"));
+
+
+            // Bouton retour menu
+            BufferedImage[] img10 = {panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour")};
+            menuSkin.setBouton(0,new Bouton(img10, mj[5]));
+            menuSkin.getBouton(0).setPosXY(365, 490);
+            menuSkin.getBouton(0).setTaille(60, 60);
+            menuSkin.getBouton(0).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            SoundManager.stop("wii");
+                            pop();
+                            SoundManager.create("musicMenu", "Snake_menu",true);
+                            changerMJ(0);
+                        }
+                    }
+            );
+
+            // Bouton gauche
+            BufferedImage[] img8 = {panel.getSprite("Menu_Fleche_Gauche"), panel.getSprite("Menu_Fleche_Gauche"), panel.getSprite("Menu_Fleche_Gauche")};
+            menuSkin.setBouton(1,new Bouton(img8, mj[5]));
+            menuSkin.getBouton(1).setPosXY(250, 350);
+            menuSkin.getBouton(1).setTaille(60, 60);
+            menuSkin.getBouton(1).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            SaveManager.setSkin(panel.cycleSkin(SaveManager.getSkin(), true));
+                            menuSkin.getBouton(3).setTabImages(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")});
+                            menuSkin.getBouton(3).setTaille(0,0);
+                            menuSkin.getBouton(3).draw();
+                            menuSkin.getBouton(3).setTaille(128, 32);
+                            menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
+                        }
+                    }
+            );
+
+            // Bouton droite
+            BufferedImage[] img9 = {panel.getSprite("Menu_Fleche_Droite"), panel.getSprite("Menu_Fleche_Droite"), panel.getSprite("Menu_Fleche_Droite")};
+            menuSkin.setBouton(2,new Bouton(img9, mj[5]));
+            menuSkin.getBouton(2).setPosXY(485, 350);
+            menuSkin.getBouton(2).setTaille(60, 60);
+            menuSkin.getBouton(2).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+                            SaveManager.setSkin(panel.cycleSkin(SaveManager.getSkin(), false));
+                            menuSkin.getBouton(3).setTabImages(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")});
+                            menuSkin.getBouton(3).setTaille(0,0);
+                            menuSkin.getBouton(3).draw();
+                            menuSkin.getBouton(3).setTaille(128, 32);
+                            menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
+                        }
+                    }
+            );
+
+            // Bouton qui affiche enfaite le serpent
+            menuSkin.setBouton(3,new Bouton(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")}, mj[5]));
+            menuSkin.getBouton(3).setPosXY(384, 320);
+            menuSkin.getBouton(3).setTaille(128, 32);
+            menuSkin.getBouton(3).setActionListener(
+                    new ActionBouton(){
+                        @Override
+                        public void execute() {
+
+                        }
+                    }
+            );
+        //////////////////////////////////////
+
+        // Menu mode de jeu ///////////////////////
+        mj[7] = new Menu(3);
+        mj[7].setWindow(this);
+        mj[7].setPanel(panel);
+        Menu menuChoose = (Menu) mj[7];
+        menuChoose.setBackgroundImage(panel.getSprite("fondAcceuil"));
+
+        //Bouton 1 joueur
+        menuChoose.setBouton(0 ,new Bouton(img0, mj[7]));
+        menuChoose.getBouton(0).setPosXY(250, 280);
+        menuChoose.getBouton(0).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        SoundManager.stop("musicMenu");
+                        pop();
+                        SoundManager.create("musicAmbiance", "ambiance",true);
+                        changerMJ(1);
+                    }
+                }
+        );
+
+        //Bouton 2 joueur
+        menuChoose.setBouton(1 ,new Bouton(img5, mj[7]));
+        menuChoose.getBouton(1).setPosXY(250, 350);
+        menuChoose.getBouton(1).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        SoundManager.stop("musicMenu");
+                        pop();
+                        SoundManager.create("musicAmbiance", "ambiance",true);
+                        changerMJ(6);
+                    }
+                }
+        );
 
 
         // Bouton retour menu
-        BufferedImage[] img10 = {panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour")};
-        menuSkin.setBouton(0,new Bouton(img10, mj[5]));
-        menuSkin.getBouton(0).setPosXY(365, 490);
-        menuSkin.getBouton(0).setTaille(60, 60);
-        menuSkin.getBouton(0).setActionListener(
+        menuChoose.setBouton(2,new Bouton(img10, mj[7]));
+        menuChoose.getBouton(2).setPosXY(365, 490);
+        menuChoose.getBouton(2).setTaille(60, 60);
+        menuChoose.getBouton(2).setActionListener(
                 new ActionBouton(){
                     @Override
                     public void execute() {
-                        SoundManager.stop("wii");
                         pop();
-                        SoundManager.create("musicMenu", "Snake_menu",true);
                         changerMJ(0);
-                    }
-                }
-        );
-
-        // Bouton gauche
-        BufferedImage[] img8 = {panel.getSprite("Menu_Fleche_Gauche"), panel.getSprite("Menu_Fleche_Gauche"), panel.getSprite("Menu_Fleche_Gauche")};
-        menuSkin.setBouton(1,new Bouton(img8, mj[5]));
-        menuSkin.getBouton(1).setPosXY(250, 350);
-        menuSkin.getBouton(1).setTaille(60, 60);
-        menuSkin.getBouton(1).setActionListener(
-                new ActionBouton(){
-                    @Override
-                    public void execute() {
-                        SaveManager.setSkin(panel.cycleSkin(SaveManager.getSkin(), true));
-                        menuSkin.getBouton(3).setTabImages(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")});
-                        menuSkin.getBouton(3).setTaille(0,0);
-                        menuSkin.getBouton(3).draw();
-                        menuSkin.getBouton(3).setTaille(128, 32);
-                        menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
-                    }
-                }
-        );
-
-        // Bouton droite
-        BufferedImage[] img9 = {panel.getSprite("Menu_Fleche_Droite"), panel.getSprite("Menu_Fleche_Droite"), panel.getSprite("Menu_Fleche_Droite")};
-        menuSkin.setBouton(2,new Bouton(img9, mj[5]));
-        menuSkin.getBouton(2).setPosXY(485, 350);
-        menuSkin.getBouton(2).setTaille(60, 60);
-        menuSkin.getBouton(2).setActionListener(
-                new ActionBouton(){
-                    @Override
-                    public void execute() {
-                        SaveManager.setSkin(panel.cycleSkin(SaveManager.getSkin(), false));
-                        menuSkin.getBouton(3).setTabImages(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")});
-                        menuSkin.getBouton(3).setTaille(0,0);
-                        menuSkin.getBouton(3).draw();
-                        menuSkin.getBouton(3).setTaille(128, 32);
-                        menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
-                    }
-                }
-        );
-
-        // Bouton qui affiche enfaite le serpent
-        menuSkin.setBouton(3,new Bouton(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")}, mj[5]));
-        menuSkin.getBouton(3).setPosXY(384, 320);
-        menuSkin.getBouton(3).setTaille(128, 32);
-        menuSkin.getBouton(3).setActionListener(
-                new ActionBouton(){
-                    @Override
-                    public void execute() {
-
                     }
                 }
         );
