@@ -1,12 +1,11 @@
 package Snake;// IMPORTS
-    import java.awt.*;
-    import java.awt.event.*;
-    import java.awt.image.BufferedImage;
-    import java.io.FileInputStream;
-    import java.util.Map;
-
-    import javax.imageio.ImageIO;
-    import javax.swing.JFrame;
+    import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyListener;
+    import java.awt.event.MouseEvent;
+    import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
 public class StartSnakeGame {
     // Point d'entré du jeu
@@ -383,7 +382,10 @@ class Window extends JFrame {
                     public void execute() {
                         SaveManager.setSkin(panel.cycleSkin(SaveManager.getSkin(), true));
                         menuSkin.getBouton(3).setTabImages(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")});
+                        menuSkin.getBouton(3).setTaille(0,0);
                         menuSkin.getBouton(3).draw();
+                        menuSkin.getBouton(3).setTaille(128, 32);
+                        menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
                     }
                 }
         );
@@ -399,7 +401,10 @@ class Window extends JFrame {
                     public void execute() {
                         SaveManager.setSkin(panel.cycleSkin(SaveManager.getSkin(), false));
                         menuSkin.getBouton(3).setTabImages(new BufferedImage[] {panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show"), panel.getSprite(SaveManager.getSkin() + "_show")});
+                        menuSkin.getBouton(3).setTaille(0,0);
                         menuSkin.getBouton(3).draw();
+                        menuSkin.getBouton(3).setTaille(128, 32);
+                        menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
                     }
                 }
         );

@@ -1,10 +1,7 @@
 package Snake;
 
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.awt.*;
-import java.lang.reflect.Executable;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 public class Bouton {
