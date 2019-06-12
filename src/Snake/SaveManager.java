@@ -22,6 +22,7 @@ public class SaveManager {
             unmute();
             setHiscore(0);
             setNbgames(0);
+            setNbFruits(0);
         }
 
         try{
@@ -163,5 +164,35 @@ public class SaveManager {
             p.store(output, null);
         }catch (Exception e){ e.printStackTrace(); }
     }
+
+
+    ///////// NbFruits ////////////////////////////////////
+    public static int getNbFruits() {
+        try{
+            p.load(new FileInputStream(FILE_NAME));
+            return Integer.parseInt(p.getProperty("nbfruits"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void setNbFruits(int i) {
+        String s = i + "";
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("nbfruits", s);
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    public static void upNbFruits(){
+        String s = (getNbFruits()+1)+"";
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("nbfruits", s);
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
 
 }
