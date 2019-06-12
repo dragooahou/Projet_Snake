@@ -70,6 +70,7 @@ public class SnakeClassic extends ModeDeJeu {
                     for (Point p : terrain.tryAddRock(1, 20)) panel.drawTerrain(p);
                     for (Point p : terrain.tryAddRock(1, 12)) panel.drawTerrain(p);
                     hud.addScore(100);
+                    SaveManager.upNbFruits();
                     break;
             }
         }

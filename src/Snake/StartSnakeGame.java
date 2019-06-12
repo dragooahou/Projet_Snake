@@ -572,16 +572,14 @@ class Window extends JFrame {
         );
 
 
-        // Bouton invisible
-        menuSucces.setBouton(0 ,new Bouton(img7, mj[8]));
-        menuSucces.getBouton(0).setPosXY(0, 0);
-        menuSucces.getBouton(0).setTaille(getHeight(), getWidth());
-        menuSucces.getBouton(0).setActionListener(
+        // Bouton menu
+        menuPause.setBouton(0 ,new Bouton(img3, mj[8]));
+        menuPause.getBouton(0).setPosXY(250, 360);
+        menuPause.getBouton(0).setActionListener(
                 new ActionBouton(){
                     @Override
                     public void execute() {
                         pop();
-                        SoundManager.create("musicMenu", "Snake_menu",true);
                         changerMJ(0);
                     }
                 }
