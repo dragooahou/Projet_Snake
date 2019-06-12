@@ -45,7 +45,7 @@ public class Terrain {
 		posX = x;
 		posY = y;
 
-		generateBackground();
+		generateBackground(100);
 	}
 
 	// Retourne l'objet dans la case aux coordonnées spécifiées
@@ -67,13 +67,20 @@ public class Terrain {
 	}
 
 	// Génère un background aléatoire
-	private void generateBackground(){
+	public void generateBackground(int bound){
+		for (Square[] i : squareTab) {
+			for (Square s : i) {
+				s.setBackground("");
+			}
+
+		}
+
 		Random r = new Random(System.nanoTime());
 		for (int i = 0; i < squareTab.length; i++) {
 			for (int j = 0; j < squareTab[i].length; j++) {
 
 				if(squareTab[i][j].getBackground() == ""){
-					int rand = r.nextInt(100);
+					int rand = r.nextInt(bound);
 					switch(rand){
 						case 0:
 							squareTab[i][j].setBackground("herbe_point");

@@ -17,6 +17,7 @@ public class Tron extends ModeDeJeu {
 
         // Grille sur laquelle va se déplacer le serpent
         terrain = new Terrain(0, 0, 50, 36, 16);
+        terrain.generateBackground(500);
         terrain.setSnake(0,47,25);
         terrain.setSnake(1,3,25);
         terrain.getSnake(0).setSkin("snake_blue");

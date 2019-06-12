@@ -235,7 +235,6 @@ public class Panel extends JPanel {
     public void loadSnakeSprites(String file){
         if(!fileName(file).equals("red") && !fileName(file).equals("blue"))
             skinList.add("snake_" + fileName(file));
-            skinList.add("snake_" + fileName(file));
 
         BufferedImage img = loadImage(file);
 
