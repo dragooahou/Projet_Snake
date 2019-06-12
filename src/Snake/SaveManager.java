@@ -21,6 +21,7 @@ public class SaveManager {
             setSkin("snake_default");
             unmute();
             setHiscore(0);
+            setNbgames(0);
         }
 
         try{
@@ -133,4 +134,34 @@ public class SaveManager {
             p.store(output, null);
         }catch (Exception e){ e.printStackTrace(); }
     }
+
+
+    ///////// NbGames ////////////////////////////////////
+    public static int getNbGames() {
+        try{
+            p.load(new FileInputStream(FILE_NAME));
+            return Integer.parseInt(p.getProperty("nbgames"));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static void setNbgames(int i) {
+        String s = i + "";
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("nbgames", s);
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    public static void upNbGames(){
+        String s = (getNbGames()+1)+"";
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("nbgames", s);
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
 }

@@ -25,6 +25,7 @@ public class Tron extends ModeDeJeu {
     }
 
     public void run() {
+        SaveManager.upNbGames();
         hud.setBackgound(panel.getSprite("interface"));
         hud.setMj(this);
         hud.draw();
