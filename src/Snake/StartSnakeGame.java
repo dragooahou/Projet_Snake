@@ -651,7 +651,9 @@ class Window extends JFrame {
         this.modeDeJeuCourant = modeDeJeuCourant;
     }
     public void pop(){
-        SoundManager.playSmall("buttoninstant.wav");
+        SoundManager.stop("pop");
+        SoundManager.create("pop", "buttoninstant", false);
+        SoundManager.play("pop");
     }
     public void bye(){
         SoundManager.create("bye", "bye",false);

@@ -47,8 +47,6 @@ public class SimpleAudioPlayer
     }
     public void playSmall(){
         clip.start();
-
-        status = "play";
         clip.setMicrosecondPosition(0);
     }
 

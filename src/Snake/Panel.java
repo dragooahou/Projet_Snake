@@ -89,10 +89,6 @@ public class Panel extends JPanel {
                 drawTerrain(g2d);
                 break;
 
-            case "terrainfutur":
-                drawTerrainFutur(g2d);
-                break;
-
         }
 
 
@@ -104,30 +100,6 @@ public class Panel extends JPanel {
 
     }
 
-    public void drawTerrainFutur(Graphics2D g2d){
-        // On recupère le terrain dans la classe fenetre
-        Terrain terrain = mj.getTerrain();
-
-        // On recupère la taille d'une tuile et la position x et y du terrain dans la fenetre
-        int squareSize = terrain.getSquareSize();
-        int posX = terrain.getXposition();
-        int posY = terrain.getYposition();
-
-        for (int i = 0; i < terrain.getSquareTab().length; i++) {
-            for (int j = 0; j < terrain.getSquareTab()[i].length; j++) {
-                //g.drawRect(i*squareSize + posX, j*squareSize + posY, squareSize, squareSize);
-
-                // On dessine la tuile de terrain
-                g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j) + "_tron"), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
-
-                // Si il y a un objet sur cette tuile le dessiner aussi
-                if(!terrain.objectOnCase(i,j).equals("") && !ListeFruits.isFruit(terrain.objectOnCase(i,j))){
-                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j) + "_tron"), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
-                }
-
-            }
-        }
-    }
 
     // Dessiner fruit
     private void drawFruits(Graphics2D g2d){
@@ -157,6 +129,9 @@ public class Panel extends JPanel {
         // On recupère le terrain dans la classe fenetre
         Terrain terrain = mj.getTerrain();
 
+        String suffix = "";
+        if(mj instanceof Tron) suffix = "_tron";
+
         // On recupère la taille d'une tuile et la position x et y du terrain dans la fenetre
         int squareSize = terrain.getSquareSize();
         int posX = terrain.getXposition();
@@ -167,11 +142,11 @@ public class Panel extends JPanel {
                 //g.drawRect(i*squareSize + posX, j*squareSize + posY, squareSize, squareSize);
 
                 // On dessine la tuile de terrain
-                g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j) + suffix), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
 
                 // Si il y a un objet sur cette tuile le dessiner aussi
                 if(!terrain.objectOnCase(i,j).equals("")){
-                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j) + suffix), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
                 }
 
             }
@@ -181,6 +156,9 @@ public class Panel extends JPanel {
     public void drawTerrain(Point p){
         if(mj.getTerrain() == null)
             return;
+
+        String suffix = "";
+        if(mj instanceof Tron) suffix = "_tron";
 
         Graphics2D g2d = (Graphics2D) getGraphics();
 
@@ -194,11 +172,11 @@ public class Panel extends JPanel {
         int posY = terrain.getYposition();
 
         // On dessine la tuile de terrain
-        g2d.drawImage(sprites.get(terrain.backgroundOnCase(p.x,p.y)), p.x*squareSize + posX, p.y*squareSize + posY, squareSize, squareSize, this);
+        g2d.drawImage(sprites.get(terrain.backgroundOnCase(p.x,p.y) + suffix), p.x*squareSize + posX, p.y*squareSize + posY, squareSize, squareSize, this);
 
         // Si il y a un objet sur cette tuile le dessiner aussi
         if(!terrain.objectOnCase(p.x,p.y).equals("")){
-            g2d.drawImage(sprites.get(terrain.objectOnCase(p.x,p.y)), p.x*squareSize + posX, p.y*squareSize + posY, squareSize, squareSize, this);
+            g2d.drawImage(sprites.get(terrain.objectOnCase(p.x,p.y) + suffix), p.x*squareSize + posX, p.y*squareSize + posY, squareSize, squareSize, this);
         }
     }
 
@@ -207,6 +185,9 @@ public class Panel extends JPanel {
     public void drawSnake(Graphics2D g2d){
         if(mj.getTerrain() == null)
             return;
+
+        String suffix = "";
+        if(mj instanceof Tron) suffix = "_tron";
 
 
         // On recupère le terrain dans la classe fenetre
@@ -223,7 +204,7 @@ public class Panel extends JPanel {
             for (SnakePart part : partPositions) {
                 int x = part.getXPos();
                 int y = part.getYPos();
-                g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y)), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
+                g2d.drawImage(sprites.get(terrain.backgroundOnCase(x,y) + suffix), x*squareSize + posX, y*squareSize + posY, squareSize, squareSize, this);
                 g2d.drawImage(sprites.get(terrain.objectOnCase(part.getXPos(),part.getYPos()) + frameNo), part.getXPos()*squareSize + posX, part.getYPos()*squareSize + posY, squareSize, squareSize, this);
             }
         }
