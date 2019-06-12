@@ -14,10 +14,9 @@ public class Tron extends ModeDeJeu {
         stopped = false;
         paused = false;
         demarrage = true;
-        hud = new Interface();
 
         // Grille sur laquelle va se déplacer le serpent
-        terrain = new Terrain(0, 32, 50, 34, 16);
+        terrain = new Terrain(0, 0, 50, 36, 16);
         terrain.setSnake(0,47,25);
         terrain.setSnake(1,3,25);
         terrain.getSnake(0).setSkin("snake_blue");
@@ -26,9 +25,6 @@ public class Tron extends ModeDeJeu {
 
     public void run() {
         SaveManager.upNbGames();
-        hud.setBackgound(panel.getSprite("interface"));
-        hud.setMj(this);
-        hud.draw();
 
 
         while (!stopped) {
@@ -61,13 +57,11 @@ public class Tron extends ModeDeJeu {
                         break;
                     case 1:
                         SoundManager.stop("musicAmbiance");
-                        if(SaveManager.getHiscore() < hud.getScore()) SaveManager.setHiscore(hud.getScore());
                         die();
                         window.changerMJ(3);
                         window.getModeDeJeuCourant().setPausedMJ(9);
                         break;
                     case 2:
-                        hud.addScore(100);
                         break;
                 }
         }
