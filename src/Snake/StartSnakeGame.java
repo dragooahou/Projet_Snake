@@ -161,8 +161,8 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
-                            if(SaveManager.isMuted().equals("on")) SaveManager.mute();
-                            else SaveManager.unmute();
+                            if(SaveManager.isMuted().equals("on")){ SaveManager.mute();SoundManager.stop("musicMenu");}
+                            else {SaveManager.unmute();SoundManager.create("musicMenu", "Snake_menu",true);}
                             menuPrincipal.getBouton(4).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                                             panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                                             panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
