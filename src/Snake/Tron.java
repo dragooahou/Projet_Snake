@@ -18,8 +18,10 @@ public class Tron extends ModeDeJeu {
 
         // Grille sur laquelle va se déplacer le serpent
         terrain = new Terrain(0, 32, 50, 34, 16);
-        terrain.setSnake(0,15,12);
-        terrain.setSnake(1,5,12);
+        terrain.setSnake(0,47,25);
+        terrain.setSnake(1,3,25);
+        terrain.getSnake(0).setSkin("snake_blue");
+        terrain.getSnake(1).setSkin("snake_red");
     }
 
     public void run() {
@@ -45,7 +47,7 @@ public class Tron extends ModeDeJeu {
                 panel.updateAnim();
 
                 try {
-                    Thread.sleep(30);
+                    Thread.sleep(18);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

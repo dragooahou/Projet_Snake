@@ -169,4 +169,7 @@ public class Snake {
         positions[0].setElbow(true);
     }
 
+    public void setSkin(String skin) {
+        this.skin = skin;
+    }
 }
