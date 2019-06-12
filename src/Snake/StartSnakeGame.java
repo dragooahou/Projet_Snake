@@ -101,6 +101,7 @@ class Window extends JFrame {
             mj[0].setPanel(panel);
             Menu menuPrincipal = (Menu) mj[0];
             menuPrincipal.setBackgroundImage(panel.getSprite("fondAcceuil"));
+            SoundManager.create("musicMenu", "Snake_menu",true);
 
             //Bouton jouer
             BufferedImage[] img0 = {panel.getSprite("Menu_text_Jouer_Standby"), panel.getSprite("Menu_text_Jouer_Selected"), panel.getSprite("Menu_text_Jouer_Validated")};
@@ -110,6 +111,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.stop("musicMenu");
                             pop();
                             SoundManager.create("musicAmbiance", "ambiance",true);
                             changerMJ(1);
@@ -125,8 +127,9 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
-                            SoundManager.create("wii", "wii",true);
+                            SoundManager.stop("musicMenu");
                             pop();
+                            SoundManager.create("wii", "wii",true);
                             changerMJ(5);
                         }
                     }
@@ -140,6 +143,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
+                            SoundManager.stop("musicMenu");
                             pop();
                             changerMJ(4);
                         }
@@ -227,6 +231,7 @@ class Window extends JFrame {
                         public void execute() {
                             SoundManager.stop("musicAmbiance");
                             pop();
+                            SoundManager.create("musicMenu", "Snake_menu",true);
                             changerMJ(0);
                         }
                     }
@@ -288,6 +293,7 @@ class Window extends JFrame {
                         public void execute() {
                             SoundManager.stop("musicAmbiance");
                             pop();
+                            SoundManager.create("musicMenu", "Snake_menu",true);
                             changerMJ(0);
                         }
                     }
@@ -335,6 +341,7 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
+                            SoundManager.create("musicMenu", "Snake_menu",true);
                             changerMJ(0);
                         }
                     }
@@ -359,6 +366,7 @@ class Window extends JFrame {
                     public void execute() {
                         SoundManager.stop("wii");
                         pop();
+                        SoundManager.create("musicMenu", "Snake_menu",true);
                         changerMJ(0);
                     }
                 }
