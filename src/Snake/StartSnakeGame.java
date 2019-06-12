@@ -18,11 +18,27 @@ public class StartSnakeGame {
     }
 }
 
+/*
+    Liste des modes de jeu :
+        0 : Menu Principal
+        1 : SnakeClassic
+        2 : Menu pause
+        3 : Menu perdu
+        4 : Menu credits
+        5 : Menu skin
+        6 : Mode 2 joueurs
+        7 : Menu choisir mode de jeu
+        8 : Succes
+        9 : Tron
+
+*/
+
+
 // Classe qui crée automatiquement une fenêtre
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[9];
+    private ModeDeJeu[] mj = new ModeDeJeu[10];
 
     private Panel panel = new Panel();
 
@@ -44,16 +60,15 @@ class Window extends JFrame {
         // On s'occupe maintenant des inputs
         setFocusable(true);
 
-        // Les menus
         initMenus();
-        // Snake classique
         initSnakeClassic();
-        // Multijoueur
         initMultiplayer();
+        initTron();
 
         // On execute le jeu
         game();
     }
+
 
     // Le jeu s'execute ici
     private void game(){
@@ -453,7 +468,7 @@ class Window extends JFrame {
         //////////////////////////////////////
 
         // Menu mode de jeu ///////////////////////
-        mj[7] = new Menu(3);
+        mj[7] = new Menu(4);
         mj[7].setWindow(this);
         mj[7].setPanel(panel);
         Menu menuChoose = (Menu) mj[7];
@@ -487,6 +502,21 @@ class Window extends JFrame {
                         pop();
                         SoundManager.create("musicAmbiance", "ambiance",true);
                         changerMJ(6);
+                    }
+                }
+        );
+
+        //Bouton 2 joueur
+        menuChoose.setBouton(3 ,new Bouton(img12, mj[7]));
+        menuChoose.getBouton(3).setPosXY(250, 420);
+        menuChoose.getBouton(3).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        SoundManager.stop("musicMenu");
+                        pop();
+                        SoundManager.create("musicAmbiance", "ambiance",true);
+                        changerMJ(9);
                     }
                 }
         );
@@ -566,6 +596,7 @@ class Window extends JFrame {
         modeDeJeuCourant = n;
         if(n == 1) initSnakeClassic();
         if(n == 6) initMultiplayer();
+        if(n == 9) initTron();
         game();
     }
 
@@ -594,17 +625,21 @@ class Window extends JFrame {
     }
 
     public void initSnakeClassic(){
-        // Mode de jeu classique
         mj[1] = new SnakeClassic();
         mj[1].setWindow(this);
         mj[1].setPanel(panel);
     }
 
     public void initMultiplayer(){
-        // Mode de jeu classique
         mj[6] = new Multiplayer();
         mj[6].setWindow(this);
         mj[6].setPanel(panel);
+    }
+
+    private void initTron() {
+        mj[9] = new Tron();
+        mj[9].setWindow(this);
+        mj[9].setPanel(panel);
     }
 
     public void setModeDeJeuCourant(int modeDeJeuCourant) {

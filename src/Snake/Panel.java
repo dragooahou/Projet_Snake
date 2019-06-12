@@ -89,6 +89,10 @@ public class Panel extends JPanel {
                 drawTerrain(g2d);
                 break;
 
+            case "herbe":
+                drawHerbe(g2d);
+                break;
+
         }
 
 
@@ -98,6 +102,31 @@ public class Panel extends JPanel {
         // On libère la classe Graphics
         g.dispose();
 
+    }
+
+    public void drawHerbe(Graphics2D g2d){
+        // On recupère le terrain dans la classe fenetre
+        Terrain terrain = mj.getTerrain();
+
+        // On recupère la taille d'une tuile et la position x et y du terrain dans la fenetre
+        int squareSize = terrain.getSquareSize();
+        int posX = terrain.getXposition();
+        int posY = terrain.getYposition();
+
+        for (int i = 0; i < terrain.getSquareTab().length; i++) {
+            for (int j = 0; j < terrain.getSquareTab()[i].length; j++) {
+                //g.drawRect(i*squareSize + posX, j*squareSize + posY, squareSize, squareSize);
+
+                // On dessine la tuile de terrain
+                g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+
+                // Si il y a un objet sur cette tuile le dessiner aussi
+                if(!terrain.objectOnCase(i,j).equals("") && !ListeFruits.isFruit(terrain.objectOnCase(i,j))){
+                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                }
+
+            }
+        }
     }
 
     // Dessiner fruit
