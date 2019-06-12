@@ -613,7 +613,11 @@ class Window extends JFrame {
         killGame();
         modeDeJeuCourant = i;
         panel.setMJ(mj[modeDeJeuCourant]);
+
         if(modeDeJeuCourant == 1) panel.dessiner("terrain");
+        if(modeDeJeuCourant == 6) panel.dessiner("terrain");
+        if(modeDeJeuCourant == 9) panel.dessiner("terrainfutur");
+
         mj[modeDeJeuCourant].setDemarrage(true);
         panel.dessiner("snake");
         mj[modeDeJeuCourant].reprendre();
