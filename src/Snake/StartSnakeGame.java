@@ -167,7 +167,10 @@ class Window extends JFrame {
                             menuPrincipal.getBouton(4).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                                             panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                                             panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
+                            menuPrincipal.getBouton(4).setTaille(0,0);
                             menuPrincipal.getBouton(4).draw();
+                            menuPrincipal.getBouton(4).setTaille(60, 60);
+                            menuPrincipal.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
                         }
                     }
             );
@@ -255,7 +258,10 @@ class Window extends JFrame {
                             menuPause.getBouton(3).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
+                            menuPause.getBouton(3).setTaille(0,0);
                             menuPause.getBouton(3).draw();
+                            menuPause.getBouton(3).setTaille(60, 60);
+                            menuPause.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
                         }
                     }
             );
@@ -317,7 +323,10 @@ class Window extends JFrame {
                             menuPerdu.getBouton(2).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
+                            menuPerdu.getBouton(2).setTaille(0,0);
                             menuPerdu.getBouton(2).draw();
+                            menuPerdu.getBouton(2).setTaille(60, 60);
+                            menuPerdu.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
                         }
                     }
             );
