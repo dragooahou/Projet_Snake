@@ -118,11 +118,11 @@ public class Panel extends JPanel {
                 //g.drawRect(i*squareSize + posX, j*squareSize + posY, squareSize, squareSize);
 
                 // On dessine la tuile de terrain
-                g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                g2d.drawImage(sprites.get(terrain.backgroundOnCase(i,j) + "_tron"), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
 
                 // Si il y a un objet sur cette tuile le dessiner aussi
                 if(!terrain.objectOnCase(i,j).equals("") && !ListeFruits.isFruit(terrain.objectOnCase(i,j))){
-                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j)), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
+                    g2d.drawImage(sprites.get(terrain.objectOnCase(i,j) + "_tron"), i*squareSize + posX, j*squareSize + posY, squareSize, squareSize, this);
                 }
 
             }
@@ -253,6 +253,7 @@ public class Panel extends JPanel {
     // Charge automatiquement les sprites de serpent dans la hashmap
     public void loadSnakeSprites(String file){
         if(!fileName(file).equals("red") && !fileName(file).equals("blue"))
+            skinList.add("snake_" + fileName(file));
             skinList.add("snake_" + fileName(file));
 
         BufferedImage img = loadImage(file);
