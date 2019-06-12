@@ -1,6 +1,5 @@
 package Snake;// Java program to play an Audio
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -8,15 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.jar.JarFile;
 
 public class SimpleAudioPlayer
 {
 
 
-    private HashMap<String, Clip> sons = new HashMap<String, Clip>();
+    private HashMap<String, Clip> sons = new HashMap<>();
     // to store current position
     private Long currentFrame;
     private Clip clip;

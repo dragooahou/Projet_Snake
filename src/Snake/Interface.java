@@ -18,6 +18,9 @@ public class Interface {
     public void draw(){
         Graphics2D g2d = mj.panel.getGraph();
         g2d.drawImage(backgound, backGoundPosition.x, backGoundPosition.y, mj.panel);
+        if (score > hiscore) {
+            hiscore = score;
+        }
         writeScore(g2d, score, 450, 0);
         writeScore(g2d, hiscore, 180, 0);
     }
