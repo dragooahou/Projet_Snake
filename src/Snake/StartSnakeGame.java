@@ -573,10 +573,11 @@ class Window extends JFrame {
         );
 
 
-        // Bouton menu
-        menuPause.setBouton(0 ,new Bouton(img3, mj[8]));
-        menuPause.getBouton(0).setPosXY(250, 360);
-        menuPause.getBouton(0).setActionListener(
+        // Bouton retour menu
+        menuSucces.setBouton(0,new Bouton(new BufferedImage[] {panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour")}, mj[8]));
+        menuSucces.getBouton(0).setPosXY(365, 490);
+        menuSucces.getBouton(0).setTaille(60, 60);
+        menuSucces.getBouton(0).setActionListener(
                 new ActionBouton(){
                     @Override
                     public void execute() {
