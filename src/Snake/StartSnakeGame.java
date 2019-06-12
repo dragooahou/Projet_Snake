@@ -271,6 +271,8 @@ class Window extends JFrame {
                     }
             );
 
+
+
             //Bouton mute
             menuPause.setBouton(3 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
