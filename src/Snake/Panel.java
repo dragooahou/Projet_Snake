@@ -252,7 +252,8 @@ public class Panel extends JPanel {
 
     // Charge automatiquement les sprites de serpent dans la hashmap
     public void loadSnakeSprites(String file){
-        skinList.add("snake_" + fileName(file));
+        if(!fileName(file).equals("red") && !fileName(file).equals("blue"))
+            skinList.add("snake_" + fileName(file));
 
         BufferedImage img = loadImage(file);
 
