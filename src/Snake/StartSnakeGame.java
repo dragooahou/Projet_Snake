@@ -490,7 +490,6 @@ class Window extends JFrame {
                 }
         );
 
-
         // Bouton retour menu
         menuChoose.setBouton(2,new Bouton(img10, mj[7]));
         menuChoose.getBouton(2).setPosXY(365, 490);

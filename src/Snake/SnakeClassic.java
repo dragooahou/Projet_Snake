@@ -150,6 +150,9 @@ public class SnakeClassic extends ModeDeJeu {
             case "Echap":
                 window.pause();
                 break;
+            case "Espace":
+                terrain.spawnFruit();
+                break;
             default:
                 break;
         }
