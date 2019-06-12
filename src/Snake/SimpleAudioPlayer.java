@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
 
 public class SimpleAudioPlayer
 {
@@ -145,6 +147,7 @@ public class SimpleAudioPlayer
                     clip = AudioSystem.getClip();
                     clip.open(audioIn);
                 }
+                jar.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -163,10 +166,11 @@ public class SimpleAudioPlayer
         if (continuous){clip.loop(Clip.LOOP_CONTINUOUSLY);}
         return clip;
     }
+
     public Clip loadClipSmall(String filename)
     {
+        final File jarFile = new File(SoundManager.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
-        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
         if(jarFile.isFile()) {  // Run with JAR file
             JarFile jar = null;
             try {
@@ -174,7 +178,8 @@ public class SimpleAudioPlayer
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            assert jar != null;
+
+            filename = filename.substring(1);
             try (InputStream in = jar.getInputStream(jar.getEntry(filename))) {
                 InputStream bufferedIn = new BufferedInputStream(in);
                 try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(bufferedIn)) {

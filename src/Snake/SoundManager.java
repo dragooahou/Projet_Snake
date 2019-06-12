@@ -1,13 +1,14 @@
 package Snake;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import java.io.File;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class SoundManager {
+    private final static File jarFile = new File(SoundManager.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
     private static HashMap<String, SimpleAudioPlayer> players = new HashMap<>();
     static File folder = new File("resources/small_sound");
@@ -31,10 +32,29 @@ public class SoundManager {
             }
 
     }
-    public static void initPetitsSons(){
-        for (int i = 0; i < listOfFiles.length; i++) {
-            SoundManager.createSmall(listOfFiles[i].getName(),listOfFiles[i].getName());
+    public static <Clip> void initPetitsSons(){
+        if(jarFile.isFile()) {  // Run with JAR file
+            try {
+                final JarFile jar = new JarFile(jarFile);
+                final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+                while (entries.hasMoreElements()) {
+                    JarEntry elem = entries.nextElement();
+
+                    String name = elem.getName();
+                    if (name.startsWith("small_sound") && name.endsWith(".wav")) { //filter according to the path
+                        SoundManager.createSmall(name.substring(name.indexOf('/')+1), name);
+                    }
+                }
+
+                jar.close();
+            }catch(Exception e){ e.printStackTrace(); }
         }
+        else { // Run in IDE
+            for (File listOfFile : listOfFiles) {
+                SoundManager.createSmall(listOfFile.getName(), listOfFile.getName());
+            }
+        }
+
     }
 
     public static void play(String name){

@@ -6,8 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+    import java.io.File;
 
 public class StartSnakeGame {
+
     // Point d'entré du jeu
     public static void main(String[] args) {
         SaveManager.init();
@@ -595,6 +597,9 @@ class Window extends JFrame {
     }
 
     public void changerMJ(int n){
+        String msg = "";
+        //if(n == 3) msg = (Tron) mj[modeDeJeuCourant]
+
         killGame();
         modeDeJeuCourant = n;
         if(n == 1) initSnakeClassic();
@@ -602,6 +607,7 @@ class Window extends JFrame {
         if(n == 9) initTron();
         game();
     }
+
 
     public void pause(){
         int i = modeDeJeuCourant;
