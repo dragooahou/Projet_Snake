@@ -34,7 +34,6 @@ public class SoundManager {
     public static void initPetitsSons(){
         for (int i = 0; i < listOfFiles.length; i++) {
             SoundManager.createSmall(listOfFiles[i].getName(),listOfFiles[i].getName());
-            System.out.println(players.get(listOfFiles[i].getName()));
         }
     }
 

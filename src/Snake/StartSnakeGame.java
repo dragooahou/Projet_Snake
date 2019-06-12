@@ -508,9 +508,11 @@ class Window extends JFrame {
         );
 
         //Bouton tron
-        BufferedImage[] img13 = {panel.getSprite("Menu_Text_Tron_Standby"), panel.getSprite("Menu_Text_Tron_Selected"), panel.getSprite("Menu_Text_Tron_Validated")};
+        BufferedImage[] img13 = {panel.getSprite("tron1"), panel.getSprite("tron2"), panel.getSprite("tron3")};
         menuChoose.setBouton(3 ,new Bouton(img13, mj[7]));
-        menuChoose.getBouton(3).setPosXY(250, 410);
+        menuChoose.getBouton(3).setPosXY(280, 410);
+        menuChoose.getBouton(3).setTaille(45, 225);
+
         menuChoose.getBouton(3).setActionListener(
                 new ActionBouton(){
                     @Override
