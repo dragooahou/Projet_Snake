@@ -89,8 +89,8 @@ public class Panel extends JPanel {
                 drawTerrain(g2d);
                 break;
 
-            case "herbe":
-                drawHerbe(g2d);
+            case "terrainfutur":
+                drawTerrainFutur(g2d);
                 break;
 
         }
@@ -104,7 +104,7 @@ public class Panel extends JPanel {
 
     }
 
-    public void drawHerbe(Graphics2D g2d){
+    public void drawTerrainFutur(Graphics2D g2d){
         // On recupère le terrain dans la classe fenetre
         Terrain terrain = mj.getTerrain();
 
