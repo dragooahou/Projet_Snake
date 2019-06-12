@@ -148,7 +148,6 @@ public class Terrain {
 			// On met a jour le serpent
 			switch(snakes.get(n).update(squareTab)){
 				case 0:
-					if(onSnakes(p[0].getXPos(), p[0].getYPos())) return 1;
 					if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
 					break;
 				case 1:
