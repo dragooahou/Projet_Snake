@@ -506,8 +506,9 @@ class Window extends JFrame {
                 }
         );
 
-        //Bouton 2 joueur
-        menuChoose.setBouton(3 ,new Bouton(img12, mj[7]));
+        //Bouton tron
+        BufferedImage[] img13 = {panel.getSprite("Menu_Text_Tron_Standby"), panel.getSprite("Menu_Text_Tron_Selected"), panel.getSprite("Menu_Text_Tron_Validated")};
+        menuChoose.setBouton(3 ,new Bouton(img13, mj[7]));
         menuChoose.getBouton(3).setPosXY(250, 420);
         menuChoose.getBouton(3).setActionListener(
                 new ActionBouton(){
