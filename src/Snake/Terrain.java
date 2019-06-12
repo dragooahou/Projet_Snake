@@ -148,6 +148,7 @@ public class Terrain {
 			// On met a jour le serpent
 			switch(snakes.get(n).update(squareTab)){
 				case 0:
+					if(onSnakes(p[0].getXPos(), p[0].getYPos())) return 1;
 					if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
 					break;
 				case 1:
@@ -216,7 +217,7 @@ public class Terrain {
 		do {
 			x = r.nextInt(width);
 			y = r.nextInt(height);
-		}while(snakes.get(0).isOnSnake(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
+		}while(onSnakes(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
 		setCaseObject(ListeFruits.randomFruit(), x, y);
 		return new Point(x,y);
 	}
@@ -257,7 +258,7 @@ public class Terrain {
 			do {
 				x = r.nextInt(width);
 				y = r.nextInt(height);
-			} while (snakes.get(0).isOnSnake(x, y) || x == snakes.get(0).getPositions()[0].getXPos() ||  y == snakes.get(0).getPositions()[0].getYPos());
+			} while (onSnakes(x, y) || x == snakes.get(0).getPositions()[0].getXPos() ||  y == snakes.get(0).getPositions()[0].getYPos());
 			tab[i] = new Point(x,y);
 		}
 		for (Point p: tab) setCaseObject("Sprite_Rock", p.x, p.y);
@@ -266,6 +267,12 @@ public class Terrain {
 
 	public ArrayList<Snake> getSnakes() {
 		return snakes;
+	}
+
+	public boolean onSnakes(int x,int y){
+		for (Snake s : snakes)
+			if(s.isOnSnake(x, y)) return true;
+		return false;
 	}
 }
 
