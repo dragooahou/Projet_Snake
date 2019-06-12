@@ -1,11 +1,9 @@
 package Snake;// IMPORTS
-    import com.sun.org.apache.xpath.internal.operations.Mod;
-
     import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
-    import java.awt.event.MouseEvent;
-    import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 

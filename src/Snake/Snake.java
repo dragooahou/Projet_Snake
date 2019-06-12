@@ -1,7 +1,5 @@
 package Snake;
 
-import java.util.List;
-
 public class Snake {
 
     // Stocke les positions de toutes les parties du serpent
