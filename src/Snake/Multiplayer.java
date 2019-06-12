@@ -62,6 +62,8 @@ public class Multiplayer extends ModeDeJeu {
                         if(SaveManager.getHiscore() < hud.getScore()) SaveManager.setHiscore(hud.getScore());
                         die();
                         window.changerMJ(3);
+                        window.getModeDeJeuCourant().setPausedMJ(6);
+
                         break;
                     case 2:
                         miam();

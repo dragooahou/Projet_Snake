@@ -1,4 +1,6 @@
 package Snake;// IMPORTS
+    import com.sun.org.apache.xpath.internal.operations.Mod;
+
     import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -234,7 +236,7 @@ class Window extends JFrame {
                             SoundManager.stop("musicAmbiance");
                             pop();
                             SoundManager.create("musicAmbiance", "ambiance",true);
-                            changerMJ(1);
+                            changerMJ(menuPause.getPausedMJ());
                         }
                     }
             );
@@ -300,7 +302,7 @@ class Window extends JFrame {
                             SoundManager.stop("musicAmbiance");
                             pop();
                             SoundManager.create("musicAmbiance", "ambiance",true);
-                            changerMJ(1);
+                            changerMJ(menuPerdu.getPausedMJ());
                         }
                     }
             );
@@ -457,7 +459,8 @@ class Window extends JFrame {
         menuChoose.setBackgroundImage(panel.getSprite("fondAcceuil"));
 
         //Bouton 1 joueur
-        menuChoose.setBouton(0 ,new Bouton(img0, mj[7]));
+        BufferedImage[] img11 = {panel.getSprite("Menu_text_UnJoueur_Standby"), panel.getSprite("Menu_text_UnJoueur_Selected"), panel.getSprite("Menu_text_UnJoueur_Validated")};
+        menuChoose.setBouton(0 ,new Bouton(img11, mj[7]));
         menuChoose.getBouton(0).setPosXY(250, 280);
         menuChoose.getBouton(0).setActionListener(
                 new ActionBouton(){
@@ -472,7 +475,8 @@ class Window extends JFrame {
         );
 
         //Bouton 2 joueur
-        menuChoose.setBouton(1 ,new Bouton(img5, mj[7]));
+        BufferedImage[] img12 = {panel.getSprite("Menu_text_DeuxJoueur_Standby"), panel.getSprite("Menu_text_DeuxJoueur_Selected"), panel.getSprite("Menu_text_DeuxJoueur_Validated")};
+        menuChoose.setBouton(1 ,new Bouton(img12, mj[7]));
         menuChoose.getBouton(1).setPosXY(250, 350);
         menuChoose.getBouton(1).setActionListener(
                 new ActionBouton(){
@@ -560,6 +564,10 @@ class Window extends JFrame {
     public void bye(){
         SoundManager.create("bye", "bye",false);
         SoundManager.play("bye");
+    }
+
+    public ModeDeJeu getModeDeJeuCourant(){
+        return mj[modeDeJeuCourant];
     }
 }
 
