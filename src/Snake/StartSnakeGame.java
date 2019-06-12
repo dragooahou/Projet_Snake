@@ -20,7 +20,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[6];
+    private ModeDeJeu[] mj = new ModeDeJeu[7];
 
     private Panel panel = new Panel();
 
@@ -46,6 +46,8 @@ class Window extends JFrame {
         initMenus();
         // Snake classique
         initSnakeClassic();
+        // Multijoueur
+        initMultiplayer();
 
         // On execute le jeu
         game();
@@ -113,7 +115,7 @@ class Window extends JFrame {
                             SoundManager.stop("musicMenu");
                             pop();
                             SoundManager.create("musicAmbiance", "ambiance",true);
-                            changerMJ(1);
+                            changerMJ(6);
                         }
                     }
             );
@@ -356,9 +358,10 @@ class Window extends JFrame {
 
 
         // Bouton retour menu
-        BufferedImage[] img10 = {panel.getSprite("Menu_text_RetourMenu_Standby"), panel.getSprite("Menu_text_RetourMenu_Selected"), panel.getSprite("Menu_text_RetourMenu_Validated")};
+        BufferedImage[] img10 = {panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour")};
         menuSkin.setBouton(0,new Bouton(img10, mj[5]));
-        menuSkin.getBouton(0).setPosXY(250, 490);
+        menuSkin.getBouton(0).setPosXY(365, 490);
+        menuSkin.getBouton(0).setTaille(60, 60);
         menuSkin.getBouton(0).setActionListener(
                 new ActionBouton(){
                     @Override
@@ -428,6 +431,7 @@ class Window extends JFrame {
         killGame();
         modeDeJeuCourant = n;
         if(n == 1) initSnakeClassic();
+        if(n == 6) initMultiplayer();
         game();
     }
 
@@ -460,6 +464,13 @@ class Window extends JFrame {
         mj[1] = new SnakeClassic();
         mj[1].setWindow(this);
         mj[1].setPanel(panel);
+    }
+
+    public void initMultiplayer(){
+        // Mode de jeu classique
+        mj[6] = new Multiplayer();
+        mj[6].setWindow(this);
+        mj[6].setPanel(panel);
     }
 
     public void setModeDeJeuCourant(int modeDeJeuCourant) {
