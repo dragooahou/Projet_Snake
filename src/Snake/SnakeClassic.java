@@ -170,9 +170,7 @@ public class SnakeClassic extends ModeDeJeu {
     }
 
     public void miam() {
-        SoundManager.stop("crocpomme");
-        SoundManager.create("crocpomme", "crocpomme", false);
-        SoundManager.play("crocpomme");
+        SoundManager.playSmall("crocpomme.wav");
     }
 
     @Override
@@ -218,7 +216,8 @@ public class SnakeClassic extends ModeDeJeu {
             SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
         }
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
-        SoundManager.create(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i), false);
+        System.out.println(i);
+        SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i));
         SoundManager.play(SimpleAudioPlayer.getDeathSounds().get(i));
 
 

@@ -11,6 +11,7 @@ public class StartSnakeGame {
     // Point d'entré du jeu
     public static void main(String[] args) {
         SaveManager.init();
+        SoundManager.initPetitsSons();
         // On créé une fenêtre et on execute la méthode game()
         new Window();
     }
@@ -157,7 +158,7 @@ class Window extends JFrame {
                     new ActionBouton(){
                         @Override
                         public void execute() {
-                            SoundManager.stop("musicMenu");
+
                             pop();
                             changerMJ(4);
                         }
@@ -649,9 +650,7 @@ class Window extends JFrame {
         this.modeDeJeuCourant = modeDeJeuCourant;
     }
     public void pop(){
-        SoundManager.stop("pop");
-        SoundManager.create("pop", "buttoninstant",false);
-        SoundManager.play("pop");
+        SoundManager.playSmall("buttoninstant.wav");
     }
     public void bye(){
         SoundManager.create("bye", "bye",false);

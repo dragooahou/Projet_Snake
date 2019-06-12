@@ -27,7 +27,13 @@ public class SimpleAudioPlayer
     public SimpleAudioPlayer(String filePath, boolean boolier) {
 
             sons.put("Son", loadClip("sound/" + filePath + ".wav", boolier));
+        SimpleAudioPlayer.filePath = filePath;
 
+    }
+    public SimpleAudioPlayer(String filePath) {
+
+        sons.put("Son", loadClipSmall("/" + filePath));
+        SimpleAudioPlayer.filePath = filePath;
 
     }
 
@@ -38,6 +44,12 @@ public class SimpleAudioPlayer
         clip.start();
 
         status = "play";
+    }
+    public void playSmall(){
+        clip.start();
+
+        status = "play";
+        clip.setMicrosecondPosition(0);
     }
 
     // Method to pause the audio
@@ -153,11 +165,46 @@ public class SimpleAudioPlayer
         if (continuous){clip.loop(Clip.LOOP_CONTINUOUSLY);}
         return clip;
     }
+    public Clip loadClipSmall(String filename)
+    {
+
+        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+        if(jarFile.isFile()) {  // Run with JAR file
+            JarFile jar = null;
+            try {
+                jar = new JarFile(jarFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert jar != null;
+            try (InputStream in = jar.getInputStream(jar.getEntry(filename))) {
+                InputStream bufferedIn = new BufferedInputStream(in);
+                try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(bufferedIn)) {
+                    clip = AudioSystem.getClip();
+                    clip.open(audioIn);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            try {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("resources/small_sound" + filename));
+                clip = AudioSystem.getClip();
+                clip.open(audioIn);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return clip;
+    }
 
     public static void addDeathSounds(){
-            deathSounds.add("oof");
-            deathSounds.add("nope");
-            deathSounds.add("poinn");
+            deathSounds.add("oof.wav");
+            deathSounds.add("nope.wav");
+            deathSounds.add("poinn.wav");
 
     }
 
@@ -165,5 +212,8 @@ public class SimpleAudioPlayer
         if (deathSounds.size()==0)addDeathSounds();
         return deathSounds;
     }
-
+    @Override
+    public String toString() {
+        return filePath;
+    }
 } 

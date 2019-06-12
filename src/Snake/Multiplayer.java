@@ -184,9 +184,7 @@ public class Multiplayer extends ModeDeJeu {
     }
 
     public void miam() {
-        SoundManager.stop("crocpomme");
-        SoundManager.create("crocpomme", "crocpomme", false);
-        SoundManager.play("crocpomme");
+        SoundManager.playSmall("crocpomme.wav");
     }
 
     @Override
@@ -225,24 +223,13 @@ public class Multiplayer extends ModeDeJeu {
     }
 
     public void die() {
-        int i = 1+ (int)(Math.random() * 3 );
-        SoundManager.stop("oof");
-        SoundManager.stop("nope");
-        SoundManager.stop("poinn");
-        switch (i) {
-            case 1 :
-                SoundManager.create("oof", "oof", false);
-                SoundManager.play("oof");
-                break;
-            case 2 :
-                SoundManager.create("nope", "nope", false);
-                SoundManager.play("nope");
-                break;
-            case 3 :
-                SoundManager.create("poinn", "poinn", false);
-                SoundManager.play("poinn");
-                break;
-
+        for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
+            SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
         }
+        int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
+        System.out.println(i);
+        SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i));
+        SoundManager.play(SimpleAudioPlayer.getDeathSounds().get(i));
+
     }
 }
