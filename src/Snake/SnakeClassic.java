@@ -204,25 +204,20 @@ public class SnakeClassic extends ModeDeJeu {
 
     }
 
-    public void die() {
-        int i = 1+ (int)(Math.random() * 3 );
-        SoundManager.stop("oof");
-        SoundManager.stop("nope");
-        SoundManager.stop("poinn");
-        switch (i) {
-            case 1 :
-                SoundManager.create("oof", "oof", false);
-                SoundManager.play("oof");
-                break;
-            case 2 :
-                SoundManager.create("nope", "nope", false);
-                SoundManager.play("nope");
-                break;
-            case 3 :
-                SoundManager.create("poinn", "poinn", false);
-                SoundManager.play("poinn");
-                break;
 
+    public void die() {
+
+
+        for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
+            SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
         }
+        int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
+        System.out.println(i);
+        SoundManager.create(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i), false);
+        SoundManager.play(SimpleAudioPlayer.getDeathSounds().get(i));
+
+
+
     }
+
 }

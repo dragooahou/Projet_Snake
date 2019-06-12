@@ -175,10 +175,11 @@ class Window extends JFrame {
 
 
             // Bouton quitter
+
             BufferedImage[] img1 = {panel.getSprite("Menu_text_Quitter_Standby"), panel.getSprite("Menu_text_Quitter_Selected"), panel.getSprite("Menu_text_Quitter_Validated")};
             menuPrincipal.setBouton(3 ,new Bouton(img1, mj[0]));
             menuPrincipal.getBouton(3).setPosXY(250, 490);
-            menuPrincipal.getBouton(3).setActionListener((ActionBouton)() -> System.exit(0));
+            menuPrincipal.getBouton(3).setActionListener((ActionBouton)() -> {bye();System.exit(0);});
 
         //////////////////////////////////////
 
@@ -480,6 +481,10 @@ class Window extends JFrame {
         SoundManager.stop("pop");
         SoundManager.create("pop", "buttoninstant",false);
         SoundManager.play("pop");
+    }
+    public void bye(){
+        SoundManager.create("bye", "bye",false);
+        SoundManager.play("bye");
     }
 }
 

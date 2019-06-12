@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -17,13 +18,13 @@ public class SimpleAudioPlayer
 
     private HashMap<String, Clip> sons = new HashMap<String, Clip>();
     // to store current position
-    Long currentFrame;
-    Clip clip;
+    private Long currentFrame;
+    private Clip clip;
     // current status of clip
-    String status;
-
-    AudioInputStream audioInputStream;
-    static String filePath;
+    private String status;
+    public static ArrayList <String> deathSounds = new ArrayList<>();
+    private AudioInputStream audioInputStream;
+    private static String filePath;
 
     // constructor to initialize streams and clip
     public SimpleAudioPlayer(String filePath, boolean boolier) {
@@ -33,16 +34,16 @@ public class SimpleAudioPlayer
 
     }
 
-    // Method to play the audio 
+    // Method to play the audio
     public void play()
     {
-        //start the clip 
+        //start the clip
         clip.start();
 
         status = "play";
     }
 
-    // Method to pause the audio 
+    // Method to pause the audio
     public void pause()
     {
         if (status.equals("paused"))
@@ -56,7 +57,7 @@ public class SimpleAudioPlayer
         status = "paused";
     }
 
-    // Method to resume the audio 
+    // Method to resume the audio
     public void resumeAudio() throws UnsupportedAudioFileException,
             IOException, LineUnavailableException
     {
@@ -70,7 +71,7 @@ public class SimpleAudioPlayer
         this.play();
     }
 
-    // Method to restart the audio 
+    // Method to restart the audio
     public void restart() throws IOException, LineUnavailableException,
             UnsupportedAudioFileException
     {
@@ -82,7 +83,7 @@ public class SimpleAudioPlayer
         this.play();
     }
 
-    // Method to stop the audio 
+    // Method to stop the audio
     public void stop() throws UnsupportedAudioFileException,
             IOException, LineUnavailableException
     {
@@ -91,7 +92,7 @@ public class SimpleAudioPlayer
         clip.close();
     }
 
-    // Method to jump over a specific part 
+    // Method to jump over a specific part
     public void jump(long c) throws UnsupportedAudioFileException, IOException,
             LineUnavailableException
     {
@@ -106,7 +107,7 @@ public class SimpleAudioPlayer
         }
     }
 
-    // Method to reset audio stream 
+    // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
             LineUnavailableException
     {
@@ -154,6 +155,18 @@ public class SimpleAudioPlayer
         }
         if (continuous){clip.loop(Clip.LOOP_CONTINUOUSLY);}
         return clip;
+    }
+
+    public static void addDeathSounds(){
+            deathSounds.add("oof");
+            deathSounds.add("nope");
+            deathSounds.add("poinn");
+
+    }
+
+    public static ArrayList<String> getDeathSounds(){
+        if (deathSounds.size()==0)addDeathSounds();
+        return deathSounds;
     }
 
 } 
