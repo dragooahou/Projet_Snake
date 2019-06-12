@@ -1,14 +1,8 @@
 package Snake;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 
 public class Terrain {
 
@@ -118,7 +112,8 @@ public class Terrain {
     	for(int i = 2; i < p.length-1; i++)
     		squareTab[p[i].getXPos()][p[i].getYPos()].setObject(skin + "_corp" + p[0].getDirection() + "4");
 
-    	squareTab[p[p.length-1].getXPos()][p[p.length-1].getYPos()].setObject(skin + "_queue" + p[0].getDirection()+ "4");
+		squareTab[p[p.length-2].getXPos()][p[p.length-2].getYPos()].setObject(skin + "_arriere" + p[0].getDirection()+ "4");
+		squareTab[p[p.length-1].getXPos()][p[p.length-1].getYPos()].setObject(skin + "_queue" + p[0].getDirection()+ "4");
     }
 
 
