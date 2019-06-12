@@ -475,7 +475,7 @@ class Window extends JFrame {
         //Bouton 1 joueur
         BufferedImage[] img11 = {panel.getSprite("Menu_text_UnJoueur_Standby"), panel.getSprite("Menu_text_UnJoueur_Selected"), panel.getSprite("Menu_text_UnJoueur_Validated")};
         menuChoose.setBouton(0 ,new Bouton(img11, mj[7]));
-        menuChoose.getBouton(0).setPosXY(250, 280);
+        menuChoose.getBouton(0).setPosXY(250, 290);
         menuChoose.getBouton(0).setActionListener(
                 new ActionBouton(){
                     @Override
@@ -491,7 +491,7 @@ class Window extends JFrame {
         //Bouton 2 joueur
         BufferedImage[] img12 = {panel.getSprite("Menu_text_DeuxJoueur_Standby"), panel.getSprite("Menu_text_DeuxJoueur_Selected"), panel.getSprite("Menu_text_DeuxJoueur_Validated")};
         menuChoose.setBouton(1 ,new Bouton(img12, mj[7]));
-        menuChoose.getBouton(1).setPosXY(250, 350);
+        menuChoose.getBouton(1).setPosXY(250, 360);
         menuChoose.getBouton(1).setActionListener(
                 new ActionBouton(){
                     @Override
@@ -507,7 +507,7 @@ class Window extends JFrame {
         //Bouton tron
         BufferedImage[] img13 = {panel.getSprite("Menu_Text_Tron_Standby"), panel.getSprite("Menu_Text_Tron_Selected"), panel.getSprite("Menu_Text_Tron_Validated")};
         menuChoose.setBouton(3 ,new Bouton(img13, mj[7]));
-        menuChoose.getBouton(3).setPosXY(250, 420);
+        menuChoose.getBouton(3).setPosXY(250, 410);
         menuChoose.getBouton(3).setActionListener(
                 new ActionBouton(){
                     @Override
