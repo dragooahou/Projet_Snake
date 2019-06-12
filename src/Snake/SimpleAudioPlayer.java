@@ -203,7 +203,7 @@ public class SimpleAudioPlayer
             deathSounds.add("oof.wav");
             deathSounds.add("nope.wav");
             deathSounds.add("poinn.wav");
-
+            deathSounds.add("erro.wav");
     }
 
     public static ArrayList<String> getDeathSounds(){
