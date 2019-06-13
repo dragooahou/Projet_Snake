@@ -38,7 +38,7 @@ public class StartSnakeGame {
 class Window extends JFrame {
 
     // Tableau des mods de jeu
-    private ModeDeJeu[] mj = new ModeDeJeu[10];
+    private ModeDeJeu[] mj = new ModeDeJeu[11];
 
     private Panel panel = new Panel();
 
@@ -64,6 +64,7 @@ class Window extends JFrame {
         initSnakeClassic();
         initMultiplayer();
         initTron();
+        initKebabMod();
 
         // On execute le jeu
         game();
@@ -130,7 +131,8 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
-                            changerMJ(7);
+                            //changerMJ(7);
+                            changerMJ(10);
                         }
                     }
             );
@@ -676,6 +678,7 @@ class Window extends JFrame {
         if(n == 1) initSnakeClassic();
         if(n == 6) initMultiplayer();
         if(n == 9) initTron();
+        if(n == 10) initKebabMod();
         game();
     }
 
@@ -724,6 +727,12 @@ class Window extends JFrame {
         mj[9] = new Tron();
         mj[9].setWindow(this);
         mj[9].setPanel(panel);
+    }
+
+    private void initKebabMod(){
+        mj[10] = new KebabMod();
+        mj[10].setWindow(this);
+        mj[10].setPanel(panel);
     }
 
     public void setModeDeJeuCourant(int modeDeJeuCourant) {

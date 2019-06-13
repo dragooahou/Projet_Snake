@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class ListeFruits {
 
+    public static String tmp = "";
+
     // La liste des fruits
     private static String[] fruits = {"Sprite_Meat2", "Sprite_Onion2", "Sprite_RedApple2", "Sprite_Salad2", "Sprite_Tomato2",
                                       "Sprite_Meat1", "Sprite_Onion1", "Sprite_RedApple1", "Sprite_Salad1", "Sprite_Tomato1"

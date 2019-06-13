@@ -224,7 +224,17 @@ public class Terrain {
 		return new Point(x,y);
 	}
 
-
+	public Point spawnFruit(String fruit){
+		Random r = new Random();
+		int x;
+		int y;
+		do {
+			x = r.nextInt(width);
+			y = r.nextInt(height);
+		}while(onSnakes(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
+		setCaseObject(fruit, x, y);
+		return new Point(x,y);
+	}
 
 	// Met a jour l'animation de fruit
 	public void updateAnimFruit(){

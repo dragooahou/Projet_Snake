@@ -71,6 +71,7 @@ public class Snake {
 
         // On vérifie que on serait pas sur un fruit
         if(ListeFruits.isFruit(tab[positions[0].getXPos()][positions[0].getYPos()].getObject())) {
+            ListeFruits.tmp = tab[positions[0].getXPos()][positions[0].getYPos()].getObject();
             grow();
             return 2;
         }

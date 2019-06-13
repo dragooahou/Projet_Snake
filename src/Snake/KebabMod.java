@@ -1,32 +1,35 @@
 package Snake;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class Tron extends ModeDeJeu {
+public class KebabMod extends ModeDeJeu {
 
-    public Tron() {
+    private Inventaire inventaire = new Inventaire();
+
+    public KebabMod() {
 
         stopped = false;
         paused = false;
         demarrage = true;
+        hud = new Interface();
 
         // Grille sur laquelle va se déplacer le serpent
-        terrain = new Terrain(0, 0, 50, 36, 16);
-        terrain.generateBackground(500);
-        terrain.setSnake(0,47,25);
-        terrain.setSnake(1,3,25);
-        terrain.getSnake(0).setSkin("snake_blue");
-        terrain.getSnake(1).setSkin("snake_red");
-
+        terrain = new Terrain(0, 32, 25, 17, 32);
+        terrain.setSnake(0,15,12);
     }
 
     public void run() {
         SaveManager.upNbGames();
+        hud.setBackgound(panel.getSprite("interfaceKebab"));
+        hud.setMj(this);
+        hud.draw();
 
+        spawnFruitSet();
 
         while (!stopped) {
 
@@ -45,32 +48,44 @@ public class Tron extends ModeDeJeu {
                 panel.updateAnim();
 
                 try {
-                    Thread.sleep(18);
+                    Thread.sleep(30);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             // On met à jour le terrain
             // Si le serpent est mort
-            for (int i = 0; i < 2; i++)
-                switch (terrain.update(i)) {
-                    case 0:
-                        break;
-                    case 1:
-                        SoundManager.stop("musicAmbiance");
-                        die();
-                        window.changerMJ(3);
-                        window.getModeDeJeuCourant().setPausedMJ(9);
-                        break;
-                    case 2:
-                        break;
-                }
+            switch (terrain.update(0)) {
+                case 0:
+                    break;
+                case 1:
+                    SoundManager.stop("musicAmbiance");
+                    if(SaveManager.getHiscore() < hud.getScore()) SaveManager.setHiscore(hud.getScore());
+                    die();
+                    window.changerMJ(3);
+                    window.getModeDeJeuCourant().setPausedMJ(1);
+                    break;
+                case 2:
+                    miam();
+
+                    if(inventaire.add(ListeFruits.tmp)) {
+                        if (inventaire.isFini()) {
+                            spawnFruitSet();
+                            hud.addScore(1000);
+                        }
+                    }else spawnFruitSet();
+
+                    for (Point p : terrain.tryAddRock(1, 50)) panel.drawTerrain(p);
+                    for (Point p : terrain.tryAddRock(1, 20)) panel.drawTerrain(p);
+                    for (Point p : terrain.tryAddRock(1, 12)) panel.drawTerrain(p);
+                    hud.addScore(100);
+                    SaveManager.upNbFruits();
+                    break;
+            }
         }
     }
 
     public void draw() {
-        for(int i = 0; i < 10000; i++)
-            terrain.spawnFruit();
         panel.dessiner("terrain");
 
         ActionListener repaint = new ActionListener() {
@@ -88,6 +103,25 @@ public class Tron extends ModeDeJeu {
         Timer drawClock = new Timer(20, repaint);
         drawClock.start();
         drawClock.setRepeats(true);
+
+        // On lance la génération de fruits
+        ActionListener animFruit = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (!paused && !demarrage) {
+                    terrain.updateAnimFruit();
+                    panel.dessiner("fruits");
+                }
+
+                if (stopped) {
+                    Timer timer = (Timer) e.getSource();
+                    timer.stop();
+                }
+            }
+        };
+
+        Timer animeFruitClock = new Timer(500, animFruit);
+        animeFruitClock.start();
+        animeFruitClock.setRepeats(true);
 
     }
 
@@ -124,22 +158,11 @@ public class Tron extends ModeDeJeu {
             case "Gauche":
                 terrain.setSnakeDirection(0,'W');
                 break;
-
-            case "Z":
-                terrain.setSnakeDirection(1,'N');
-                break;
-            case "S":
-                terrain.setSnakeDirection(1,'S');
-                break;
-            case "D":
-                terrain.setSnakeDirection(1,'E');
-                break;
-            case "Q":
-                terrain.setSnakeDirection(1,'W');
-                break;
-
             case "Echap":
                 window.pause();
+                break;
+            case "Espace":
+                terrain.spawnFruit();
                 break;
             default:
                 break;
@@ -155,7 +178,9 @@ public class Tron extends ModeDeJeu {
         lastKey = "";
     }
 
-
+    public void miam() {
+        SoundManager.playSmall("crocpomme.wav");
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -194,6 +219,9 @@ public class Tron extends ModeDeJeu {
 
     int f = 0;
     public void die() {
+
+
+
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
         if (f==0){
             for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
@@ -203,5 +231,12 @@ public class Tron extends ModeDeJeu {
         }
         SoundManager.playSmall(SimpleAudioPlayer.getDeathSounds().get(i));
 
+
+
     }
+
+    public void spawnFruitSet(){
+        for (String f : ListeFruits.getFruits()) if(f.endsWith("1")){panel.drawTerrain(terrain.spawnFruit(f));};
+    }
+
 }
