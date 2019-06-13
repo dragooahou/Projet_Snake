@@ -16,6 +16,8 @@ abstract class ModeDeJeu implements MouseListener, MouseMotionListener, KeyListe
 	protected boolean demarrage;
 	protected int pausedMJ;
 
+	protected String name;
+
 	public void run(){ System.out.println("Ce mode de jeu n'a rien à executer."); }
 
 	public void draw(){

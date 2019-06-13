@@ -20,7 +20,9 @@ public class SaveManager {
             } catch (IOException e) { e.printStackTrace(); }
             setSkin("snake_default");
             unmute();
-            setHiscore(0);
+            setHiscore("classic", 0);
+            setHiscore("multi", 0);
+            setHiscore("kebab", 0);
             setNbgames(0);
             setNbFruits(0);
         }
@@ -79,10 +81,10 @@ public class SaveManager {
     }
 
     ///////// HISCORE ////////////////////////////////////
-    public static int getHiscore() {
+    public static int getHiscore(String mj) {
         try{
             p.load(new FileInputStream(FILE_NAME));
-            return Integer.parseInt(p.getProperty("hiscore"));
+            return Integer.parseInt(p.getProperty("hiscore_" + mj));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -90,10 +92,10 @@ public class SaveManager {
         }
     }
 
-    public static void setHiscore(int i) {
+    public static void setHiscore(String mj, int i) {
         String s = i + "";
         try (OutputStream output = new FileOutputStream(FILE_NAME)) {
-            p.setProperty("hiscore", s);
+            p.setProperty("hiscore_" + mj, s);
             p.store(output, null);
         }catch (Exception e){ e.printStackTrace(); }
     }

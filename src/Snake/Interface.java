@@ -11,8 +11,13 @@ public class Interface {
     private Point backGoundPosition = new Point(0,0);
 
     private int score = 0;
-    private int hiscore = SaveManager.getHiscore();
+    private int hiscore = 0;
     private int kebabState = 0;
+
+    public Interface(ModeDeJeu mj){
+        this.mj = mj;
+        hiscore = SaveManager.getHiscore(mj.name);
+    }
 
     // Dessiner avec une icon
     public void draw(String state){

@@ -10,11 +10,12 @@ import java.awt.event.MouseEvent;
 public class Multiplayer extends ModeDeJeu {
 
     public Multiplayer() {
+        name = "multi";
 
         stopped = false;
         paused = false;
         demarrage = true;
-        hud = new Interface();
+        hud = new Interface(this);
 
         // Grille sur laquelle va se déplacer le serpent
         terrain = new Terrain(0, 32, 25, 17, 32);
@@ -25,7 +26,6 @@ public class Multiplayer extends ModeDeJeu {
     public void run() {
         SaveManager.upNbGames();
         hud.setBackgound(panel.getSprite("interface"));
-        hud.setMj(this);
         hud.draw();
 
         panel.drawTerrain(terrain.spawnFruit());
@@ -60,7 +60,7 @@ public class Multiplayer extends ModeDeJeu {
                         break;
                     case 1:
                         SoundManager.stop("musicAmbiance");
-                        if(SaveManager.getHiscore() < hud.getScore()) SaveManager.setHiscore(hud.getScore());
+                        if(SaveManager.getHiscore(name) < hud.getScore()) SaveManager.setHiscore(name, hud.getScore());
                         die();
                         window.changerMJ(3);
                         window.getModeDeJeuCourant().setPausedMJ(6);
