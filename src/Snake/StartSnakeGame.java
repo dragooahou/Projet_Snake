@@ -545,7 +545,7 @@ class Window extends JFrame {
 
 
 
-        //////////////////////////////////////
+
     }
     // Menu Succes ///////////////////////
     public void creMJ8(){
@@ -587,8 +587,15 @@ class Window extends JFrame {
                     }
                 }
         );
+
+        String suffix2 = "";
+        String sufft2 = "";
+        if (SaveManager.getNbFruits()<=9) {suffix2 = "Sprite_success_10fruits_locked";sufft2="Sprite_success_10fruits_text";}
+        else if (SaveManager.getNbFruits()<=50){suffix2 = "Sprite_success_10fruits";sufft2="Sprite_success_10fruits_text";}
+        else if (SaveManager.getNbFruits()<=99){suffix2 = "Sprite_success_100fruits_locked";sufft2="Sprite_success_100fruits_text";}
+        else if (SaveManager.getNbFruits()>=100){suffix2 = "Sprite_success_100fruits";sufft2="Sprite_success_100fruits_text";}
         // Bouton qui affiche succes 2
-        menuSucces.setBouton(3, new Bouton(new BufferedImage[]{panel.getSprite("Sprite_success_10fruits"), panel.getSprite("Sprite_success_10fruits"), panel.getSprite("Sprite_success_10fruits")}, mj[8]));
+        menuSucces.setBouton(3, new Bouton(new BufferedImage[]{panel.getSprite(suffix2), panel.getSprite(suffix2), panel.getSprite(suffix2)}, mj[8]));
         menuSucces.getBouton(3).setPosXY(240, 350);
         menuSucces.getBouton(3).setTaille(60, 60);
         menuSucces.getBouton(3).setActionListener(
@@ -600,7 +607,7 @@ class Window extends JFrame {
                 }
         );
         // Bouton qui affiche succes 2 text
-        menuSucces.setBouton(4, new Bouton(new BufferedImage[]{panel.getSprite("Sprite_success_10fruits_text"), panel.getSprite("Sprite_success_10fruits_text"), panel.getSprite("Sprite_success_10fruits_text")}, mj[8]));
+        menuSucces.setBouton(4, new Bouton(new BufferedImage[]{panel.getSprite(sufft2), panel.getSprite(sufft2), panel.getSprite(sufft2)}, mj[8]));
         menuSucces.getBouton(4).setPosXY(310, 353);
         menuSucces.getBouton(4).setTaille(80, 250);
         menuSucces.getBouton(4).setActionListener(
@@ -611,6 +618,9 @@ class Window extends JFrame {
                     }
                 }
         );
+
+
+
         // Bouton retour menu
         menuSucces.setBouton(0, new Bouton(new BufferedImage[]{panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour"), panel.getSprite("Sprite_FlecheRetour")}, mj[8]));
         menuSucces.getBouton(0).setPosXY(365, 490);
@@ -626,6 +636,8 @@ class Window extends JFrame {
         );
 
     }
+
+    //////////////////////////////////////
 
     public void changerMJ(int n){
         String msg = "";
