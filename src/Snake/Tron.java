@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 
 public class Tron extends ModeDeJeu {
 
+    protected String msgFin = null;
+
     public Tron() {
 
         stopped = false;
@@ -59,6 +61,11 @@ public class Tron extends ModeDeJeu {
                     case 1:
                         SoundManager.stop("musicAmbiance");
                         die();
+
+                        msgFin = "Le joueur ";
+                        if(i == 0) msgFin += "rouge à gagné";
+                        else msgFin += "bleu à gagné";
+
                         window.changerMJ(3);
                         window.getModeDeJeuCourant().setPausedMJ(9);
                         break;

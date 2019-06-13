@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
 
 public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListener, KeyListener {
 
+	// Message à afficher
+	public String msg = null;
+
 	// boutons presents dans le menu
 	private Bouton[] tabBouton;
 
@@ -48,8 +51,16 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 		Graphics g2d = panel.getGraph();
 		g2d.drawImage(backgroundImage, bgCoords.x, bgCoords.y, bgTaille.x, bgTaille.y, panel);
 
+		// on dessine les boutons
 		for (Bouton bou : tabBouton)
 			bou.draw();
+
+		// on dessine le msg qi y'en a un
+		if(msg != null){
+			g2d.setColor(Color.white);
+			g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+			g2d.drawString(msg, 255, 220);
+		}
 
 			// on redessine le bouton a chaque fois qu'il y a un MouseEvent
 		while (!stopped) {
@@ -147,6 +158,11 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 		g2d.drawImage(backgroundImage, bgCoords.x, bgCoords.y, bgTaille.x, bgTaille.y, panel);
 		for (Bouton bou : tabBouton) {
 			bou.draw();
+		}
+		if(msg != null){
+			g2d.setColor(Color.white);
+			g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+			g2d.drawString(msg, 255, 220);
 		}
 	}
 

@@ -31,7 +31,6 @@ public class StartSnakeGame {
         8 : Succes
         9 : Tron
        10 : Mode kebab
-
 */
 
 
@@ -683,10 +682,10 @@ class Window extends JFrame {
     }
 
     //////////////////////////////////////
-
     public void changerMJ(int n){
-        String msg = "";
-        //if(n == 3) msg = (Tron) mj[modeDeJeuCourant]
+        // On recupère le message si on peut et si y'en a un
+        if(mj[modeDeJeuCourant] instanceof Tron && mj[n] instanceof Menu && ((Tron)mj[modeDeJeuCourant]).msgFin != null)
+            ((Menu)mj[n]).msg = ((Tron)mj[modeDeJeuCourant]).msgFin;
 
         killGame();
         modeDeJeuCourant = n;
