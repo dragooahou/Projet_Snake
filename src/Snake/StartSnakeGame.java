@@ -687,6 +687,9 @@ class Window extends JFrame {
         if(mj[modeDeJeuCourant] instanceof Tron && mj[n] instanceof Menu && ((Tron)mj[modeDeJeuCourant]).msgFin != null)
             ((Menu)mj[n]).msg = ((Tron)mj[modeDeJeuCourant]).msgFin;
 
+        else if(mj[n] instanceof Menu)
+            ((Menu)mj[n]).msg = null;
+
         killGame();
         modeDeJeuCourant = n;
         if(n == 1) initSnakeClassic();

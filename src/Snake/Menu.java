@@ -57,7 +57,7 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 
 		// on dessine le msg qi y'en a un
 		if(msg != null){
-			g2d.setColor(Color.white);
+			g2d.setColor(Color.orange);
 			g2d.setFont(new Font("Arial", Font.PLAIN, 24));
 			g2d.drawString(msg, 255, 220);
 		}
@@ -160,7 +160,7 @@ public class Menu extends ModeDeJeu implements MouseListener, MouseMotionListene
 			bou.draw();
 		}
 		if(msg != null){
-			g2d.setColor(Color.white);
+			g2d.setColor(Color.orange);
 			g2d.setFont(new Font("Arial", Font.PLAIN, 24));
 			g2d.drawString(msg, 255, 220);
 		}
