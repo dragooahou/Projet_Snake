@@ -212,9 +212,7 @@ int f = 0;
     public void die() {
 
 
-        //for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
-           // SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
-        //}
+
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
         if (f==0){
             for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
@@ -222,7 +220,6 @@ int f = 0;
             }
             f++;
         }
-        //SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i));
         SoundManager.playSmall(SimpleAudioPlayer.getDeathSounds().get(i));
 
 

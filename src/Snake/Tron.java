@@ -193,13 +193,16 @@ public class Tron extends ModeDeJeu {
 
     }
 
+    int f = 0;
     public void die() {
-        for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
-            SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
-        }
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
-        SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i));
-        SoundManager.play(SimpleAudioPlayer.getDeathSounds().get(i));
+        if (f==0){
+            for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
+                SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(u), SimpleAudioPlayer.getDeathSounds().get(u));
+            }
+            f++;
+        }
+        SoundManager.playSmall(SimpleAudioPlayer.getDeathSounds().get(i));
 
     }
 }
