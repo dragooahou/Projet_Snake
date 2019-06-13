@@ -14,6 +14,16 @@ public class Interface {
     private int hiscore = SaveManager.getHiscore();
     private int kebabState = 0;
 
+    // Dessiner avec une icon
+    public void draw(String state){
+        draw();
+        Graphics2D g2d = mj.panel.getGraph();
+        g2d.drawImage(mj.panel.getSprite("Sprite_KebabIcon" + state), mj.panel.getWidth() - 49, -17, 50, 50, mj.panel);
+        g2d.setColor(Color.white);
+        g2d.setFont(new Font("Arial", Font.PLAIN, 18));
+        g2d.drawString("Salade > Viande > Tomate > Oignion", 20, 50);
+    }
+
 
     public void draw(){
         Graphics2D g2d = mj.panel.getGraph();
@@ -27,6 +37,9 @@ public class Interface {
 
     private void writeScore(Graphics2D g2d ,int n, int x, int y){
         int offset = 0;
+        //if(n < 0) offset += 16;
+
+
         for (char c : (n + "").toCharArray()) {
             g2d.drawImage(mj.panel.getSprite("Sprite_num_" + c), x + offset, y, 32, 32, mj.panel);
             offset += 32;
@@ -36,6 +49,11 @@ public class Interface {
     public void addScore(int n){
         score+=n;
         draw();
+    }
+
+    public void addScore(int n, String state){
+        score+=n;
+        draw(state);
     }
 
     public BufferedImage getBackgound() {

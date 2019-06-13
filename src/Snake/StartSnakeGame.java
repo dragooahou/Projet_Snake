@@ -1,5 +1,5 @@
 package Snake;// IMPORTS
-    import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -30,6 +30,7 @@ public class StartSnakeGame {
         7 : Menu choisir mode de jeu
         8 : Succes
         9 : Tron
+       10 : Mode kebab
 
 */
 
@@ -131,8 +132,7 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
-                            //changerMJ(7);
-                            changerMJ(10);
+                            changerMJ(7);
                         }
                     }
             );
@@ -473,7 +473,7 @@ class Window extends JFrame {
         //////////////////////////////////////
 
         // Menu mode de jeu ///////////////////////
-        mj[7] = new Menu(4);
+        mj[7] = new Menu(5);
         mj[7].setWindow(this);
         mj[7].setPanel(panel);
         Menu menuChoose = (Menu) mj[7];
@@ -514,7 +514,7 @@ class Window extends JFrame {
         //Bouton tron
         BufferedImage[] img13 = {panel.getSprite("tron1"), panel.getSprite("tron2"), panel.getSprite("tron3")};
         menuChoose.setBouton(3 ,new Bouton(img13, mj[7]));
-        menuChoose.getBouton(3).setPosXY(280, 410);
+        menuChoose.getBouton(3).setPosXY(280, 490);
         menuChoose.getBouton(3).setTaille(45, 225);
 
         menuChoose.getBouton(3).setActionListener(
@@ -529,9 +529,24 @@ class Window extends JFrame {
                 }
         );
 
+        //Bouton kebab mode
+        menuChoose.setBouton(4 ,new Bouton(img11, mj[7]));
+        menuChoose.getBouton(4).setPosXY(250, 420);
+        menuChoose.getBouton(4).setActionListener(
+                new ActionBouton(){
+                    @Override
+                    public void execute() {
+                        SoundManager.stop("musicMenu");
+                        pop();
+                        SoundManager.create("musicAmbiance", "ambiance",true);
+                        changerMJ(10);
+                    }
+                }
+        );
+
         // Bouton retour menu
         menuChoose.setBouton(2,new Bouton(img10, mj[7]));
-        menuChoose.getBouton(2).setPosXY(365, 490);
+        menuChoose.getBouton(2).setPosXY(570, 490);
         menuChoose.getBouton(2).setTaille(60, 60);
         menuChoose.getBouton(2).setActionListener(
                 new ActionBouton(){
@@ -699,8 +714,9 @@ class Window extends JFrame {
         panel.setMJ(mj[modeDeJeuCourant]);
 
         if(modeDeJeuCourant == 1) panel.dessiner("terrain");
-        if(modeDeJeuCourant == 6) panel.dessiner("terrain");
-        if(modeDeJeuCourant == 9) panel.dessiner("terrainfutur");
+        else if(modeDeJeuCourant == 6) panel.dessiner("terrain");
+        else if(modeDeJeuCourant == 9) panel.dessiner("terrain");
+        else if(modeDeJeuCourant == 10) panel.dessiner("terrain");
 
         mj[modeDeJeuCourant].setDemarrage(true);
         panel.dessiner("snake");
@@ -735,9 +751,6 @@ class Window extends JFrame {
         mj[10].setPanel(panel);
     }
 
-    public void setModeDeJeuCourant(int modeDeJeuCourant) {
-        this.modeDeJeuCourant = modeDeJeuCourant;
-    }
     public void pop(){
         SoundManager.stop("pop");
         SoundManager.create("pop", "buttoninstant", false);

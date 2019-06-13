@@ -231,7 +231,7 @@ public class Terrain {
 		do {
 			x = r.nextInt(width);
 			y = r.nextInt(height);
-		}while(onSnakes(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
+		}while(onSnakes(x, y) || !objectOnCase(x,y).equals(""));
 		setCaseObject(fruit, x, y);
 		return new Point(x,y);
 	}

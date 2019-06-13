@@ -27,13 +27,21 @@ public class KebabMod extends ModeDeJeu {
         SaveManager.upNbGames();
         hud.setBackgound(panel.getSprite("interfaceKebab"));
         hud.setMj(this);
-        hud.draw();
+        hud.draw("1");
 
         spawnFruitSet();
 
         while (!stopped) {
 
             if (paused || demarrage) {
+                if(demarrage){
+                    Graphics2D g2d = panel.getGraph();
+                    g2d.setColor(Color.white);
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab.", 20, 200);
+                    g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 230);
+                }
+
                 try {
                     Thread.sleep(25);
                 } catch (InterruptedException e) {
@@ -63,22 +71,31 @@ public class KebabMod extends ModeDeJeu {
                     if(SaveManager.getHiscore() < hud.getScore()) SaveManager.setHiscore(hud.getScore());
                     die();
                     window.changerMJ(3);
-                    window.getModeDeJeuCourant().setPausedMJ(1);
+                    window.getModeDeJeuCourant().setPausedMJ(10);
                     break;
                 case 2:
                     miam();
-
+                    if(ListeFruits.tmp.equals("Sprite_RedApple1") || ListeFruits.tmp.equals("Sprite_RedApple2")){
+                        panel.drawTerrain(terrain.spawnFruit("Sprite_RedApple1"));
+                        panel.drawTerrain(terrain.spawnFruit("Sprite_RedApple1"));
+                        panel.drawTerrain(terrain.spawnFruit("Sprite_RedApple1"));
+                        hud.addScore(-200, inventaire.getState());
+                    }
                     if(inventaire.add(ListeFruits.tmp)) {
                         if (inventaire.isFini()) {
                             spawnFruitSet();
-                            hud.addScore(1000);
+                            panel.drawTerrain(terrain.spawnFruit("Sprite_RedApple1"));
+                            panel.drawTerrain(terrain.spawnFruit("Sprite_RedApple1"));
+                            panel.drawTerrain(terrain.spawnFruit("Sprite_RedApple1"));
+                            hud.addScore(1000, inventaire.getState());
+                            inventaire.init();
                         }
                     }else spawnFruitSet();
 
                     for (Point p : terrain.tryAddRock(1, 50)) panel.drawTerrain(p);
                     for (Point p : terrain.tryAddRock(1, 20)) panel.drawTerrain(p);
                     for (Point p : terrain.tryAddRock(1, 12)) panel.drawTerrain(p);
-                    hud.addScore(100);
+                    hud.addScore(100, inventaire.getState());
                     SaveManager.upNbFruits();
                     break;
             }
@@ -136,9 +153,12 @@ public class KebabMod extends ModeDeJeu {
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
-        if (demarrage)
-            demarrage = false;
 
+        if (demarrage) {
+            demarrage = false;
+            panel.dessiner("terrain");
+            hud.draw(inventaire.getState());
+        }
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien

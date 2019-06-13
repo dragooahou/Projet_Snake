@@ -11,8 +11,8 @@ public class SoundManager {
     private final static File jarFile = new File(SoundManager.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
     private static HashMap<String, SimpleAudioPlayer> players = new HashMap<>();
-    static File folder = new File("resources/small_sound");
-    static File[] listOfFiles = folder.listFiles();
+    private static File folder = new File("resources/small_sound");
+    private static File[] listOfFiles = folder.listFiles();
     public static void create(String name, String clipName, boolean bool){
         if(SaveManager.isMuted().equals("on")) {
             try {
