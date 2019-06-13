@@ -22,6 +22,7 @@ public class Tron extends ModeDeJeu {
         terrain.setSnake(1,3,25);
         terrain.getSnake(0).setSkin("snake_blue");
         terrain.getSnake(1).setSkin("snake_red");
+
     }
 
     public void run() {

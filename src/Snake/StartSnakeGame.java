@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-    import java.io.File;
 
 public class StartSnakeGame {
 
@@ -433,7 +432,7 @@ class Window extends JFrame {
                             menuSkin.getBouton(3).setTaille(0,0);
                             menuSkin.getBouton(3).draw();
                             menuSkin.getBouton(3).setTaille(128, 32);
-                            menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
+                            menuSkin.mouseMoved(new MouseEvent(panel, 0, 0L, 0,0,0,1, true));
                         }
                     }
             );
@@ -452,7 +451,7 @@ class Window extends JFrame {
                             menuSkin.getBouton(3).setTaille(0,0);
                             menuSkin.getBouton(3).draw();
                             menuSkin.getBouton(3).setTaille(128, 32);
-                            menuSkin.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
+                            menuSkin.mouseMoved(new MouseEvent(panel, 0, 0L, 0,0,0,1, true));
                         }
                     }
             );
