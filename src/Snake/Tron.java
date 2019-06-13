@@ -197,7 +197,6 @@ public class Tron extends ModeDeJeu {
             SoundManager.stop(SimpleAudioPlayer.getDeathSounds().get(u));
         }
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
-        System.out.println(i);
         SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(i), SimpleAudioPlayer.getDeathSounds().get(i));
         SoundManager.play(SimpleAudioPlayer.getDeathSounds().get(i));
 
