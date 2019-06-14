@@ -220,13 +220,29 @@ public class Terrain {
 		Random r = new Random();
 		int x;
 		int y;
+		int i = 0;
 		do {
+			i++;
 			x = r.nextInt(width);
 			y = r.nextInt(height);
+			if(i > 15) break;
 		}while(onSnakes(x, y) || onTetes(x, y) || !objectOnCase(x,y).equals(""));
 		setCaseObject(fruit, x, y);
 		return new Point(x,y);
 	}
+
+	public Point spawnFruitTron(){
+		Random r = new Random();
+		int x;
+		int y;
+		do {
+			x = r.nextInt(width);
+			y = r.nextInt(height);
+		}while(onSnakes(x, y) || onTetes(x, y));
+		setCaseObject(ListeFruits.randomFruit(), x, y);
+		return new Point(x,y);
+	}
+
 
 	// Met a jour l'animation de fruit
 	public void updateAnimFruit(){

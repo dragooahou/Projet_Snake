@@ -86,7 +86,7 @@ public class Tron extends ModeDeJeu {
 
     public void draw() {
         for(int i = 0; i < 10000; i++)
-            terrain.spawnFruit();
+            terrain.spawnFruitTron();
         panel.dessiner("terrain");
 
         ActionListener repaint = new ActionListener() {
