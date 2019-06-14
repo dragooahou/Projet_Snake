@@ -165,9 +165,11 @@ public class Multiplayer extends ModeDeJeu {
             case "Q":
                 terrain.setSnakeDirection(1,'W');
                 break;
-
             case "Echap":
                 window.pause();
+                break;
+            case "Espace":
+                terrain.spawnFruit();
                 break;
             default:
                 break;
