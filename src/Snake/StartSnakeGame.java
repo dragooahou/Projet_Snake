@@ -529,8 +529,10 @@ class Window extends JFrame {
         );
 
         //Bouton kebab mode
-        menuChoose.setBouton(4 ,new Bouton(img11, mj[7]));
-        menuChoose.getBouton(4).setPosXY(250, 420);
+        BufferedImage[] img14 = {panel.getSprite("Menu_text_Kebab_Standby"), panel.getSprite("Menu_text_Kebab_Selected"), panel.getSprite("Menu_text_Kebab_Validated")};
+        menuChoose.setBouton(4 ,new Bouton(img14, mj[7]));
+        menuChoose.getBouton(4).setTaille(75, 375);
+        menuChoose.getBouton(4).setPosXY(225, 400);
         menuChoose.getBouton(4).setActionListener(
                 new ActionBouton(){
                     @Override
