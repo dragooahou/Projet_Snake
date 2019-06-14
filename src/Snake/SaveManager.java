@@ -25,6 +25,7 @@ public class SaveManager {
             setHiscore("kebab", 0);
             setNbgames(0);
             setNbFruits(0);
+            setMuted("off");
 
         }
 
@@ -160,6 +161,25 @@ public class SaveManager {
     }
 
 
+    ///////// MuteSucces ////////////////////////////////////
+    public static void setMuted(String s) {
+        String u = s + "";
+        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
+            p.setProperty("mute", u);
+            p.store(output, null);
+        }catch (Exception e){ e.printStackTrace(); }
+    }
+
+    public static String getMuted() {
+        try{
+            p.load(new FileInputStream(FILE_NAME));
+            return p.getProperty("mute");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return "on";
+        }
+    }
 
 
 }
