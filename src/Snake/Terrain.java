@@ -152,6 +152,7 @@ public class Terrain {
 				case 0:
 					if(onSnakes(p[0].getXPos(), p[0].getYPos())) return 1;
 					if(objectOnCase(p[0].getXPos(), p[0].getYPos()).equals("Sprite_Rock")) return 1;
+					if(verifierTete()) return 1;
 					break;
 				case 1:
 					return 1;
@@ -186,8 +187,21 @@ public class Terrain {
     	return 0;
     }
 
+	private boolean verifierTete() {
 
-    public Square[][] getSquareTab(){
+		for (Snake s : snakes) {
+			for (Snake s2 : snakes) {
+				if(s == s2) continue;
+				if(s.isOnTete(s2.getPositions()[0].getXPos(), s2.getPositions()[0].getYPos()))
+					return true;
+			}
+		}
+		return false;
+
+	}
+
+
+	public Square[][] getSquareTab(){
     	return squareTab;
     }
 
