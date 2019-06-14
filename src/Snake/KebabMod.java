@@ -55,7 +55,7 @@ public class KebabMod extends ModeDeJeu {
                     g2d.setColor(Color.black);
 
                     g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab", 20, 250);
-                    g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 280);
+                    g2d.drawString("Attention, il n'y a pas de pommes dans un kebab !", 100, 280);
                 }
 
                 try {
@@ -65,6 +65,11 @@ public class KebabMod extends ModeDeJeu {
                 }
                 continue;
             }
+
+            Graphics2D g2d = panel.getGraph();
+            g2d.setFont(new Font("Arial", Font.PLAIN, 18));
+            g2d.setColor(Color.black);
+            g2d.drawString("Salade > Viande > Tomate > Oignon", 20, 50);
 
             // On met à jour 4 fois l'animation et on bouge le serpent
             for (int i = 0; i < 4; i++) {
