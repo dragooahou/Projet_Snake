@@ -637,8 +637,8 @@ class Window extends JFrame {
         // Bouton qui affiche succes 3
         String suffix3 = "";
         String sufft3 = "";
-        if (SaveManager.getNbFruits()<=10) {suffix3 = "Sprite_Success_icon_locked";sufft3="Sprite_Success_icon_text";}
-        else if (SaveManager.getNbFruits()>=10){suffix3 = "Menu_Sound_off.png";sufft3="Sprite_Success_icon_text";}
+        if (SaveManager.getNbFruits()<=10) {suffix3 = "Sprite_success_mute_locked";sufft3="Sprite_success_mute_text";}
+        else if (SaveManager.getNbFruits()>=10){suffix3 = "Sprite_success_mute";sufft3="Sprite_success_mute_text";}
         menuSucces.setBouton(5, new Bouton(new BufferedImage[]{panel.getSprite(suffix3), panel.getSprite(suffix3), panel.getSprite(suffix3)}, mj[8]));
         menuSucces.getBouton(5).setPosXY(240, 415);
         menuSucces.getBouton(5).setTaille(60, 60);
@@ -652,8 +652,8 @@ class Window extends JFrame {
         );
         // Bouton qui affiche succes 3 text
         menuSucces.setBouton(6, new Bouton(new BufferedImage[]{panel.getSprite(sufft3), panel.getSprite(sufft3), panel.getSprite(sufft3)}, mj[8]));
-        menuSucces.getBouton(6).setPosXY(310, 413);
-        menuSucces.getBouton(6).setTaille(80, 250);
+        menuSucces.getBouton(6).setPosXY(310, 403);
+        menuSucces.getBouton(6).setTaille(90, 250);
         menuSucces.getBouton(6).setActionListener(
                 new ActionBouton() {
                     @Override

@@ -147,7 +147,7 @@ public class KebabMod extends ModeDeJeu {
 
     }
 
-    // Va stocker la dernière touche pressé
+    // Va stocker la dernière touche pressée
     private String lastKey = "";
 
     public void keyPressed(KeyEvent e) {

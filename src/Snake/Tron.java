@@ -63,8 +63,8 @@ public class Tron extends ModeDeJeu {
                         die();
 
                         msgFin = "Le joueur ";
-                        if(i == 0) msgFin += "rouge à gagné";
-                        else msgFin += "bleu à gagné";
+                        if(i == 0) msgFin += "rouge a gagné";
+                        else msgFin += "bleu a gagné";
 
                         window.changerMJ(3);
                         window.getModeDeJeuCourant().setPausedMJ(9);

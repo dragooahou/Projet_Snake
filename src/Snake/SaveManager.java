@@ -25,6 +25,7 @@ public class SaveManager {
             setHiscore("kebab", 0);
             setNbgames(0);
             setNbFruits(0);
+
         }
 
         try{
@@ -100,44 +101,6 @@ public class SaveManager {
         }catch (Exception e){ e.printStackTrace(); }
     }
 
-    ///////// SUCCESS /////////////////////////////////////
-    private static String getSuccesList() {
-        String s;
-        try{
-            p.load(new FileInputStream(FILE_NAME));
-            return p.getProperty("succes");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    public static boolean getSucces(String succes) {
-        String s;
-        try{
-            p.load(new FileInputStream(FILE_NAME));
-            s = p.getProperty("succes");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        for (String str : s.split(" ")) if(succes.equals(str)) return true;
-
-        return false;
-    }
-
-    public static void setSucces(String str){
-        if(getSucces(str))
-            return;
-
-        try (OutputStream output = new FileOutputStream(FILE_NAME)) {
-            p.setProperty("succes", getSuccesList() + " " + str);
-            p.store(output, null);
-        }catch (Exception e){ e.printStackTrace(); }
-    }
-
 
     ///////// NbGames ////////////////////////////////////
     public static int getNbGames() {
@@ -195,6 +158,8 @@ public class SaveManager {
             p.store(output, null);
         }catch (Exception e){ e.printStackTrace(); }
     }
+
+
 
 
 }
