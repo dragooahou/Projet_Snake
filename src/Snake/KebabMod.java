@@ -189,6 +189,7 @@ public class KebabMod extends ModeDeJeu {
 
         switch (key) {
             case "Z":
+            case "W":
             case "Haut":
                 terrain.setSnakeDirection(0,'N');
                 break;
@@ -202,6 +203,7 @@ public class KebabMod extends ModeDeJeu {
                 break;
             case "Gauche":
             case "Q":
+            case "A":
                 terrain.setSnakeDirection(0,'W');
                 break;
             case "Echap":

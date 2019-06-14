@@ -177,6 +177,7 @@ public class Multiplayer extends ModeDeJeu {
                 break;
 
             case "Z":
+            case "W":
                 terrain.setSnakeDirection(1,'N');
                 break;
             case "S":
@@ -186,6 +187,7 @@ public class Multiplayer extends ModeDeJeu {
                 terrain.setSnakeDirection(1,'E');
                 break;
             case "Q":
+            case "A":
                 terrain.setSnakeDirection(1,'W');
                 break;
             case "Echap":

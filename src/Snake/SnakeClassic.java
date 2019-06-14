@@ -159,6 +159,7 @@ public class SnakeClassic extends ModeDeJeu {
         switch (key) {
             case "Haut":
             case "Z":
+            case "W":
                 terrain.setSnakeDirection(0,'N');
                 break;
             case "S":
@@ -170,6 +171,7 @@ public class SnakeClassic extends ModeDeJeu {
                 terrain.setSnakeDirection(0,'E');
                 break;
             case "Q":
+            case "A":
             case "Gauche":
                 terrain.setSnakeDirection(0,'W');
                 break;
