@@ -237,23 +237,24 @@ public class KebabMod extends ModeDeJeu {
 
     }
 
-    int f = 0;
+    boolean f = false;
     public void die() {
 
 
 
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
-        if (f==0){
+        if (!f){
             for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
                 SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(u), SimpleAudioPlayer.getDeathSounds().get(u));
             }
-            f++;
+            f = true;
         }
         SoundManager.playSmall(SimpleAudioPlayer.getDeathSounds().get(i));
 
 
 
     }
+
 
     public void spawnFruitSet(){
         for (String f : ListeFruits.getFruits()) if(f.endsWith("1")){panel.drawTerrain(terrain.spawnFruit(f));};

@@ -32,6 +32,13 @@ public class SnakeClassic extends ModeDeJeu {
         while (!stopped) {
 
             if (paused || demarrage) {
+                if(demarrage){
+                    Graphics2D g2d = panel.getGraph();
+                    g2d.setColor(Color.white);
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+                    g2d.drawString("Appuyez sur une touche pour commencer", 150, 250);
+                }
+
                 try {
                     Thread.sleep(25);
                 } catch (InterruptedException e) {
@@ -127,8 +134,10 @@ public class SnakeClassic extends ModeDeJeu {
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
-        if (demarrage)
+        if (demarrage) {
+            panel.dessiner("terrain");
             demarrage = false;
+        }
 
         //System.out.println("keyPressed="+key);
 
@@ -208,17 +217,17 @@ public class SnakeClassic extends ModeDeJeu {
 
     }
 
-int f = 0;
+boolean f = false;
     public void die() {
 
 
 
         int i = (int)(Math.random() * SimpleAudioPlayer.getDeathSounds().size());
-        if (f==0){
+        if (!f){
             for (int u =0;u<SimpleAudioPlayer.getDeathSounds().size();u++){
                 SoundManager.createSmall(SimpleAudioPlayer.getDeathSounds().get(u), SimpleAudioPlayer.getDeathSounds().get(u));
             }
-            f++;
+            f = true;
         }
         SoundManager.playSmall(SimpleAudioPlayer.getDeathSounds().get(i));
 
