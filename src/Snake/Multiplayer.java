@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 public class Multiplayer extends ModeDeJeu {
 
@@ -35,8 +36,23 @@ public class Multiplayer extends ModeDeJeu {
             if (paused || demarrage) {
                 if(demarrage){
                     Graphics2D g2d = panel.getGraph();
-                    g2d.setColor(Color.white);
                     g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+                    Color bgColor = new Color(0xFFC600);
+
+                    FontMetrics fm = g2d.getFontMetrics();
+                    Rectangle2D rect1 = fm.getStringBounds(" Appuyez sur une touche pour commencer ", g2d);
+                    Rectangle2D rect2 = fm.getStringBounds(" Coopérez pour réaliser un score maximal ! ", g2d);
+                    g2d.setColor(bgColor);
+                    g2d.fillRect(140,
+                            200 - fm.getAscent(),
+                            (int) rect1.getWidth(),
+                            (int) rect1.getHeight());
+                    g2d.fillRect(140,
+                            250 - fm.getAscent(),
+                            (int) rect2.getWidth(),
+                            (int) rect2.getHeight());
+                    g2d.setColor(Color.black);
+
                     g2d.drawString("Appuyez sur une touche pour commencer", 150, 200);
                     g2d.drawString("Coopérez pour réaliser un score maximal !", 150, 250);
                 }

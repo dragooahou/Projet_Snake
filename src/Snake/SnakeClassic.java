@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 public class SnakeClassic extends ModeDeJeu {
 
@@ -34,8 +35,17 @@ public class SnakeClassic extends ModeDeJeu {
             if (paused || demarrage) {
                 if(demarrage){
                     Graphics2D g2d = panel.getGraph();
-                    g2d.setColor(Color.white);
                     g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+                    Color bgColor = new Color(0xFFC600);
+
+                    FontMetrics fm = g2d.getFontMetrics();
+                    Rectangle2D rect = fm.getStringBounds(" Appuyez sur une touche pour commencer ", g2d);
+                    g2d.setColor(bgColor);
+                    g2d.fillRect(140,
+                            250 - fm.getAscent(),
+                            (int) rect.getWidth(),
+                            (int) rect.getHeight());
+                    g2d.setColor(Color.black);
                     g2d.drawString("Appuyez sur une touche pour commencer", 150, 250);
                 }
 

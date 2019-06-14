@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 public class KebabMod extends ModeDeJeu {
 
@@ -36,9 +37,24 @@ public class KebabMod extends ModeDeJeu {
             if (paused || demarrage) {
                 if(demarrage){
                     Graphics2D g2d = panel.getGraph();
-                    g2d.setColor(Color.white);
                     g2d.setFont(new Font("Arial", Font.PLAIN, 24));
-                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab.", 20, 250);
+                    Color bgColor = new Color(0xFFC600);
+
+                    FontMetrics fm = g2d.getFontMetrics();
+                    Rectangle2D rect1 = fm.getStringBounds(" Ramassez les ingrédients dans le bon ordre pour faire des kebab ", g2d);
+                    Rectangle2D rect2 = fm.getStringBounds(" Attention, il n'y a pas de pomme dans un kebab ! ", g2d);
+                    g2d.setColor(bgColor);
+                    g2d.fillRect(10,
+                            250 - fm.getAscent(),
+                            (int) rect1.getWidth(),
+                            (int) rect1.getHeight());
+                    g2d.fillRect(90,
+                            280 - fm.getAscent(),
+                            (int) rect2.getWidth(),
+                            (int) rect2.getHeight());
+                    g2d.setColor(Color.black);
+
+                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab", 20, 250);
                     g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 280);
                 }
 
