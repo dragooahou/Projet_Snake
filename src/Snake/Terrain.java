@@ -213,15 +213,7 @@ public class Terrain {
 
 	// Fait spawn un fruit sur le terrain à un emplacement aléatoire
 	public Point spawnFruit(){
-		Random r = new Random();
-		int x;
-		int y;
-		do {
-			x = r.nextInt(width);
-			y = r.nextInt(height);
-		}while(onSnakes(x, y) || objectOnCase(x,y).equals("Sprite_Rock"));
-		setCaseObject(ListeFruits.randomFruit(), x, y);
-		return new Point(x,y);
+		return spawnFruit(ListeFruits.randomFruit());
 	}
 
 	public Point spawnFruit(String fruit){
@@ -231,7 +223,7 @@ public class Terrain {
 		do {
 			x = r.nextInt(width);
 			y = r.nextInt(height);
-		}while(onSnakes(x, y) || !objectOnCase(x,y).equals(""));
+		}while(onSnakes(x, y) || onTetes(x, y) || !objectOnCase(x,y).equals(""));
 		setCaseObject(fruit, x, y);
 		return new Point(x,y);
 	}
@@ -286,7 +278,14 @@ public class Terrain {
 			if(s.isOnSnake(x, y)) return true;
 		return false;
 	}
+
+	public boolean onTetes(int x,int y){
+		for (Snake s : snakes)
+			if(s.isOnTete(x, y)) return true;
+		return false;
+	}
 }
+
 
 
 class Square {

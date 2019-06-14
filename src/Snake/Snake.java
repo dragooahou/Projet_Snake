@@ -119,6 +119,10 @@ public class Snake {
         return false;
     }
 
+    public boolean isOnTete(int x, int y){
+        return positions[0].getXPos() == x && positions[0].getYPos() == y;
+    }
+
     // Fait grandir le serpent
     // Retourne vrai si il a atteint sa longueur max
     private boolean grow(){
