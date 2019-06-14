@@ -24,7 +24,7 @@ public class Interface {
         draw();
         Graphics2D g2d = mj.panel.getGraph();
         g2d.drawImage(mj.panel.getSprite("Sprite_KebabIcon" + state), mj.panel.getWidth() - 49, -17, 50, 50, mj.panel);
-        g2d.setColor(Color.white);
+        g2d.setColor(Color.black);
         g2d.setFont(new Font("Arial", Font.PLAIN, 18));
         g2d.drawString("Salade > Viande > Tomate > Oignon", 20, 50);
     }
