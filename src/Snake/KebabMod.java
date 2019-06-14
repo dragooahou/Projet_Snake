@@ -38,8 +38,8 @@ public class KebabMod extends ModeDeJeu {
                     Graphics2D g2d = panel.getGraph();
                     g2d.setColor(Color.white);
                     g2d.setFont(new Font("Arial", Font.PLAIN, 24));
-                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab.", 20, 200);
-                    g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 230);
+                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab.", 20, 250);
+                    g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 280);
                 }
 
                 try {

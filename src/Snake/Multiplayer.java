@@ -138,8 +138,8 @@ public class Multiplayer extends ModeDeJeu {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
         if (demarrage) {
-            panel.dessiner("terrain");
             demarrage = false;
+            panel.dessiner("terrain");
         }
 
         //System.out.println("keyPressed="+key);
