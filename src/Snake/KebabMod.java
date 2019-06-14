@@ -38,8 +38,8 @@ public class KebabMod extends ModeDeJeu {
                     Graphics2D g2d = panel.getGraph();
                     g2d.setColor(Color.white);
                     g2d.setFont(new Font("Arial", Font.PLAIN, 24));
-                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab.", 20, 200);
-                    g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 230);
+                    g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab.", 20, 250);
+                    g2d.drawString("Attention, il n'y a pas de pomme dans un kebab !", 100, 280);
                 }
 
                 try {
@@ -154,11 +154,7 @@ public class KebabMod extends ModeDeJeu {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
 
-        if (demarrage) {
-            demarrage = false;
-            panel.dessiner("terrain");
-            hud.draw(inventaire.getState());
-        }
+
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien
@@ -179,6 +175,7 @@ public class KebabMod extends ModeDeJeu {
                 terrain.setSnakeDirection(0,'W');
                 break;
             case "Echap":
+                if(demarrage) break;
                 window.pause();
                 break;
             case "Espace":
@@ -189,6 +186,12 @@ public class KebabMod extends ModeDeJeu {
         }
 
         lastKey = key;
+
+        if (demarrage) {
+            demarrage = false;
+            panel.dessiner("terrain");
+            hud.draw(inventaire.getState());
+        }
     }
 
     public void keyReleased(KeyEvent e) {

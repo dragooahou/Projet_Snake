@@ -261,9 +261,9 @@ class Window extends JFrame {
 
             // Bouton menu
             BufferedImage[] img3 = {panel.getSprite("Menu_text_RetourMenu_Standby"), panel.getSprite("Menu_text_RetourMenu_Selected"), panel.getSprite("Menu_text_RetourMenu_Validated")};
-            menuPause.setBouton(2 ,new Bouton(img3, mj[2]));
-            menuPause.getBouton(2).setPosXY(250, 360);
-            menuPause.getBouton(2).setActionListener(
+            menuPause.setBouton(3 ,new Bouton(img3, mj[2]));
+            menuPause.getBouton(3).setPosXY(250, 360);
+            menuPause.getBouton(3).setActionListener(
                     new ActionBouton(){
                         @Override
                         public void execute() {
@@ -278,24 +278,24 @@ class Window extends JFrame {
 
 
             //Bouton mute
-            menuPause.setBouton(3 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+            menuPause.setBouton(2 ,new Bouton(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted())}, mj[2]));
-            menuPause.getBouton(3).setPosXY(490,450);
-            menuPause.getBouton(3).setTaille(60, 60);
-            menuPause.getBouton(3).setActionListener(
+            menuPause.getBouton(2).setPosXY(490,450);
+            menuPause.getBouton(2).setTaille(60, 60);
+            menuPause.getBouton(2).setActionListener(
                     new ActionBouton(){
                         @Override
                         public void execute() {
                             pop();
                             if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");SaveManager.setMuted("on");}
                             else SaveManager.unmute();
-                            menuPause.getBouton(3).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
+                            menuPause.getBouton(2).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted())});
-                            menuPause.getBouton(3).setTaille(0,0);
-                            menuPause.getBouton(3).draw();
-                            menuPause.getBouton(3).setTaille(60, 60);
+                            menuPause.getBouton(2).setTaille(0,0);
+                            menuPause.getBouton(2).draw();
+                            menuPause.getBouton(2).setTaille(60, 60);
                             menuPause.mouseMoved(new MouseEvent((Component) panel, 0, 0L, 0,0,0,1, true));
                         }
                     }
@@ -690,6 +690,7 @@ class Window extends JFrame {
         else if(mj[n] instanceof Menu)
             ((Menu)mj[n]).msg = null;
 
+
         killGame();
         modeDeJeuCourant = n;
         if(n == 1) initSnakeClassic();
@@ -721,8 +722,8 @@ class Window extends JFrame {
         else if(modeDeJeuCourant == 10) panel.dessiner("terrain");
 
         mj[modeDeJeuCourant].setDemarrage(true);
-        panel.dessiner("snake");
         mj[modeDeJeuCourant].reprendre();
+        panel.dessiner("snake");
 
         addMouseMotionListener(mj[modeDeJeuCourant]);
         addMouseListener(mj[modeDeJeuCourant]);
