@@ -61,6 +61,10 @@ public class KebabMod extends ModeDeJeu {
                     g2d.drawString("OU", 220, 460);
                     g2d.drawImage(panel.getSprite("fleches"), 260, 420, 140, 92, panel);
                     g2d.drawImage(panel.getSprite("zqsd"), 70, 420, 140, 92, panel);
+
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 18));
+                    g2d.setColor(Color.black);
+                    g2d.drawString("Salade > Viande > Tomate > Oignon", 20, 50);
                 }
 
                 try {
