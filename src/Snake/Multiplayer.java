@@ -20,8 +20,8 @@ public class Multiplayer extends ModeDeJeu {
 
         // Grille sur laquelle va se déplacer le serpent
         terrain = new Terrain(0, 32, 25, 17, 32);
-        terrain.setSnake(0,15,12);
-        terrain.setSnake(1,5,12);
+        terrain.setSnake(0,17,12);
+        terrain.setSnake(1,7,12);
     }
 
     public void run() {
@@ -55,6 +55,9 @@ public class Multiplayer extends ModeDeJeu {
 
                     g2d.drawString("Appuyez sur une touche pour commencer", 150, 200);
                     g2d.drawString("Coopérez pour réaliser un score maximal !", 150, 250);
+                    g2d.drawImage(panel.getSprite("fleches"), 600, 420, 140, 92, panel);
+                    g2d.drawImage(panel.getSprite("zqsd"), 70, 420, 140, 92, panel);
+
                 }
                 try {
                     Thread.sleep(25);

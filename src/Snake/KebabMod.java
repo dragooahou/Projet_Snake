@@ -56,6 +56,11 @@ public class KebabMod extends ModeDeJeu {
 
                     g2d.drawString("Ramassez les ingrédients dans le bon ordre pour faire des kebab", 20, 250);
                     g2d.drawString("Attention, il n'y a pas de pommes dans un kebab !", 100, 280);
+
+                    g2d.setColor(Color.white);
+                    g2d.drawString("OU", 220, 460);
+                    g2d.drawImage(panel.getSprite("fleches"), 260, 420, 140, 92, panel);
+                    g2d.drawImage(panel.getSprite("zqsd"), 70, 420, 140, 92, panel);
                 }
 
                 try {
@@ -183,16 +188,20 @@ public class KebabMod extends ModeDeJeu {
             return;
 
         switch (key) {
+            case "Z":
             case "Haut":
                 terrain.setSnakeDirection(0,'N');
                 break;
+            case "S":
             case "Bas":
                 terrain.setSnakeDirection(0,'S');
                 break;
+            case "D":
             case "Droite":
                 terrain.setSnakeDirection(0,'E');
                 break;
             case "Gauche":
+            case "Q":
                 terrain.setSnakeDirection(0,'W');
                 break;
             case "Echap":

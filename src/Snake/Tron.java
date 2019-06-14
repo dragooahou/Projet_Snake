@@ -39,6 +39,9 @@ public class Tron extends ModeDeJeu {
                     g2d.setColor(Color.white);
                     g2d.setFont(new Font("Arial", Font.PLAIN, 24));
                     g2d.drawString("Coupez la route à votre adversaire !", 180, 200);
+
+                    g2d.drawImage(panel.getSprite("fleches"), 600, 420, 140, 92, panel);
+                    g2d.drawImage(panel.getSprite("zqsd"), 70, 420, 140, 92, panel);
                 }
 
                 try {

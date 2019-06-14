@@ -47,6 +47,11 @@ public class SnakeClassic extends ModeDeJeu {
                             (int) rect.getHeight());
                     g2d.setColor(Color.black);
                     g2d.drawString("Appuyez sur une touche pour commencer", 150, 250);
+
+                    g2d.setColor(Color.white);
+                    g2d.drawString("OU", 220, 460);
+                    g2d.drawImage(panel.getSprite("fleches"), 260, 420, 140, 92, panel);
+                    g2d.drawImage(panel.getSprite("zqsd"), 70, 420, 140, 92, panel);
                 }
 
                 try {
@@ -153,14 +158,18 @@ public class SnakeClassic extends ModeDeJeu {
 
         switch (key) {
             case "Haut":
+            case "Z":
                 terrain.setSnakeDirection(0,'N');
                 break;
+            case "S":
             case "Bas":
                 terrain.setSnakeDirection(0,'S');
                 break;
+            case "D":
             case "Droite":
                 terrain.setSnakeDirection(0,'E');
                 break;
+            case "Q":
             case "Gauche":
                 terrain.setSnakeDirection(0,'W');
                 break;
