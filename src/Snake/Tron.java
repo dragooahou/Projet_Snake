@@ -118,10 +118,6 @@ public class Tron extends ModeDeJeu {
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
-        if (demarrage) {
-            demarrage = false;
-            panel.dessiner("terrain");
-        }
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien
@@ -156,6 +152,7 @@ public class Tron extends ModeDeJeu {
                 break;
 
             case "Echap":
+                if(demarrage) break;
                 window.pause();
                 break;
             default:
@@ -163,6 +160,11 @@ public class Tron extends ModeDeJeu {
         }
 
         lastKey = key;
+
+        if (demarrage) {
+            demarrage = false;
+            panel.dessiner("terrain");
+        }
     }
 
     public void keyReleased(KeyEvent e) {

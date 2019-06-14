@@ -154,11 +154,7 @@ public class KebabMod extends ModeDeJeu {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
 
-        if (demarrage) {
-            demarrage = false;
-            panel.dessiner("terrain");
-            hud.draw(inventaire.getState());
-        }
+
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien
@@ -179,6 +175,7 @@ public class KebabMod extends ModeDeJeu {
                 terrain.setSnakeDirection(0,'W');
                 break;
             case "Echap":
+                if(demarrage) break;
                 window.pause();
                 break;
             case "Espace":
@@ -189,6 +186,12 @@ public class KebabMod extends ModeDeJeu {
         }
 
         lastKey = key;
+
+        if (demarrage) {
+            demarrage = false;
+            panel.dessiner("terrain");
+            hud.draw(inventaire.getState());
+        }
     }
 
     public void keyReleased(KeyEvent e) {

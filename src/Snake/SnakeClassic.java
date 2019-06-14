@@ -134,10 +134,6 @@ public class SnakeClassic extends ModeDeJeu {
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
-        if (demarrage) {
-            demarrage = false;
-            panel.dessiner("terrain");
-        }
 
         //System.out.println("keyPressed="+key);
 
@@ -159,6 +155,7 @@ public class SnakeClassic extends ModeDeJeu {
                 terrain.setSnakeDirection(0,'W');
                 break;
             case "Echap":
+                if(demarrage) break;
                 window.pause();
                 break;
             case "Espace":
@@ -169,6 +166,11 @@ public class SnakeClassic extends ModeDeJeu {
         }
 
         lastKey = key;
+
+        if (demarrage) {
+            demarrage = false;
+            panel.dessiner("terrain");
+        }
     }
 
     public void keyReleased(KeyEvent e) {
