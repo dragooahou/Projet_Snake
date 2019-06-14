@@ -1,6 +1,7 @@
 package Snake;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -33,12 +34,20 @@ public class Tron extends ModeDeJeu {
         while (!stopped) {
 
             if (paused || demarrage) {
+                if (demarrage) {
+                    Graphics2D g2d = panel.getGraph();
+                    g2d.setColor(Color.white);
+                    g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+                    g2d.drawString("Coupez la route à votre adversaire !", 180, 200);
+                }
+
                 try {
                     Thread.sleep(25);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 continue;
+
             }
 
             // On met à jour 4 fois l'animation et on bouge le serpent
@@ -109,9 +118,10 @@ public class Tron extends ModeDeJeu {
     public void keyPressed(KeyEvent e) {
         String key = KeyEvent.getKeyText(e.getKeyCode());
 
-        if (demarrage)
+        if (demarrage) {
             demarrage = false;
-
+            panel.dessiner("terrain");
+        }
         //System.out.println("keyPressed="+key);
 
         // Si la touche est déjà pressé on ne fait rien
