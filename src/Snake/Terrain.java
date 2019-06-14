@@ -231,7 +231,7 @@ public class Terrain {
 		return new Point(x,y);
 	}
 
-	public Point spawnFruitTron(){
+	public void spawnFruitTron(){
 		Random r = new Random();
 		int x;
 		int y;
@@ -240,7 +240,6 @@ public class Terrain {
 			y = r.nextInt(height);
 		}while(onSnakes(x, y) || onTetes(x, y));
 		setCaseObject(ListeFruits.randomFruit(), x, y);
-		return new Point(x,y);
 	}
 
 
@@ -273,12 +272,15 @@ public class Terrain {
 
 		int x;
 		int y;
+		int j = 0;
 		Point[] tab = new Point[nb];
 		for (int i = 0; i < nb; i++) {
 			do {
+				j++;
 				x = r.nextInt(width);
 				y = r.nextInt(height);
-			} while (onSnakes(x, y) || x == snakes.get(0).getPositions()[0].getXPos() ||  y == snakes.get(0).getPositions()[0].getYPos());
+				if(j > 15) break;
+			} while (onSnakes(x, y) || onTetes(x, y) || !objectOnCase(x,y).equals("")  || x == snakes.get(0).getPositions()[0].getXPos() ||  y == snakes.get(0).getPositions()[0].getYPos());
 			tab[i] = new Point(x,y);
 		}
 		for (Point p: tab) setCaseObject("Sprite_Rock", p.x, p.y);
