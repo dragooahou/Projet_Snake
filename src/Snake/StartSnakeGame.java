@@ -178,7 +178,7 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
-                            if(SaveManager.isMuted().equals("on")){ SaveManager.mute();SoundManager.stop("musicMenu");}
+                            if(SaveManager.isMuted().equals("on")){ SaveManager.mute();SoundManager.stop("musicMenu");SaveManager.setMuted("on");}
                             else {SaveManager.unmute();SoundManager.create("musicMenu", "Snake_menu",true);}
                             menuPrincipal.getBouton(4).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                                                                             panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
@@ -288,7 +288,7 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
-                            if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");}
+                            if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");SaveManager.setMuted("on");}
                             else SaveManager.unmute();
                             menuPause.getBouton(3).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
@@ -353,7 +353,7 @@ class Window extends JFrame {
                         @Override
                         public void execute() {
                             pop();
-                            if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");}
+                            if(SaveManager.isMuted().equals("on")) {SaveManager.mute();SoundManager.stop("musicAmbiance");SaveManager.setMuted("on");}
                             else SaveManager.unmute();
                             menuPerdu.getBouton(2).setTabImages(new BufferedImage[]{panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
                                     panel.getSprite("Menu_Sound_" + SaveManager.isMuted()),
@@ -637,8 +637,8 @@ class Window extends JFrame {
         // Bouton qui affiche succes 3
         String suffix3 = "";
         String sufft3 = "";
-        if (SaveManager.getNbFruits()<=10) {suffix3 = "Sprite_success_mute_locked";sufft3="Sprite_success_mute_text";}
-        else if (SaveManager.getNbFruits()>=10){suffix3 = "Sprite_success_mute";sufft3="Sprite_success_mute_text";}
+        if (SaveManager.getMuted().equals("off")) {suffix3 = "Sprite_success_mute_locked";sufft3="Sprite_success_mute_text";}
+        else if (SaveManager.getMuted().equals("on")){suffix3 = "Sprite_success_mute";sufft3="Sprite_success_mute_text";}
         menuSucces.setBouton(5, new Bouton(new BufferedImage[]{panel.getSprite(suffix3), panel.getSprite(suffix3), panel.getSprite(suffix3)}, mj[8]));
         menuSucces.getBouton(5).setPosXY(240, 415);
         menuSucces.getBouton(5).setTaille(60, 60);
