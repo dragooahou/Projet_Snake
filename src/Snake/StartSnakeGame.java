@@ -481,7 +481,7 @@ class Window extends JFrame {
         //Bouton 1 joueur
         BufferedImage[] img11 = {panel.getSprite("Menu_text_UnJoueur_Standby"), panel.getSprite("Menu_text_UnJoueur_Selected"), panel.getSprite("Menu_text_UnJoueur_Validated")};
         menuChoose.setBouton(0 ,new Bouton(img11, mj[7]));
-        menuChoose.getBouton(0).setPosXY(250, 290);
+        menuChoose.getBouton(0).setPosXY(250, 275);
         menuChoose.getBouton(0).setActionListener(
                 new ActionBouton(){
                     @Override
@@ -497,7 +497,7 @@ class Window extends JFrame {
         //Bouton 2 joueur
         BufferedImage[] img12 = {panel.getSprite("Menu_text_DeuxJoueur_Standby"), panel.getSprite("Menu_text_DeuxJoueur_Selected"), panel.getSprite("Menu_text_DeuxJoueur_Validated")};
         menuChoose.setBouton(1 ,new Bouton(img12, mj[7]));
-        menuChoose.getBouton(1).setPosXY(250, 360);
+        menuChoose.getBouton(1).setPosXY(250, 342);
         menuChoose.getBouton(1).setActionListener(
                 new ActionBouton(){
                     @Override
@@ -513,7 +513,7 @@ class Window extends JFrame {
         //Bouton tron
         BufferedImage[] img13 = {panel.getSprite("tron1"), panel.getSprite("tron2"), panel.getSprite("tron3")};
         menuChoose.setBouton(3 ,new Bouton(img13, mj[7]));
-        menuChoose.getBouton(3).setPosXY(280, 490);
+        menuChoose.getBouton(3).setPosXY(280, 495);
         menuChoose.getBouton(3).setTaille(45, 225);
 
         menuChoose.getBouton(3).setActionListener(
@@ -532,7 +532,7 @@ class Window extends JFrame {
         BufferedImage[] img14 = {panel.getSprite("Menu_text_Kebab_Standby"), panel.getSprite("Menu_text_Kebab_Selected"), panel.getSprite("Menu_text_Kebab_Validated")};
         menuChoose.setBouton(4 ,new Bouton(img14, mj[7]));
         menuChoose.getBouton(4).setTaille(75, 375);
-        menuChoose.getBouton(4).setPosXY(225, 400);
+        menuChoose.getBouton(4).setPosXY(225, 405);
         menuChoose.getBouton(4).setActionListener(
                 new ActionBouton(){
                     @Override
