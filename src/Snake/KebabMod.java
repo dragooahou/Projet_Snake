@@ -42,7 +42,7 @@ public class KebabMod extends ModeDeJeu {
 
                     FontMetrics fm = g2d.getFontMetrics();
                     Rectangle2D rect1 = fm.getStringBounds(" Ramassez les ingrédients dans le bon ordre pour faire des kebab ", g2d);
-                    Rectangle2D rect2 = fm.getStringBounds(" Attention, il n'y a pas de pomme dans un kebab ! ", g2d);
+                    Rectangle2D rect2 = fm.getStringBounds(" Attention, il n'y a pas de pommes dans un kebab ! ", g2d);
                     g2d.setColor(bgColor);
                     g2d.fillRect(10,
                             250 - fm.getAscent(),
